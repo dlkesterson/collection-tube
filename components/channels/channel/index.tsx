@@ -13,7 +13,7 @@ function Channel({ id, name, description }) {
     let res = await fetch(`/api/delete-channel?id=${id}`, { method: 'DELETE' })
     let json = await res.json()
     if (!res.ok) throw Error(json.message)
-    mutate('/api/get-entries')
+    mutate('/api/get-channels')
     setDeleting(false)
   }
   return (

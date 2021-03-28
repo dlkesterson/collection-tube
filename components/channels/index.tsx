@@ -2,6 +2,7 @@ import Channel from './channel'
 
 function Channels({ channels }) {
   if (channels) {
+      console.log(channels);
     return (
       <div>
         {channels.map((c) => (
