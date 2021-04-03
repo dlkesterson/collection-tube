@@ -1,0 +1,13 @@
+version: '3'
+services:
+  nextjs:
+    build:
+      context: ./ytdl-gui-v2
+      dockerfile: dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+       - ./ytdl-gui-v2:/mnt/c/Code/ytdl-gui-v2
+       - /mnt/c/Code/ytdl-gui-v2/node_modules
+    env_file:
+      - .env.local
