@@ -19,7 +19,7 @@ const handler: NextApiHandler = async (req, res) => {
             [name, description, channel_url, id]
         )
 
-        return res.json(results)
+        return res.json(results[0])
     } catch (e) {
         res.status(500).json({ message: e.message })
     }

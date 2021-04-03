@@ -4,31 +4,21 @@ import Skeleton from 'react-loading-skeleton';
 
 import Nav from '@/components/nav';
 import Container from '@/components/container';
-import Channels from '@/components/channels';
-import { useChannels } from '@/lib/swr-hooks';
 
 export default function Home() {
-	const { channels, isLoading } = useChannels();
-
-	if (isLoading) {
-		return (
-			<Container>
-				<Nav />
-				<Skeleton circle={true} height={50} width={50} />
-				<Skeleton width={180} height={24} />
-				<Skeleton height={48} />
-				<div className='my-4' />
-				<Skeleton circle={true} height={50} width={50} />
-				<Skeleton width={180} height={24} />
-				<Skeleton height={48} />
-			</Container>
-		);
-	}
-
 	return (
 		<Container>
+			<Head>
+				<title>YT-DVR</title>
+			</Head>
 			<Nav />
-			<Channels channels={channels} />
+			<h1 className='block mt-6 mx-auto p-4 text-center text-4xl text-black_coffee font-extrabold uppercase tracking-tight'>
+				YT-DVR
+			</h1>
+			<p className='text-center text-lg italic text-black_coffee'>
+				A place to automatically download the latest videos from your
+				favorite channels
+			</p>
 		</Container>
 	);
 }

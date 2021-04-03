@@ -1,14 +1,20 @@
-import Nav from '@/components/nav'
-import Container from '@/components/container'
-import ChannelForm from '@/components/channel-form'
+import Head from 'next/head';
+
+import Nav from '@/components/nav';
+import Container from '@/components/container';
+import ChannelForm from '@/components/channel-form';
 
 export default function NewChannelPage() {
-  return (
-    <>
-      <Nav title="New" />
-      <Container className="w-full lg:w-2/4">
-        <ChannelForm />
-      </Container>
-    </>
-  )
+	return (
+		<Container>
+			<Head>
+				<title>Create New Channel</title>
+			</Head>
+			<Nav />
+			<h1 className='text-3xl border-b border-gray-300 py-4 my-6'>
+				Create New Channel
+			</h1>
+			<ChannelForm />
+		</Container>
+	);
 }

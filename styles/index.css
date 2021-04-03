@@ -1,14 +1,17 @@
 @tailwind base;
 
 /* Write your own custom base styles here */
+body {
+	@apply bg-ghost_white;
+}
 
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */
 
 /* Write your own custom component styles here */
-.container.prose h1 {
-    @apply text-dark_jungle_green;
+.channel {
+	background-color: #fff;
 }
 
 /* Start purging... */

@@ -4,21 +4,23 @@ import ButtonLink from '@/components/button-link';
 
 export default function Nav({ title = 'Entries' }) {
 	return (
-		<nav className='w-full'>
+		<nav className='w-full px-4 pt-4'>
 			<div className='flex justify-between items-center'>
 				<Link href='/'>
-					<a className='font-bold text-3xl text-xanadu'>{title}</a>
+					<a className='text-xl text-black_coffee font-extrabold uppercase tracking-tight'>
+						YT-DVR
+					</a>
 				</Link>
-				<ButtonLink href='/channel/new'>New Channel</ButtonLink>
-				<Link href='/about'>
-					<a className='font-bold text-3xl'>About</a>
-				</Link>
-				<Link href='/projects'>
-					<a className='font-bold text-3xl'>Projects</a>
-				</Link>
-				<Link href='/contact'>
-					<a className='font-bold text-3xl'>Contact</a>
-				</Link>
+				<div>
+					<ButtonLink className='mr-4' href='/channel/new'>
+						New Channel
+					</ButtonLink>
+					<Link href='/channels'>
+						<a className='mx-4 text-sm uppercase tracking-wider'>
+							Channels
+						</a>
+					</Link>
+				</div>
 			</div>
 		</nav>
 	);

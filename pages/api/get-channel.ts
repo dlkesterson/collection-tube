@@ -1,8 +1,9 @@
 import { NextApiHandler } from 'next'
+import { createNoSubstitutionTemplateLiteral } from 'typescript'
 import { query } from '../../lib/db'
 
 const handler: NextApiHandler = async (req, res) => {
-    const { id } = req.query
+    const { id } = req.body
     try {
         if (!id) {
             return res.status(400).json({ message: '`id` required' })
@@ -26,19 +27,20 @@ const handler: NextApiHandler = async (req, res) => {
 }
 
 export const getChannel = async (id) => {
-    // const results = await query(
-    //     `
-    //   SELECT id, name, description, channel_url
-    //   FROM channels
-    //   WHERE id = ?
-    // `,
-    //     id
-    // )
+    console.log('getChannel()');
+    const results = await query(
+        `
+      SELECT id, name, description, channel_url
+      FROM channels
+      WHERE id = ?
+    `,
+        id
+    )
 
-    // return results[0]
+    return results[0]
 
-    const response = await fetch('/api/get-channel?id=2');
-    return await response.json();
+    // const response = await fetch('/api/get-channel?id=2');
+    // return await response.json();
 };
 
 export default handler

@@ -1,4 +1,4 @@
-import styles from '../styles/Home.module.css';
+import Head from 'next/head';
 
 import Nav from '@/components/nav';
 import Container from '@/components/container';
@@ -13,6 +13,9 @@ export default function ChannelsPage() {
 	if (isLoading) {
 		return (
 			<Container>
+				<Head>
+					<title>Channels</title>
+				</Head>
 				<Nav />
 				<Skeleton circle={true} height={50} width={50} />
 				<Skeleton width={180} height={24} />
@@ -27,7 +30,13 @@ export default function ChannelsPage() {
 
 	return (
 		<Container>
-			<Nav title='Channels' />
+			<Head>
+				<title>Channels</title>
+			</Head>
+			<Nav />
+			<h1 className='text-3xl border-b border-gray-300 py-4 my-6'>
+				Channels
+			</h1>
 			<Channels channels={channels} />
 		</Container>
 	);

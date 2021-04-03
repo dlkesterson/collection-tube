@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import Router, { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import Button from '../button';
 
-export default function EntryForm(data) {
+export default function EditChannelForm({ data }) {
 	const [name, setName] = useState(data.name || '');
 	const [channel_url, setChannelUrl] = useState(data.channel_url || '');
 	const [description, setDescription] = useState(data.description || '');
@@ -50,6 +51,9 @@ export default function EntryForm(data) {
 
 	return (
 		<form onSubmit={submitHandler}>
+			<Head>
+				<title>{`Edit ${name}`}</title>
+			</Head>
 			<div className='my-4'>
 				<label htmlFor='title'>
 					<h3 className='font-bold'>Name</h3>
