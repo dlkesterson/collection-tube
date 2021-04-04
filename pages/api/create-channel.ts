@@ -22,8 +22,9 @@ const handler: NextApiHandler = async (req, res) => {
 
         console.log(results);
 
-        downloadImage({ id: results.insertId, url: bestAvatar.url }).then((results) => {
-            return results[0];
+        downloadImage({ id: results.insertId, url: bestAvatar.url }).then(() => {
+            console.log('finished, now redirecting');
+            return res.status(200).redirect('/channels');
         });
     } catch (e) {
         res.status(500).json({ message: e.message });

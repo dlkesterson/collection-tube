@@ -20,8 +20,8 @@ export default function ChannelForm() {
 				}),
 			});
 			setSubmitting(false);
-			const json = await res.json();
-			console.log(json);
+			// const json = await res.json();
+			// console.log(json);
 			if (!res.ok) throw Error(json.message);
 			Router.push('/channels');
 		} catch (e) {
