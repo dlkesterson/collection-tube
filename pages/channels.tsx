@@ -17,6 +17,9 @@ export default function ChannelsPage() {
 					<title>Channels</title>
 				</Head>
 				<Nav />
+				<h1 className='text-3xl border-b border-gray-300 py-4 my-6'>
+					Channels
+				</h1>
 				<Skeleton circle={true} height={50} width={50} />
 				<Skeleton width={180} height={24} />
 				<Skeleton height={48} />

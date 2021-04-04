@@ -1,20 +1,25 @@
-import Channel from './channel'
+import Channel from './channel';
 
 function Channels({ channels }) {
-  if (channels) {
-      console.log(channels);
-    return (
-      <div>
-        {channels.map((c) => (
-          <div key={c.id} className="py-2">
-            <Channel id={c.id} name={c.name} description={c.description} />
-          </div>
-        ))}
-      </div>
-    )
-  } else {
-    return null
-  }
+	if (channels) {
+		console.log(channels);
+		return (
+			<div>
+				{channels.map((c) => (
+					<div key={c.shortid} className='py-2'>
+						<Channel
+							shortid={c.shortid}
+							name={c.name}
+							avatar={c.avatar}
+							colorprimary={c.color_primary}
+						/>
+					</div>
+				))}
+			</div>
+		);
+	} else {
+		return null;
+	}
 }
 
-export default Channels
+export default Channels;

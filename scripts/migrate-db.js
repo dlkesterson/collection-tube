@@ -33,9 +33,12 @@ async function migrate() {
 		await query(`
     CREATE TABLE IF NOT EXISTS channels (
       id INT AUTO_INCREMENT PRIMARY KEY,
+      shortid VARCHAR(50) DEFAULT NULL,
       name CHAR(255) DEFAULT NULL,
       avatar VARCHAR(255) DEFAULT NULL,
-      channel CHAR(255) DEFAULT NULL,
+      color_primary VARCHAR(50) DEFAULT NULL,
+      color_list VARCHAR(255) DEFAULT NULL,
+      yt_channel_id VARCHAR(255) DEFAULT NULL,
       channel_url VARCHAR(255) NOT NULL,
       yt_user CHAR(255) DEFAULT NULL,
       yt_user_url VARCHAR(255) DEFAULT NULL,

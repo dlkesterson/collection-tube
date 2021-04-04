@@ -1,27 +1,33 @@
 import { NextApiHandler } from 'next'
-import { query } from '../../lib/db'
+import ytpl from 'ytpl'
+import shortid from 'shortid'
+import { query } from '@/lib/db'
+import downloadImage from '@/lib/downloadImage';
 
 const handler: NextApiHandler = async (req, res) => {
-    const { name, description, channel_url } = req.body
-    try {
-        if (!channel_url) {
-            return res
-                .status(400)
-                .json({ message: '`channel url`is required' })
-        }
+    const playlist = await ytpl(req.body.channel_url);
+    const { name, bestAvatar, url, channelID } = playlist.author;
+    const channel_shortid = shortid.generate();
 
+    try {
         const results = await query(
             `
-      INSERT INTO channels (name, description, channel_url)
-      VALUES (?, ?, ?)
+      INSERT INTO channels (name, avatar, description, channel_url, yt_user_url, yt_channel_id, shortid, total_visits, total_items)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
       `,
-            [name, description, channel_url]
-        )
+            [name, bestAvatar.url, playlist.description, req.body.channel_url, url, channelID, channel_shortid, playlist.views, playlist.items.length]
+        );
 
-        return res.json(results)
+        console.log('saved channel, now using id and channel avatar url to downloadImage()');
+
+        console.log(results);
+
+        downloadImage({ id: results.insertId, url: bestAvatar.url }).then((results) => {
+            return results[0];
+        });
     } catch (e) {
-        res.status(500).json({ message: e.message })
+        res.status(500).json({ message: e.message });
     }
-}
+};
 
 export default handler

@@ -13,9 +13,9 @@ const handler: NextApiHandler = async (req, res) => {
         }
         const results = await query(
             `
-      SELECT id, name, description, channel_url
+      SELECT shortid, name, channel_url
       FROM channels
-      WHERE id = ?
+      WHERE shortid = ?
     `,
             id
         )
@@ -27,20 +27,16 @@ const handler: NextApiHandler = async (req, res) => {
 }
 
 export const getChannel = async (id) => {
-    console.log('getChannel()');
     const results = await query(
         `
-      SELECT id, name, description, channel_url
+      SELECT *
       FROM channels
-      WHERE id = ?
+      WHERE shortid = ?
     `,
         id
     )
 
     return results[0]
-
-    // const response = await fetch('/api/get-channel?id=2');
-    // return await response.json();
 };
 
 export default handler
