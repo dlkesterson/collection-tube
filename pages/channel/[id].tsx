@@ -10,21 +10,22 @@ export default function ViewChannelPage({ data }) {
 	console.log(data);
 
 	const dotStyles = {
-		width: '100px',
-		height: '100px',
-		display: 'block',
+		width: '120px',
+		height: '120px',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
 		margin: '2em',
 		borderRadius: '50%',
 		backgroundColor: data.color_primary,
 	};
 
 	const avatarStyles = {
-		width: '100px',
-		height: '100px',
+		width: '80px',
+		height: '80px',
 		display: 'block',
-		margin: '2em',
+		margin: '3em',
 		borderRadius: '50%',
-		backgroundImage: `url(${data.avatar}) 50% 50% no-repeat`,
 	};
 
 	if (data) {
@@ -36,7 +37,13 @@ export default function ViewChannelPage({ data }) {
 				<Nav title='View' />
 				<Container>
 					<h1 className='font-bold text-3xl my-2'>{data.name}</h1>
-					<span style={dotStyles}></span>
+					<span style={dotStyles}>
+						<img
+							src={data.avatar}
+							alt={data.name}
+							style={avatarStyles}
+						/>
+					</span>
 					{data.description && (
 						<p className='my-2'>
 							<span className='font-bold text-sm'>
@@ -46,17 +53,7 @@ export default function ViewChannelPage({ data }) {
 							{data.description}
 						</p>
 					)}
-					<p className='my-2'>
-						<span className='font-bold text-sm'>avatar:</span>
-						<br />
-						{data.avatar}
-					</p>
-					<span style={avatarStyles}></span>
-					<img
-						src={data.avatar}
-						alt={data.name}
-						className='channel-avatar'
-					/>
+
 					<p className='my-2'>
 						<span className='font-bold text-sm'>
 							color_primary:

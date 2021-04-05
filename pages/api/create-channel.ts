@@ -18,12 +18,8 @@ const handler: NextApiHandler = async (req, res) => {
             [name, bestAvatar.url, playlist.description, req.body.channel_url, url, channelID, channel_shortid, playlist.views, playlist.items.length]
         );
 
-        console.log('saved channel, now using id and channel avatar url to downloadImage()');
-
-        console.log(results);
-
+        // save the avatar to cloudinary, store updated image URL and generated colors to DB
         downloadImage({ id: results.insertId, url: bestAvatar.url }).then(() => {
-            console.log('finished, now redirecting');
             return res.status(200).redirect('/channels');
         });
     } catch (e) {

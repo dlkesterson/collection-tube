@@ -1,5 +1,4 @@
 import { NextApiHandler } from 'next'
-import { createNoSubstitutionTemplateLiteral } from 'typescript'
 import { query } from '../../lib/db'
 
 const handler: NextApiHandler = async (req, res) => {
