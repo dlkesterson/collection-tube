@@ -30,7 +30,7 @@ export default function ViewChannelPage({ data }) {
 
 	if (data) {
 		return (
-			<>
+			<div style={{ backgroundColor: data.color_primary }}>
 				<Head>
 					<title>{data.name}</title>
 				</Head>
@@ -104,7 +104,7 @@ export default function ViewChannelPage({ data }) {
 						</a>
 					</p>
 				</Container>
-			</>
+			</div>
 		);
 	} else {
 		return (
