@@ -19,7 +19,7 @@ const handler: NextApiHandler = async (req, res) => {
         );
 
         // save the avatar to cloudinary, store updated image URL and generated colors to DB
-        downloadImage({ id: results.insertId, url: bestAvatar.url }).then(() => {
+        downloadImage({ id: results['insertId'], url: bestAvatar.url }).then(() => {
             return res.status(200).redirect('/channels');
         });
     } catch (e) {

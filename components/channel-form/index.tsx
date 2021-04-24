@@ -20,7 +20,7 @@ export default function ChannelForm() {
 				}),
 			});
 			setSubmitting(false);
-			if (!res.ok) throw Error(res.message);
+			if (!res.ok) throw Error('An error occurred, please try again');
 			Router.push('/channels');
 		} catch (e) {
 			throw Error(e.message);
