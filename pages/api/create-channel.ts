@@ -1,7 +1,7 @@
 import { NextApiHandler } from 'next'
 import ytpl from 'ytpl'
 import shortid from 'shortid'
-const db = require('@/models');
+import db from '@/models/index'
 
 const handler: NextApiHandler = async (req, res) => {
     const playlist = await ytpl(req.body.channel_url);

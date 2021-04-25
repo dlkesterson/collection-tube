@@ -1,5 +1,5 @@
 import { NextApiHandler } from 'next'
-const db = require('@/models');
+const db = require('@/models/index');
 
 const handler: NextApiHandler = async (_, res) => {
     try {
