@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["components/*"],
+      "@/config/*": ["config/*"],
       "@/lib/*": ["lib/*"],
       "@/api/*": ["pages/api/*"],
       "@/models/*": ["models/*"],
@@ -21,6 +22,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "models/channel.js", "models/index.js"],
   "exclude": ["node_modules"]
 }

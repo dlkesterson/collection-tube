@@ -1,7 +1,7 @@
 import { NextApiHandler } from 'next'
 import ytpl from 'ytpl'
 import shortid from 'shortid'
-import db from '@/models/index'
+import db from '@/models/index';
 
 const handler: NextApiHandler = async (req, res) => {
     const playlist = await ytpl(req.body.channel_url);
@@ -17,7 +17,7 @@ const handler: NextApiHandler = async (req, res) => {
         db.Channel.create({ name, channel_url: url, channel_id: channelID, short_id })
             .then((channel) => {
                 console.log('success');
-                res.status(200);
+                res.status(200).json(channel);
             })
             .catch((err) => {
                 console.log('***There was an error creating a channel', JSON.stringify({ name, url }))
