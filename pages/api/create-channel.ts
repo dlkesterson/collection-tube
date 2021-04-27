@@ -1,6 +1,8 @@
 import { NextApiHandler } from 'next'
 import ytpl from 'ytpl'
 import shortid from 'shortid'
+const fs = require('fs');
+const fetch = require('node-fetch');
 const { models } = require('@/db');
 
 const handler: NextApiHandler = async (req, res) => {
@@ -30,6 +32,7 @@ const handler: NextApiHandler = async (req, res) => {
         const channel = await models.Channel.create(newChannel);
         // .then((channel) => {
         // console.log('success');
+        downloadAvatar(channel);
         res.status(200).send(channel.toJSON());
         // })
         // .catch((err) => {
@@ -40,5 +43,13 @@ const handler: NextApiHandler = async (req, res) => {
         res.status(500).json({ message: e.message });
     }
 };
+
+async function downloadAvatar(channel) {
+    console.log('downloadAvatar()');
+    const response = await fetch(channel['avatar']);
+    const buffer = await response.buffer();
+    fs.writeFile(`./image.jpg`, buffer, () => 
+      console.log('finished downloading!'));
+  }
 
 export default handler
