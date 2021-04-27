@@ -1,5 +1,6 @@
 const next = require('next');
 const express = require('express');
+const db = require('./db');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
@@ -18,10 +19,25 @@ const options = {
 	cert: fs.readFileSync('localhost.crt'),
 };
 
+async function assertDatabaseConnectionOk() {
+	console.log(`Checking database connection...`);
+	try {
+		await db.authenticate();
+		console.log('Database connection OK!');
+	} catch (error) {
+		console.log('Unable to connect to the database:');
+		console.log(error.message);
+		process.exit(1);
+	}
+}
+
 app.prepare().then(() => {
+    await assertDatabaseConnectionOk();
+
 	server.all('*', (req, res) => {
 		return handle(req, res);
 	});
+
 	http.createServer(server).listen(ports.http);
 	https.createServer(options, server).listen(ports.https);
 });
