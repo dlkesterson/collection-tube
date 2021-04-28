@@ -11,8 +11,7 @@ module.exports = {
             name: {
                 type: Sequelize.STRING,
                 allowNull: true,
-                defaultValue: null,
-                unique: true
+                defaultValue: null
             },
             short_id: {
                 type: Sequelize.STRING,
