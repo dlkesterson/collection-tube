@@ -11,15 +11,14 @@ const handler: NextApiHandler = async (req, res) => {
     const short_id = shortid.generate();
 
     try {
-        const newChannel = {
+        const channel = await models.Channel.create({
             name,
             short_id,
             views: playlist.views,
             avatar: bestAvatar.url,
             channel_id: channelID,
             channel_url: url
-        };
-        const channel = await models.Channel.create(newChannel);
+        });
 
         await downloadAvatar(channel);
 
