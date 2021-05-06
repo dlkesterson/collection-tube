@@ -1,4 +1,5 @@
-import { NextApiHandler } from 'next'
+import { NextApiHandler } from 'next';
+const { models } = require('@/db');
 // import { query } from '@/lib/db'
 
 const handler: NextApiHandler = async (req, res) => {
@@ -30,6 +31,14 @@ export const getChannel = async (id) => {
     const results = { status: 200, message: 'success!' }
 
     return results;
+
+
+    return models.Channel.find({ id })
+        .then((channel) => res.json(channel))
+        .catch((err) => {
+            console.log('There was an error querying channel' + id, JSON.stringify(err))
+            return res.send(err)
+        });
 };
 
 export default handler
