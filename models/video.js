@@ -1,24 +1,12 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
-    class Video extends Model {
-        /**
-         * Helper method for defining associations.
-         * This method is not a part of Sequelize lifecycle.
-         * The `models/index` file will call this method automatically.
-         */
-        static associate(models) {
-            // define association here
-            models.Video.belongsTo(models.Channel, {
-                foreignKey: 'channel_id'
-            });
-        }
-    }
+    class Video extends Model {}
     Video.init(
         {
             title: DataTypes.STRING,
             video_id: DataTypes.STRING,
-            video_url: DataTypes.STRING,
+            video_url: { type: DataTypes.STRING, isUrl: true, required: true },
             channel_id: DataTypes.STRING,
             thumbnail: DataTypes.STRING,
             duration: DataTypes.STRING

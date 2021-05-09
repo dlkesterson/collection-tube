@@ -20,11 +20,11 @@ module.exports = {
                 unique: true
             },
             channel_id: {
-                type: Sequelize.INTEGER,
-                references: {
-                    model: 'Channels',
-                    key: 'id'
-                }
+                type: Sequelize.STRING
+                // references: {
+                //     model: 'Channels',
+                //     key: 'id'
+                // }
             },
             thumbnail: {
                 type: Sequelize.STRING

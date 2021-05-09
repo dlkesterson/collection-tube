@@ -7,7 +7,13 @@ export default function Videos({ videos }) {
             <div>
                 {videos.map((v) => (
                     <div key={v.id} className="py-2">
-                        <Video id={v.id} name={v.name} />
+                        <Video
+                            id={v.id}
+                            title={v.title}
+                            duration={v.duration}
+                            thumbnail={v.thumbnail}
+                            video_url={v.video_url}
+                        />
                     </div>
                 ))}
             </div>

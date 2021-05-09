@@ -1,7 +1,7 @@
 import Channel from './channel';
 
 export default function Channels({ channels }) {
-    if (channels) {
+    if (channels && channels.length > 0) {
         console.log(channels);
         return (
             <div>
@@ -18,6 +18,6 @@ export default function Channels({ channels }) {
             </div>
         );
     } else {
-        return null;
+        return <p>No channels were found</p>;
     }
 }

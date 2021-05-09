@@ -5,7 +5,7 @@ import { mutate } from 'swr';
 import ButtonLink from '@/components/button-link';
 import Button from '@/components/button';
 
-export default function Video({ id, name }) {
+export default function Video({ id, title, thumbnail, duration, video_url }) {
     const [deleting, setDeleting] = useState(false);
 
     async function deleteVideo() {
@@ -21,8 +21,9 @@ export default function Video({ id, name }) {
     return (
         <div className="video shadow rounded-md p-3">
             <div className="flex items-center">
+                {thumbnail && <img src={thumbnail} alt="thumb" />}
                 <Link href={`/video/${id}`}>
-                    <a className="font-bold py-2">{name}</a>
+                    <a className="font-bold py-2">{title}</a>
                 </Link>
 
                 <div className="flex ml-4">

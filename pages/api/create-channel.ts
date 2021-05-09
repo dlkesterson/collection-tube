@@ -48,23 +48,22 @@ async function saveChannelVideos(videos) {
             video_id: pv.id,
             video_url: pv.shortUrl,
             channel_id: pv.author.channelID,
-            // thumbnail: pv.thumbnails[0].url,
-            // duration: pv.duration
+            thumbnail: pv.thumbnails[0].url,
+            duration: pv.duration
         };
     });
 
     console.log('\n trying to save videos...');
 
-    // sequelize.query('')
-
     try {
-        console.log('inside try...\n\n');
         await models.Video.bulkCreate(newVideos)
             .then(() => {
                 console.log('\n\n successfully saved the videos');
                 return newVideos;
             });
     } catch (e) {
+        console.log(e);
+        console.log(`\nerror is.... : ${e.message}\n\n\n\n`);
         return { message: e.message };
     }
 }
