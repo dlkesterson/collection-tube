@@ -1,4 +1,4 @@
-import { NextApiHandler } from 'next'
+import { NextApiHandler } from 'next';
 const { models } = require('@/db');
 
 const handler: NextApiHandler = async (_, res) => {

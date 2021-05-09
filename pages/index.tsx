@@ -4,8 +4,11 @@ import Skeleton from 'react-loading-skeleton';
 
 import Nav from '@/components/nav';
 import Container from '@/components/container';
+import Channels from '@/components/channels';
+import { useChannels } from '@/lib/swr-hooks';
 
 export default function Home() {
+    const { channels, isLoading } = useChannels();
     return (
         <Container>
             <Head>
@@ -19,6 +22,11 @@ export default function Home() {
                 A place to automatically download the latest videos from your
                 favorite channels
             </p>
+            {isLoading ? (
+                <Skeleton width={180} height={24} />
+            ) : (
+                <Channels channels={channels} />
+            )}
         </Container>
     );
 }

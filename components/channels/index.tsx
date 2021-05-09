@@ -1,14 +1,14 @@
 import Channel from './channel';
 
-function Channels({ channels }) {
+export default function Channels({ channels }) {
     if (channels) {
         console.log(channels);
         return (
             <div>
                 {channels.map((c) => (
-                    <div key={c.short_id} className="py-2">
+                    <div key={c.id} className="py-2">
                         <Channel
-                            shortid={c.short_id}
+                            id={c.id}
                             name={c.name}
                             avatar={c.avatar}
                             colorprimary={c.color_primary}
@@ -21,5 +21,3 @@ function Channels({ channels }) {
         return null;
     }
 }
-
-export default Channels;

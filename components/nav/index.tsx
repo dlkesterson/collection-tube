@@ -20,6 +20,11 @@ export default function Nav({ title = 'Entries' }) {
                             Channels
                         </a>
                     </Link>
+                    <Link href="/latest">
+                        <a className="mx-4 text-sm uppercase tracking-wider">
+                            Latest
+                        </a>
+                    </Link>
                 </div>
             </div>
         </nav>
