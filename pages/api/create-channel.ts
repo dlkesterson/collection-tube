@@ -22,7 +22,7 @@ const handler: NextApiHandler = async (req, res) => {
 
         await saveChannelVideos(videos)
             .then(() => {
-                res.status(200).send(channel.toJSON());
+                res.status(200).send(channel);
             });
     } catch (e) {
         res.status(500).json({ message: e.message });

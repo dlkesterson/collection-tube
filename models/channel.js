@@ -4,7 +4,6 @@ module.exports = (sequelize) => {
     Channel.init(
         {
             name: DataTypes.STRING,
-            short_id: DataTypes.STRING,
             colors: DataTypes.STRING,
             views: DataTypes.INTEGER,
             last_upload: DataTypes.STRING,
