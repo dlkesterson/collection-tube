@@ -8,23 +8,29 @@ const handler: NextApiHandler = async (req, res) => {
     const playlist = await ytpl(req.body.channel_url);
     const { name, bestAvatar, url, channelID } = playlist.author;
     const videos = playlist.items;
+    let transaction;
 
     try {
+        transaction = await sequelize.transaction();
+
         const channel = await models.Channel.create({
             name,
             views: playlist.views,
             avatar: bestAvatar.url,
             channel_id: channelID,
             channel_url: url
-        });
+        }, { transaction });
 
         await downloadAvatar(channel);
 
-        await saveChannelVideos(videos)
-            .then(() => {
-                res.status(200).send(channel);
-            });
+        await saveChannelVideos(videos, transaction);
+
+        await transaction.commit();
+
+        res.status(200).send(channel);
     } catch (e) {
+        if (transaction) await transaction.rollback();
+
         res.status(500).json({ message: e.message });
     }
 };
@@ -41,7 +47,7 @@ async function downloadAvatar(channel) {
     fs.writeFile(image, buffer, () => { return; });
 }
 
-async function saveChannelVideos(videos) {
+async function saveChannelVideos(videos, transaction) {
     const newVideos = videos.map((pv) => {
         return {
             title: pv.title,
@@ -56,7 +62,7 @@ async function saveChannelVideos(videos) {
     console.log('\n trying to save videos...');
 
     try {
-        await models.Video.bulkCreate(newVideos)
+        await models.Video.bulkCreate(newVideos, { transaction })
             .then(() => {
                 console.log('\n\n successfully saved the videos');
                 return newVideos;
