@@ -21,7 +21,8 @@ const handler: NextApiHandler = async (req, res) => {
             channel_url: url
         }, { transaction });
 
-        await downloadAvatar(channel);
+        // await downloadAvatar(channel);
+        await downloadImage(channel['avatar'], channel['channel_id'], `${channel['channel_id']}`);
 
         await saveChannelVideos(videos, transaction);
 
@@ -35,11 +36,17 @@ const handler: NextApiHandler = async (req, res) => {
     }
 };
 
-async function downloadAvatar(channel) {
-    const response = await fetch(channel['avatar']);
+// params: image url, file location, file name
+async function downloadImage(url, location, file_name) {
+// async function downloadAvatar(channel) {
+    const response = await fetch(url);
     const buffer = await response.buffer();
-    const dir = `./data/${channel.channel_id}`;
-    const image = `${dir}/${channel.channel_id}.jpg`;
+    const dir = `./data/${location}`;
+    const image = `${dir}/${file_name}.jpg`;
+    // const response = await fetch(channel['avatar']);
+    // const buffer = await response.buffer();
+    // const dir = `./data/${channel.channel_id}`;
+    // const image = `${dir}/${channel.channel_id}.jpg`;
 
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
@@ -65,6 +72,11 @@ async function saveChannelVideos(videos, transaction) {
         await sequelize.models.Video.bulkCreate(newVideos, { transaction })
             .then(() => {
                 console.log('\n\n successfully saved the videos');
+
+                newVideos.forEach(async (video) => { 
+                    await downloadImage(video.thumbnail, video.channel_id, `${video.video_id}`);
+                });
+
                 return newVideos;
             });
     } catch (e) {
