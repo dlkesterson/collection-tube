@@ -2,7 +2,7 @@ import { NextApiHandler } from 'next'
 import ytpl from 'ytpl'
 const fs = require('fs');
 const fetch = require('node-fetch');
-const { sequelize, models } = require('@/db');
+const sequelize = require('@/db');
 
 const handler: NextApiHandler = async (req, res) => {
     const playlist = await ytpl(req.body.channel_url);
@@ -13,7 +13,7 @@ const handler: NextApiHandler = async (req, res) => {
     try {
         transaction = await sequelize.transaction();
 
-        const channel = await models.Channel.create({
+        const channel = await sequelize.models.Channel.create({
             name,
             views: playlist.views,
             avatar: bestAvatar.url,
@@ -62,7 +62,7 @@ async function saveChannelVideos(videos, transaction) {
     console.log('\n trying to save videos...');
 
     try {
-        await models.Video.bulkCreate(newVideos, { transaction })
+        await sequelize.models.Video.bulkCreate(newVideos, { transaction })
             .then(() => {
                 console.log('\n\n successfully saved the videos');
                 return newVideos;
