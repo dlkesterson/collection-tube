@@ -32,6 +32,18 @@ module.exports = {
             duration: {
                 type: Sequelize.STRING
             },
+            published: {
+                type: Sequelize.STRING
+            },
+            short_view_count_text: {
+                type: Sequelize.STRING
+            },
+            view_count: {
+                type: Sequelize.STRING
+            },
+            description: {
+                type: Sequelize.STRING
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE
