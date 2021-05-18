@@ -20,9 +20,22 @@ export const getChannel = async (id) => {
 
     console.log('id is ' + id);
 
-    const channels = await models.Channel.findByPk(id);
-    if (channels) {
-        return channels;
+    const channel = await models.Channel.findByPk(id);
+    const videos = await models.Video.findAll({
+        where: {
+            channel_id: channel.channel_id
+        }
+    });
+
+    if (channel) {
+        if (videos) {
+            return {
+                channel,
+                videos
+            }
+        } else {
+            return channel;
+        }
     } else {
         return { error: '404 - Not found' };
     }
