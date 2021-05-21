@@ -34,7 +34,7 @@ export const getChannel = async (id) => {
                 videos
             }
         } else {
-            return channel;
+            return { channel };
         }
     } else {
         return { error: '404 - Not found' };

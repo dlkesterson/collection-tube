@@ -13,7 +13,8 @@ module.exports = (sequelize) => {
             view_count: DataTypes.STRING,
             description: DataTypes.STRING,
             thumbnail: DataTypes.STRING,
-            duration: DataTypes.STRING
+            duration: DataTypes.STRING,
+            colors: DataTypes.STRING,
         },
         {
             sequelize,
