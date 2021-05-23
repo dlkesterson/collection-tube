@@ -22,6 +22,7 @@ export default function ViewVideoPage({ data }) {
                     <p>
                         thumbnail: <img src={data.thumbnail} />
                     </p>
+                    {data.colors && <p>colors: {data.colors}</p>}
                 </Container>
             </div>
         );

@@ -12,9 +12,7 @@ module.exports = {
                 type: Sequelize.STRING
             },
             colors: {
-                type: Sequelize.STRING,
-                allowNull: true,
-                defaultValue: null
+                type: Sequelize.STRING
             },
             video_id: {
                 type: Sequelize.STRING
