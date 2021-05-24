@@ -5,7 +5,14 @@ import { mutate } from 'swr';
 import ButtonLink from '@/components/button-link';
 import Button from '@/components/button';
 
-export default function Video({ id, title, thumbnail, duration, video_url }) {
+export default function Video({
+    id,
+    title,
+    thumbnail,
+    duration,
+    video_url,
+    updatedAt
+}) {
     const [deleting, setDeleting] = useState(false);
 
     async function deleteVideo() {
@@ -19,29 +26,31 @@ export default function Video({ id, title, thumbnail, duration, video_url }) {
         setDeleting(false);
     }
     return (
-        <div className="video shadow rounded-md p-3">
-            <div className="flex items-center">
-                {thumbnail && <img src={thumbnail} alt="thumb" />}
-                <Link href={`/video/${id}`}>
-                    <a className="font-bold py-2">{title}</a>
-                </Link>
-
-                <div className="flex ml-4">
-                    <ButtonLink
-                        href={`/video/edit/${id}`}
-                        className="h-5 py-0 mx-1"
-                    >
-                        Edit
-                    </ButtonLink>
-                    <Button
-                        disabled={deleting}
-                        onClick={deleteVideo}
-                        className="h-5 py-0 mx-1"
-                    >
-                        {deleting ? 'Deleting ...' : 'Delete'}
-                    </Button>
+        <>
+            <div className="relative">
+                <div className="absolute bottom-0 right-2 text-white bg-black rounded p-2">
+                    {duration}
+                </div>
+                {thumbnail && (
+                    <img
+                        src={thumbnail}
+                        className="rounded"
+                        title={title}
+                        alt="thumb"
+                    />
+                )}
+            </div>
+            <div className="flex py-4 space-x-2">
+                <div className="w-2/12">
+                    <img src="video.profile_pic" className="rounded-full" />
+                </div>
+                <div className="flex flex-col space-y-2">
+                    <div className="text-xl font-bold">{title}</div>
+                    <div className="flex flex-col float-right pb-4">
+                        <div>{updatedAt}</div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }

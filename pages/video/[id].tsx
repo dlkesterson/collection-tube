@@ -23,6 +23,16 @@ export default function ViewVideoPage({ data }) {
                         thumbnail: <img src={data.thumbnail} />
                     </p>
                     {data.colors && <p>colors: {data.colors}</p>}
+                    {data.video_id && (
+                        <div className="aspect-w-16 aspect-h-9">
+                            <iframe
+                                src={`https://www.youtube.com/embed/${data.video_id}`}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
+                        </div>
+                    )}
                 </Container>
             </div>
         );
