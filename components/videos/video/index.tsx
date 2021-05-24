@@ -11,7 +11,8 @@ export default function Video({
     thumbnail,
     duration,
     video_url,
-    updatedAt
+    views,
+    published
 }) {
     const [deleting, setDeleting] = useState(false);
 
@@ -45,9 +46,13 @@ export default function Video({
                     <img src="video.profile_pic" className="rounded-full" />
                 </div>
                 <div className="flex flex-col space-y-2">
-                    <div className="text-xl font-bold">{title}</div>
+                    <div className="text-xl font-bold">  
+                        <Link href={`/video/${id}`}>
+                            <a className="font-bold py-2">{title}</a>
+                        </Link>
+                    </div>
                     <div className="flex flex-col float-right pb-4">
-                        <div>{updatedAt}</div>
+                        {views && published && (`${views} views | ${published}`)}
                     </div>
                 </div>
             </div>

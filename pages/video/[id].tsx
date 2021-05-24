@@ -18,13 +18,16 @@ export default function ViewVideoPage({ data }) {
                     <h1 className="font-bold text-3xl my-2">{data.title}</h1>
                     <p>url: {data.video_url}</p>
                     <p>id: {data.id}</p>
-                    <p>duration: {data.duration}</p>
                     <p>
                         thumbnail: <img src={data.thumbnail} />
                     </p>
-                    {data.colors && <p>colors: {data.colors}</p>}
+                    <div className="flex flex-wrap">
+                    {data.colors.split(',').map(color => <p
+                            className="rounded-full h-24 w-24 px-4 flex items-center justify-center text-white" 
+                            style={{backgroundColor:color}}>{color}</p>)}
+                    </div>
                     {data.video_id && (
-                        <div className="aspect-w-16 aspect-h-9">
+                        <div className="w-full aspect-w-16 aspect-h-9">
                             <iframe
                                 src={`https://www.youtube.com/embed/${data.video_id}`}
                                 frameBorder="0"

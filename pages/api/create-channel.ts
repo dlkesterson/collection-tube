@@ -42,7 +42,7 @@ const handler: NextApiHandler = async (req, res) => {
 async function downloadImage(url, location, file_name) {
     const response = await fetch(url);
     const buffer = await response.buffer();
-    const dir = `./data/${location}`;
+    const dir = `./public/data/${location}`;
     const image = `${dir}/${file_name}.jpg`;
 
     if (!fs.existsSync(dir)) {
