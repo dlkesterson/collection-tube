@@ -2,7 +2,14 @@
 
 /* Write your own custom base styles here */
 body {
-	@apply bg-ghost_white;
+    @apply bg-ghost_white;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+#__next {
+    width: 100vw;
+    min-height: 100vh;
 }
 
 /* Start purging... */
@@ -11,7 +18,7 @@ body {
 
 /* Write your own custom component styles here */
 .channel {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 /* Start purging... */
