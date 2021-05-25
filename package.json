@@ -9,6 +9,7 @@
     "migrate": "node scripts/migrate-db.js"
   },
   "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.2.1",
     "@tailwindcss/forms": "^0.3.2",
     "@tailwindcss/typography": "^0.4.0",
     "@types/react": "^17.0.3",

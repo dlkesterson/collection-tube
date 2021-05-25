@@ -11,6 +11,7 @@ export default function Video({
     thumbnail,
     duration,
     video_url,
+    channel_id,
     views,
     published
 }) {
@@ -33,20 +34,22 @@ export default function Video({
                     {duration}
                 </div>
                 {thumbnail && (
-                    <img
-                        src={thumbnail}
-                        className="rounded"
-                        title={title}
-                        alt="thumb"
-                    />
+                    <Link href={`/video/${id}`}>
+                        <img
+                            src={thumbnail}
+                            className="rounded"
+                            title={title}
+                            alt="thumb"
+                        />
+                    </Link>
                 )}
             </div>
             <div className="flex py-4 space-x-2">
                 <div className="w-2/12">
-                    <img src="video.profile_pic" className="rounded-full" />
+                    <img src={`/data/${channel_id}/${channel_id}.jpg`} className="rounded-full" />
                 </div>
                 <div className="flex flex-col space-y-2">
-                    <div className="text-xl font-bold">  
+                    <div className="text-xl font-bold">
                         <Link href={`/video/${id}`}>
                             <a className="font-bold py-2">{title}</a>
                         </Link>

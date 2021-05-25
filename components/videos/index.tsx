@@ -15,6 +15,7 @@ export default function Videos({ videos }) {
                             thumbnail={`/data/${v.channel_id}/${v.video_id}.jpg`}
                             views={v.views}
                             video_url={v.video_url}
+                            channel_id={v.channel_id}
                         />
                     </div>
                 ))}

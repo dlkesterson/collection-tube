@@ -1,6 +1,7 @@
 import Head from 'next/head';
 
 import { getVideo } from '@/api/get-video';
+import Container from '@/components/container';
 import Wrap from '@/components/wrap';
 import Nav from '@/components/nav';
 
@@ -48,9 +49,9 @@ export default function ViewVideoPage({ data }) {
                 <Head>
                     <title>{data.title}</title>
                 </Head>
-                <Nav title="View" />
-                <main className="flex flex-row flex-nowrap space-x-10 z-10">
-                    <aside className="flex-none w-50">
+                <Nav title="View" textColor={getContrast(data.colors.split(',')[0])} />
+                <Container className="w-full flex flex-row flex-nowrap space-x-8 z-10">
+                    <aside className="flex-none w-60">
                         <p>url: {data.video_url}</p>
                         <p>id: {data.id}</p>
                         <p>
@@ -84,11 +85,13 @@ export default function ViewVideoPage({ data }) {
                                 ></iframe>
                             </div>
                         )}
-                        <h1 className="font-bold text-3xl my-2">
+                        <h1 className={`font-bold text-3xl my-2 text-${getContrast(
+                            data.colors.split(',')[0]
+                        )}`}>
                             {data.title}
                         </h1>
                     </article>
-                </main>
+                </Container>
                 {data.thumbnail && (
                     <div
                         className="w-screen min-h-screen fixed overscroll-none shadow-inner filter blur-xl bg-cover bg-blend-color-burn"
