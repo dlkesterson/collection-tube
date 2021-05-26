@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 
 import { getVideo } from '@/api/get-video';
 import Container from '@/components/container';
@@ -49,29 +50,50 @@ export default function ViewVideoPage({ data }) {
                 <Head>
                     <title>{data.title}</title>
                 </Head>
-                <Nav title="View" textColor={getContrast(data.colors.split(',')[0])} />
+                <Nav
+                    title="View"
+                    textColor={
+                        data.colors
+                            ? getContrast(data.colors.split(',')[0])
+                            : undefined
+                    }
+                />
                 <Container className="w-full flex flex-row flex-nowrap space-x-8 z-10">
-                    <aside className="flex-none w-60">
-                        <p>url: {data.video_url}</p>
-                        <p>id: {data.id}</p>
-                        <p>
-                            thumbnail:{' '}
+                    <aside
+                        className="flex-none w-60 mix-blend-overlay px-2 py-4 border-2 border-dotted"
+                        style={{
+                            borderImageSlice: `1`,
+                            borderImageSource: `linear-gradient(to left, ${
+                                data.colors.split(',')[1]
+                            }, ${data.colors.split(',')[2]})`
+                        }}
+                    >
+                        <Link href={`/channel/${data.channel_id}`}>
                             <img
-                                src={`/data/${data.channel_id}/${data.video_id}.jpg`}
+                                src={`/data/${data.channel_id}/${data.channel_id}.jpg`}
+                                alt={data.channel_id}
+                                className="cursor-pointer m-4"
+                                style={{
+                                    width: '100px',
+                                    height: '100px',
+                                    display: 'block',
+                                    borderRadius: '50%'
+                                }}
                             />
-                        </p>
+                        </Link>
                         <div className="flex flex-wrap">
-                            {data.colors.split(',').map((color) => (
-                                <p
-                                    key={color}
-                                    className={`rounded-full h-24 w-24 px-4 m-2 flex items-center justify-center shadow text-${getContrast(
-                                        color
-                                    )}`}
-                                    style={{ backgroundColor: color }}
-                                >
-                                    {color}
-                                </p>
-                            ))}
+                            {data.colors &&
+                                data.colors.split(',').map((color) => (
+                                    <p
+                                        key={color}
+                                        className={`rounded-full h-16 w-16 px-4 m-2 flex items-center justify-center shadow text-${getContrast(
+                                            color
+                                        )}`}
+                                        style={{ backgroundColor: color }}
+                                    >
+                                        {color}
+                                    </p>
+                                ))}
                         </div>
                     </aside>
                     <article className="flex-grow z-10">
@@ -85,20 +107,26 @@ export default function ViewVideoPage({ data }) {
                                 ></iframe>
                             </div>
                         )}
-                        <h1 className={`font-bold text-3xl my-2 text-${getContrast(
-                            data.colors.split(',')[0]
-                        )}`}>
+                        <h1
+                            className={`font-bold text-3xl my-8 text-${
+                                data.colors
+                                    ? getContrast(data.colors.split(',')[0])
+                                    : undefined
+                            }
+                    `}
+                        >
                             {data.title}
                         </h1>
                     </article>
                 </Container>
                 {data.thumbnail && (
                     <div
-                        className="w-screen min-h-screen fixed overscroll-none shadow-inner filter blur-xl bg-cover bg-blend-color-burn"
+                        className="w-screen min-h-screen fixed overscroll-none shadow-inner filter blur-xl bg-blend-multiply"
                         style={{
                             background: `url(${`/data/${data.channel_id}/${data.video_id}.jpg`}) 50% 50% no-repeat ${
                                 data.colors.split(',')[0]
-                            }`
+                            }`,
+                            backgroundSize: 'cover'
                         }}
                     ></div>
                 )}

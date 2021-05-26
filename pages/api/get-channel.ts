@@ -17,15 +17,33 @@ const handler: NextApiHandler = async (req, res) => {
 }
 
 export const getChannel = async (id) => {
+    let channel;
+    let videos;
 
     console.log('id is ' + id);
 
-    const channel = await models.Channel.findByPk(id);
-    const videos = await models.Video.findAll({
-        where: {
-            channel_id: channel.channel_id
-        }
-    });
+    function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
+
+    if (isNumber(id)) {
+        channel = await models.Channel.findByPk(id);
+        videos = await models.Video.findAll({
+            where: {
+                channel_id: channel.channel_id
+            }
+        });
+    } else {
+        channel = await models.Channel.findOne({
+            where: {
+                channel_id: id
+            }
+        });
+        videos = await models.Video.findAll({
+            where: {
+                channel_id: id
+            }
+        });
+    }
+
 
     if (channel) {
         if (videos) {
