@@ -1,10 +1,12 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 import { getVideo } from '@/api/get-video';
 import Container from '@/components/container';
 import Wrap from '@/components/wrap';
 import Nav from '@/components/nav';
+import { mapOptionFieldNames } from 'sequelize/types/lib/utils';
 
 /*! https://codepen.io/cferdinandi/pen/Yomroj
  * Get the contrasting color for any hex color
@@ -69,7 +71,8 @@ export default function ViewVideoPage({ data }) {
                         }}
                     >
                         <Link href={`/channel/${data.channel_id}`}>
-                            <img
+                            <motion.img
+                                layoutId="channelAvatar"
                                 src={`/data/${data.channel_id}/${data.channel_id}.jpg`}
                                 alt={data.channel_id}
                                 className="cursor-pointer m-4"
@@ -81,6 +84,10 @@ export default function ViewVideoPage({ data }) {
                                 }}
                             />
                         </Link>
+                        <motion.img
+                            src={`/data/${data.channel_id}/${data.video_id}.jpg`}
+                            layoutId={data.video_id}
+                        />
                         <div className="flex flex-wrap">
                             {data.colors &&
                                 data.colors.split(',').map((color) => (

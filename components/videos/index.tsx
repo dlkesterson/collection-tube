@@ -12,6 +12,8 @@ export default function Videos({ videos }) {
                             title={v.title}
                             duration={v.duration}
                             published={v.published}
+                            layoutId={v.video_id}
+                            videoId={v.video_id}
                             thumbnail={`/data/${v.channel_id}/${v.video_id}.jpg`}
                             views={v.views}
                             video_url={v.video_url}

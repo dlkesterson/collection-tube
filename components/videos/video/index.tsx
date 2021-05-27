@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { mutate } from 'swr';
+import { motion } from 'framer-motion';
 
 import ButtonLink from '@/components/button-link';
 import Button from '@/components/button';
@@ -13,7 +14,9 @@ export default function Video({
     video_url,
     channel_id,
     views,
-    published
+    videoId,
+    published,
+    layoutId
 }) {
     const [deleting, setDeleting] = useState(false);
 
@@ -35,7 +38,8 @@ export default function Video({
                 </div>
                 {thumbnail && (
                     <Link href={`/video/${id}`}>
-                        <img
+                        <motion.img
+                            layoutId={videoId}
                             src={thumbnail}
                             className="rounded"
                             title={title}
@@ -46,7 +50,10 @@ export default function Video({
             </div>
             <div className="flex py-4 space-x-2">
                 <div className="w-2/12">
-                    <img src={`/data/${channel_id}/${channel_id}.jpg`} className="rounded-full" />
+                    <img
+                        src={`/data/${channel_id}/${channel_id}.jpg`}
+                        className="rounded-full"
+                    />
                 </div>
                 <div className="flex flex-col space-y-2">
                     <div className="text-xl font-bold">
@@ -55,7 +62,7 @@ export default function Video({
                         </Link>
                     </div>
                     <div className="flex flex-col float-right pb-4">
-                        {views && published && (`${views} views | ${published}`)}
+                        {views && published && `${views} views | ${published}`}
                     </div>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { motion } from 'framer-motion';
 
 import { getChannel } from '@/api/get-channel';
 import Container from '@/components/container';
@@ -26,6 +27,18 @@ export default function ViewChannelPage({ channel, videos }) {
                             {channel.description}
                         </p>
                     )}
+                    <motion.img
+                        layoutId="channelAvatar"
+                        src={`/data/${channel.channel_id}/${channel.channel_id}.jpg`}
+                        alt={channel.channel_id}
+                        className="cursor-pointer m-4"
+                        style={{
+                            width: '200px',
+                            height: '200px',
+                            display: 'block',
+                            borderRadius: '50%'
+                        }}
+                    />
                     <p className="my-2">
                         <span className="font-bold text-sm">colors:</span>
                         <br />
