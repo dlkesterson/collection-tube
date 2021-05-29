@@ -2,53 +2,27 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
+import getContrast from '@/lib/getContrast';
 import { getVideo } from '@/api/get-video';
 import Container from '@/components/container';
 import Wrap from '@/components/wrap';
 import Nav from '@/components/nav';
 import { mapOptionFieldNames } from 'sequelize/types/lib/utils';
 
-/*! https://codepen.io/cferdinandi/pen/Yomroj
- * Get the contrasting color for any hex color
- * (c) 2021 Chris Ferdinandi, MIT License, https://gomakethings.com
- * Derived from work by Brian Suda, https://24ways.org/2010/calculating-color-contrast/
- * @param  {String} A hexcolor value
- * @return {String} The contrasting color (black or white)
- */
-function getContrast(hexcolor) {
-    // If a leading # is provided, remove it
-    if (hexcolor.slice(0, 1) === '#') {
-        hexcolor = hexcolor.slice(1);
-    }
-
-    // If a three-character hexcode, make six-character
-    if (hexcolor.length === 3) {
-        hexcolor = hexcolor
-            .split('')
-            .map(function (hex) {
-                return hex + hex;
-            })
-            .join('');
-    }
-
-    // Convert to RGB value
-    let r = parseInt(hexcolor.substr(0, 2), 16);
-    let g = parseInt(hexcolor.substr(2, 2), 16);
-    let b = parseInt(hexcolor.substr(4, 2), 16);
-
-    // Get YIQ ratio
-    let yiq = (r * 299 + g * 587 + b * 114) / 1000;
-
-    // Check contrast
-    return yiq >= 128 ? 'black' : 'white';
-}
-
 export default function ViewVideoPage({ data }) {
     console.log(data);
 
     if (data) {
         return (
-            <Wrap>
+            <Wrap
+                className="border-t-2 border-solid"
+                inlineStyle={{
+                    borderImageSlice: `1`,
+                    borderImageSource: `linear-gradient(to left, ${
+                        data.colors.split(',')[1]
+                    }, ${data.colors.split(',')[2]})`
+                }}
+            >
                 <Head>
                     <title>{data.title}</title>
                 </Head>
@@ -59,6 +33,13 @@ export default function ViewVideoPage({ data }) {
                             ? getContrast(data.colors.split(',')[0])
                             : undefined
                     }
+                    className="border-b border-solid mb-8"
+                    inlineStyle={{
+                        borderImageSlice: `1`,
+                        borderImageSource: `linear-gradient(to left, ${
+                            data.colors.split(',')[1]
+                        }, ${data.colors.split(',')[2]})`
+                    }}
                 />
                 <Container className="w-full flex flex-row flex-nowrap space-x-8 z-10">
                     <aside
@@ -86,7 +67,6 @@ export default function ViewVideoPage({ data }) {
                         </Link>
                         <motion.img
                             src={`/data/${data.channel_id}/${data.video_id}.jpg`}
-                            layoutId={data.video_id}
                         />
                         <div className="flex flex-wrap">
                             {data.colors &&

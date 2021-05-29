@@ -13,24 +13,46 @@ const handler: NextApiHandler = async (req, res) => {
 
     try {
         transaction = await sequelize.transaction();
-
-        const channel = await sequelize.models.Channel.create({
+        const newChannel = {
             name,
             views: playlist.views,
             avatar: bestAvatar.url,
             channel_id: channelID,
             channel_url: url
-        }, { transaction });
+        };
 
-        await downloadImage(channel['avatar'], channel['channel_id'], `${channel['channel_id']}`);
+        console.log('made new channel object');
+        
+        await downloadImage(newChannel['avatar'], newChannel['channel_id'], `${newChannel['channel_id']}`)
+            .then(async (imagePath) => {
+                console.log('downloaded image: ' + imagePath);
+                    if (fs.existsSync(imagePath)) {
+                        console.log('about to save colors');
+                        newChannel['colors'] = await getColors(imagePath).then(colors => {
+                            console.log('generated colors');
+                            const result = colors.map(color => color.hex()).toString();
+                            console.log(result);
+                            return result;
+                        });
+                    }
 
-        if (videos.length > 0) {
-            await saveChannelVideos(videos, transaction);
-        }
+                return newChannel;
+            })
+            .then(async (newChannel) => {
+                console.log('now saving new channel to DB');
+                console.log(newChannel);
+                await sequelize.models.Channel.create(newChannel, { transaction });
+                
+                if (videos.length > 0) {
+                    console.log('now saving videos');
+                    await saveChannelVideos(videos, transaction);
+                }
+        
+                await transaction.commit();
+        
+                res.status(200).send(newChannel);
+            });
 
-        await transaction.commit();
-
-        res.status(200).send(channel);
     } catch (e) {
         if (transaction) await transaction.rollback();
 
@@ -52,13 +74,13 @@ async function downloadImage(url, location, file_name) {
     return image;
 }
 
-async function saveImageColors(imagePath) {
-    const colors = await getColors(imagePath).then(colors => {
-        return colors.map(color => color.hex()).toString();
-    });
+// async function saveImageColors(imagePath) {
+//     const colors = await getColors(imagePath).then(colors => {
+//         return colors.map(color => color.hex()).toString();
+//     });
 
-    return colors;
-}
+//     return colors;
+// }
 
 async function downloadImages(videos) {
     let imagePathList = [];

@@ -16,7 +16,8 @@ export default function Video({
     views,
     videoId,
     published,
-    layoutId
+    layoutId,
+    contrastColor
 }) {
     const [deleting, setDeleting] = useState(false);
 
@@ -39,9 +40,8 @@ export default function Video({
                 {thumbnail && (
                     <Link href={`/video/${id}`}>
                         <motion.img
-                            layoutId={videoId}
                             src={thumbnail}
-                            className="rounded"
+                            className="rounded cursor-pointer"
                             title={title}
                             alt="thumb"
                         />
@@ -58,7 +58,11 @@ export default function Video({
                 <div className="flex flex-col space-y-2">
                     <div className="text-xl font-bold">
                         <Link href={`/video/${id}`}>
-                            <a className="font-bold py-2">{title}</a>
+                            <a
+                                className={`font-bold py-2 text-${contrastColor}`}
+                            >
+                                {title}
+                            </a>
                         </Link>
                     </div>
                     <div className="flex flex-col float-right pb-4">

@@ -1,9 +1,10 @@
-function Wrap({ className = '', children }) {
+function Wrap({ className = '', inlineStyle, children }) {
     return (
         <div
-            className={`min-h-screen flex flex-col justify-start items-center bg-gray-900 py-3 px-8${
+            className={`flex flex-grow flex-col justify-start items-center bg-gray-900 py-2 px-8${
                 className ? ' ' + className : ''
             }`}
+            style={inlineStyle ? inlineStyle : {}}
         >
             {children}
         </div>

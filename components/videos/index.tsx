@@ -1,6 +1,6 @@
 import Video from './video';
 
-export default function Videos({ videos }) {
+export default function Videos({ videos, contrastColor }) {
     if (videos) {
         console.log(videos);
         return (
@@ -14,6 +14,7 @@ export default function Videos({ videos }) {
                             published={v.published}
                             layoutId={v.video_id}
                             videoId={v.video_id}
+                            contrastColor={contrastColor}
                             thumbnail={`/data/${v.channel_id}/${v.video_id}.jpg`}
                             views={v.views}
                             video_url={v.video_url}

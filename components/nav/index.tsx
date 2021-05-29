@@ -2,9 +2,19 @@ import Link from 'next/link';
 import Container from '@/components/container';
 import ButtonLink from '@/components/button-link';
 
-export default function Nav({ title = 'Entries', textColor = 'black' }) {
+export default function Nav({
+    title = 'Entries',
+    textColor = 'black',
+    className = '',
+    inlineStyle
+}) {
     return (
-        <nav className="w-full px-4 pt-4 pb-4 z-10">
+        <nav
+            className={`w-full px-4 py-8 z-10${
+                className ? ' ' + className : ''
+            }`}
+            style={inlineStyle ? inlineStyle : {}}
+        >
             <div className="flex justify-between items-center">
                 <Link href="/">
                     <a
