@@ -1,6 +1,9 @@
 import { NextApiHandler } from 'next';
 import { createImportSpecifier } from 'typescript';
 const { models } = require('@/db');
+const sequelize = require('@/db');
+import saveChannelVideos from '@/lib/saveChannelVideos';
+import ytpl from 'ytpl';
 
 const handler: NextApiHandler = async (req, res) => {
     const { id } = req.body
@@ -16,17 +19,14 @@ const handler: NextApiHandler = async (req, res) => {
     }
 }
 
+function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
+
 export const getChannel = async (id) => {
     let channel;
-    let videos;
-
-    console.log('id is ' + id);
-
-    function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
-
+    let channelVideos;
     if (isNumber(id)) {
         channel = await models.Channel.findByPk(id);
-        videos = await models.Video.findAll({
+        channelVideos = await models.Video.findAll({
             where: {
                 channel_id: channel.channel_id
             }
@@ -37,25 +37,48 @@ export const getChannel = async (id) => {
                 channel_id: id
             }
         });
-        videos = await models.Video.findAll({
+        channelVideos = await models.Video.findAll({
             where: {
-                channel_id: id
+                channel_id: channel.channel_id
             }
         });
     }
 
-
     if (channel) {
-        if (videos) {
-            return {
-                channel,
-                videos
+        const playlist = await ytpl(channel.channel_url);
+        const { name, bestAvatar, url, channelID } = playlist.author;
+        const videos = playlist.items;
+        let transaction;
+
+        console.log('count of videos for channel is... ' + channelVideos.length);
+
+        if (channelVideos.length > 0 && channelVideos[0]['video_id'] !== videos[0]['id']) {
+
+            try {
+                transaction = await sequelize.transaction();
+                await saveChannelVideos(videos, transaction);
+                await transaction.commit();
+                
+                return {
+                    channel,
+                    videos
+                }
+
+            } catch (e) {
+                if (transaction) await transaction.rollback();
+
+                return { error: '404 - Not found' };
             }
         } else {
-            return { channel };
+            console.log('no new videos found, we already have latest');
+            return {
+                channel,
+                videos: channelVideos
+            }
         }
+        
     } else {
-        return { error: '404 - Not found' };
+        return { channel: null, videos: null, error: '404 - Not found' };
     }
 };
 

@@ -2,8 +2,9 @@ import { NextApiHandler } from 'next'
 import ytpl from 'ytpl'
 const fs = require('fs');
 const getColors = require('get-image-colors');
-const fetch = require('node-fetch');
 const sequelize = require('@/db');
+import saveChannelVideos from '@/lib/saveChannelVideos';
+import downloadImage from '@/lib/downloadImage';
 
 const handler: NextApiHandler = async (req, res) => {
     const playlist = await ytpl(req.body.channel_url);
@@ -46,7 +47,7 @@ const handler: NextApiHandler = async (req, res) => {
                 if (videos.length > 0) {
                     console.log('now saving videos');
                     await saveChannelVideos(videos, transaction);
-                }
+                } else { console.log('no videos to save'); }
         
                 await transaction.commit();
         
@@ -59,76 +60,5 @@ const handler: NextApiHandler = async (req, res) => {
         res.status(500).json({ message: e.message });
     }
 };
-
-// params: image url, file location, file name
-async function downloadImage(url, location, file_name) {
-    const response = await fetch(url);
-    const buffer = await response.buffer();
-    const dir = `./public/data/${location}`;
-    const image = `${dir}/${file_name}.jpg`;
-
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir);
-    }
-    fs.writeFile(image, buffer, () => { return image; });
-    return image;
-}
-
-// async function saveImageColors(imagePath) {
-//     const colors = await getColors(imagePath).then(colors => {
-//         return colors.map(color => color.hex()).toString();
-//     });
-
-//     return colors;
-// }
-
-async function downloadImages(videos) {
-    let imagePathList = [];
-    for (const video of videos) {
-        const imagePath = await downloadImage(video.thumbnail, video.channel_id, `${video.video_id}`)
-        imagePathList.push(imagePath);
-    }
-
-    return imagePathList;
-}
-
-async function saveChannelVideos(videos, transaction) {
-    const newVideos = videos.map((pv) => {
-        return {
-            title: pv.title,
-            video_id: pv.id,
-            video_url: pv.shortUrl,
-            channel_id: pv.author.channelID,
-            thumbnail: pv.thumbnails[0].url,
-            duration: pv.duration
-        };
-    });
-
-    try {
-        await downloadImages(newVideos)
-            .then(async (imagePathList) => {
-                for (let i = 0; i < newVideos.length; i++) {
-                    if (fs.existsSync(imagePathList[i])) {
-                        const colorString = await getColors(imagePathList[i]).then(colors => {
-                            return colors.map(color => color.hex()).toString();
-                        });
-                        newVideos[i]['colors'] = colorString;
-                    }
-                }
-
-                return newVideos;
-            })
-            .then(async (newVideos) => {
-                await sequelize.models.Video.bulkCreate(newVideos, { transaction })
-                    .then(() => {
-                        return newVideos;
-                    });
-            });
-    } catch (e) {
-        console.log(e);
-        console.log(`\nerror is.... : ${e.message}\n\n\n\n`);
-        return { message: e.message };
-    }
-}
 
 export default handler

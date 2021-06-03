@@ -1,26 +1,28 @@
 import Video from './video';
+import getContrast from '@/lib/getContrast';
 
-export default function Videos({ videos, contrastColor }) {
+export default function Videos({ videos, contrastColor, hideChannelAvatar }) {
     if (videos) {
-        console.log(videos);
+        console.log(videos[0]);
         return (
-            <div className="flex flex-wrap h-full p-4">
+            <div className="p-4 grid grid-cols-4 gap-4">
                 {videos.map((v) => (
-                    <div key={v.id} className="w-4/12 px-4">
-                        <Video
-                            id={v.id}
-                            title={v.title}
-                            duration={v.duration}
-                            published={v.published}
-                            layoutId={v.video_id}
-                            videoId={v.video_id}
-                            contrastColor={contrastColor}
-                            thumbnail={`/data/${v.channel_id}/${v.video_id}.jpg`}
-                            views={v.views}
-                            video_url={v.video_url}
-                            channel_id={v.channel_id}
-                        />
-                    </div>
+                    <Video
+                        key={v.id}
+                        id={v.id}
+                        title={v.title}
+                        duration={v.duration}
+                        published={v.published}
+                        layoutId={v.video_id}
+                        videoId={v.video_id}
+                        contrastColor={contrastColor}
+                        hideChannelAvatar={hideChannelAvatar}
+                        colors={v.colors}
+                        thumbnail={`/data/${v.channel_id}/${v.video_id}.jpg`}
+                        views={v.views}
+                        video_url={v.video_url}
+                        channel_id={v.channel_id}
+                    />
                 ))}
             </div>
         );

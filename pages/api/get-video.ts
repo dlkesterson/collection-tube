@@ -1,5 +1,8 @@
 import { NextApiHandler } from 'next';
+import ytdl from 'ytdl-core';
+const sequelize = require('@/db');
 const { models } = require('@/db');
+import saveChannelVideos from '@/lib/saveChannelVideos';
 
 const handler: NextApiHandler = async (req, res) => {
     const { id } = req.body
@@ -16,12 +19,49 @@ const handler: NextApiHandler = async (req, res) => {
 }
 
 export const getVideo = async (id) => {
+    const video = await models.Video.findByPk(id);    
 
-    console.log('id is ' + id);
-
-    const video = await models.Video.findByPk(id);
     if (video) {
-        return video;
+        const latestInfo =  await ytdl.getInfo(video.video_url, {});
+        // console.log(latestInfo);
+        const updatedVideo = {
+            ...video,
+            description: latestInfo.player_response.videoDetails.shortDescription,
+            view_count: latestInfo.player_response.videoDetails.viewCount
+        }
+        let transaction;
+
+        if (!video['description']) {
+            try {
+                transaction = await sequelize.transaction();
+        
+                await models.Video.update(
+                    updatedVideo,
+                    {
+                        where: {
+                            video_id: video.video_id
+                        }, transaction
+                    },
+                    function(err, result) {
+                        if (err) console.log(err);
+                });
+                console.log(latestInfo.related_videos[0]);
+                await saveChannelVideos(latestInfo.related_videos, transaction, false);
+                await transaction.commit();
+        
+                return video;
+            } catch (e) {
+                if (transaction) await transaction.rollback();
+
+                return { error: '404 - Not found' };
+            }
+        } else {
+            console.log('we already have video info via getInfo, return video');
+            return {
+                video
+            }
+        }
+        
     } else {
         return { error: '404 - Not found' };
     }

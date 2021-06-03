@@ -6,7 +6,7 @@ export default function Nav({
     title = 'Entries',
     textColor = 'black',
     className = '',
-    inlineStyle
+    inlineStyle = {}
 }) {
     return (
         <nav
@@ -18,7 +18,7 @@ export default function Nav({
             <div className="flex justify-between items-center">
                 <Link href="/">
                     <a
-                        className={`text-xl text-${textColor} font-extrabold uppercase tracking-tight`}
+                        className={`text-xl text-${textColor} font-extrabold uppercase tracking-tight mix-blend-color-dodge opacity-30`}
                     >
                         offline.tube
                     </a>

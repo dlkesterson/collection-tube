@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { motion } from 'framer-motion';
+import { FiExternalLink } from 'react-icons/fi';
 
 import getContrast from '@/lib/getContrast';
 import { getChannel } from '@/api/get-channel';
@@ -11,7 +12,17 @@ import Nav from '@/components/nav';
 export default function ViewChannelPage({ channel, videos }) {
     if (channel) {
         return (
-            <Wrap>
+            <Wrap
+                className="channel-bg"
+                inlineStyle={{
+                    background: `linear-gradient(-45deg, ${channel.colors
+                        .split(',')
+                        .slice(1, 5)
+                        .join()})`,
+                    backgroundSize: `400% 400%`,
+                    animation: `gradient 15s ease infinite`
+                }}
+            >
                 <Head>
                     <title>{channel.name}</title>
                 </Head>
@@ -24,8 +35,11 @@ export default function ViewChannelPage({ channel, videos }) {
                     }
                 />
                 <Container className="w-full flex flex-row flex-nowrap space-x-8 z-10">
-                    <aside className="flex-none w-60 px-2 py-4">
-                        <h1 className="font-bold text-3xl my-2">
+                    <aside
+                        className="flex-none w-60 px-2 py-4 text-white bg-blend-multiply rounded"
+                        style={{ background: `rgba(0,0,0,0.5)` }}
+                    >
+                        <h1 className="font-bold text-3xl text-center my-2">
                             {channel.name}
                         </h1>
                         {channel.description && (
@@ -50,81 +64,35 @@ export default function ViewChannelPage({ channel, videos }) {
                             }}
                         />
                         <p className="my-2">
-                            <span className="font-bold text-sm">colors:</span>
-                            <br />
-                            {channel.colors}
-                        </p>
-                        <p className="my-2">
-                            <span className="font-bold text-sm">
-                                channel_url:
-                            </span>
-                            <br />
                             <a
-                                className="underline"
+                                className="underline flex flex-row w-full justify-center items-center"
                                 href={channel.channel_url}
                                 target="_blank"
                             >
-                                {channel.channel_url}
+                                YT Channel <FiExternalLink className="ml-2" />
                             </a>
                         </p>
-                        <p className="my-2">
-                            <span className="font-bold text-sm">
-                                yt_user_url:
-                            </span>
+                        <p className="my-2 text-center">
+                            <span className="font-bold text-sm">views:</span>
                             <br />
-                            {channel.yt_user_url}
-                        </p>
-                        <p className="my-2">
-                            <span className="font-bold text-sm">
-                                yt_channel_id:
-                            </span>
-                            <br />
-                            {channel.yt_channel_id}
-                        </p>
-                        <p className="my-2">
-                            <span className="font-bold text-sm">
-                                total_visits:
-                            </span>
-                            <br />
-                            {channel.total_visits}
-                        </p>
-                        <p className="my-2">
-                            <span className="font-bold text-sm">
-                                total_items:
-                            </span>
-                            <br />
-                            {channel.total_items}
-                        </p>
-                        <p className="my-2">
-                            <a href={channel.channel_url} target="_blank">
-                                {channel.channel_url}
-                            </a>
+                            {channel.views}
                         </p>
                     </aside>
-                    <article className="flex-grow z-10">
+                    <article
+                        className="flex-grow z-10"
+                        style={{ maxHeight: `80vh`, overflowY: `auto` }}
+                    >
                         {videos && channel.colors ? (
                             <Videos
                                 videos={videos}
-                                contrastColor={getContrast(
-                                    channel.colors.split(',')[0]
-                                )}
+                                hideChannelAvatar={true}
+                                contrastColor="white"
                             />
                         ) : (
                             <Videos videos={videos} contrastColor="white" />
                         )}
                     </article>
                 </Container>
-                {channel.colors && (
-                    <div
-                        className="w-screen min-h-screen fixed overscroll-none shadow-inner filter blur-xl bg-blend-overlay"
-                        style={{
-                            background: `url(${`/data/${channel.channel_id}/${channel.channel_id}.jpg`}) 50% 50% no-repeat ${
-                                channel.colors.split(',')[0]
-                            }`,
-                            backgroundSize: 'cover'
-                        }}
-                    ></div>
-                )}
             </Wrap>
         );
     } else {
@@ -144,6 +112,9 @@ export async function getServerSideProps(context) {
     // Fetch data from external API
     const res = await getChannel(context.params.id);
     const data = await JSON.parse(JSON.stringify(res));
+    if (data.error) {
+        console.log(data.error);
+    }
     const { channel, videos } = data;
 
     // Pass data to the page via props

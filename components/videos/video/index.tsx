@@ -15,9 +15,11 @@ export default function Video({
     channel_id,
     views,
     videoId,
+    colors,
     published,
     layoutId,
-    contrastColor
+    contrastColor,
+    hideChannelAvatar
 }) {
     const [deleting, setDeleting] = useState(false);
 
@@ -32,29 +34,44 @@ export default function Video({
         setDeleting(false);
     }
     return (
-        <>
-            <div className="relative">
-                <div className="absolute bottom-0 right-2 text-white bg-black rounded p-2">
+        <motion.div className="flex flex-col flex-nowrap h-full">
+            <div className="flex-none shadow hover:shadow-md">
+                <div className="absolute bottom-0 right-0 text-white rounded-sm bg-black p-1 text-xs">
                     {duration}
                 </div>
                 {thumbnail && (
                     <Link href={`/video/${id}`}>
-                        <motion.img
-                            src={thumbnail}
-                            className="rounded cursor-pointer"
+                        <img
+                            src={`/data/${channel_id}/${videoId}.jpg`}
+                            className="w-full rounded-sm cursor-pointer"
                             title={title}
-                            alt="thumb"
+                            alt={title}
                         />
                     </Link>
                 )}
             </div>
-            <div className="flex py-4 space-x-2">
-                <div className="w-2/12">
-                    <img
-                        src={`/data/${channel_id}/${channel_id}.jpg`}
-                        className="rounded-full"
-                    />
-                </div>
+            <div
+                className="flex-grow p-2"
+                // className="flex-grow py-4 px-2 border-l-2 border-r-2 border-b-2 border-solid rounded-b-sm"
+                // style={
+                //     colors
+                //         ? {
+                //               borderImageSlice: `1`,
+                //               borderImageSource: `linear-gradient(to left, ${
+                //                   colors.split(',')[0]
+                //               }, ${colors.split(',')[1]})`
+                //           }
+                //         : {}
+                // }
+            >
+                {hideChannelAvatar ? null : (
+                    <div className="flex-none w-7 mr-2">
+                        <img
+                            src={`/data/${channel_id}/${channel_id}.jpg`}
+                            className="rounded-full"
+                        />
+                    </div>
+                )}
                 <div className="flex flex-col space-y-2">
                     <div className="text-xl font-bold">
                         <Link href={`/video/${id}`}>
@@ -70,6 +87,6 @@ export default function Video({
                     </div>
                 </div>
             </div>
-        </>
+        </motion.div>
     );
 }
