@@ -35,7 +35,7 @@ export default function Video({
     }
     return (
         <motion.div className="flex flex-col flex-nowrap h-full">
-            <div className="flex-none shadow hover:shadow-md">
+            <div className="relative flex-none shadow hover:shadow-md">
                 <div className="absolute bottom-0 right-0 text-white rounded-sm bg-black p-1 text-xs">
                     {duration}
                 </div>

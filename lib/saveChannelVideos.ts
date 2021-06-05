@@ -10,7 +10,7 @@ export default async function saveChannelVideos(videos, transaction, saveColors 
         return {
             title: pv.title,
             video_id: pv.id,
-            video_url: pv.shortUrl,
+            video_url: pv.shortUrl || `https://www.youtube.com/watch?v=${pv.id}`,
             channel_id: pv.author.channelID || pv.author.id,
             thumbnail: pv.thumbnails[0].url,
             duration: pv.duration

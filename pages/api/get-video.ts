@@ -57,9 +57,7 @@ export const getVideo = async (id) => {
             }
         } else {
             console.log('we already have video info via getInfo, return video');
-            return {
-                video
-            }
+            return video;
         }
         
     } else {
