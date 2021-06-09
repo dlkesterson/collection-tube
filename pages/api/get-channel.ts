@@ -21,7 +21,7 @@ const handler: NextApiHandler = async (req, res) => {
 
 function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
 
-export const getChannel = async (id) => {
+export const getChannelLatest = async (id) => {
     let channel;
     let channelVideos;
     if (isNumber(id)) {
@@ -79,6 +79,37 @@ export const getChannel = async (id) => {
         
     } else {
         return { channel: null, videos: null, error: '404 - Not found' };
+    }
+}
+
+export const getChannel = async (id) => {
+    let channel;
+    let channelVideos;
+    if (isNumber(id)) {
+        channel = await models.Channel.findByPk(id);
+        channelVideos = await models.Video.findAll({
+            where: {
+                channel_id: channel.channel_id
+            }
+        });
+    } else {
+        channel = await models.Channel.findOne({
+            where: {
+                channel_id: id
+            }
+        });
+        channelVideos = await models.Video.findAll({
+            where: {
+                channel_id: channel.channel_id
+            }
+        });
+    }
+
+    if (channel) {
+        return {
+            channel,
+            videos: channelVideos
+        }
     }
 };
 

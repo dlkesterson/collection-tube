@@ -1,7 +1,7 @@
 import Video from './video';
 import getContrast from '@/lib/getContrast';
 
-export default function Videos({ videos, contrastColor, hideChannelAvatar }) {
+export default function Videos({ videos, contrastColor, hideChannelAvatar = false }) {
     if (videos) {
         console.log(videos[0]);
         return (

@@ -89,7 +89,7 @@ export default function ViewChannelPage({ channel, videos }) {
                                 contrastColor="white"
                             />
                         ) : (
-                            <Videos videos={videos} contrastColor="white" />
+                            <Videos videos={videos} hideChannelAvatar={true} contrastColor="white" />
                         )}
                     </article>
                 </Container>

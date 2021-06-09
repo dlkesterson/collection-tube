@@ -30,6 +30,9 @@ async function assertDatabaseConnectionOk() {
 		process.exit(1);
 	}
 }
+if (!fs.existsSync(`./public/data`)) {
+	fs.mkdirSync(`./public/data`);
+}
 
 app.prepare().then(() => {
     await assertDatabaseConnectionOk();
