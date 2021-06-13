@@ -73,10 +73,10 @@ export default function Video({
                     </div>
                 )}
                 <div className="flex flex-col space-y-2">
-                    <div className="text-xl font-bold">
+                    <div className="text-lg">
                         <Link href={`/video/${id}`}>
                             <a
-                                className={`font-bold py-2 text-${contrastColor}`}
+                                className={`py-2 text-${contrastColor}`}
                             >
                                 {title}
                             </a>

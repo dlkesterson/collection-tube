@@ -16,13 +16,10 @@ export default function ViewChannelPage({ channel, videos }) {
                 <Head>
                     <title>{channel.name}</title>
                 </Head>
-                <Nav
-                    textColor={
-                        channel.colors
-                            ? getContrast(channel.colors.split(',')[0])
-                            : undefined
-                    }
-                />
+                <Nav />
+                <h1 className="font-bold text-3xl text-center my-8">
+                    {channel.name}
+                </h1>
                 <div className="w-full flex flex-row flex-nowrap space-x-4 z-10">
                     <aside
                         className="flex-none w-60 px-2 py-4 text-white bg-blend-multiply rounded"
@@ -67,21 +64,12 @@ export default function ViewChannelPage({ channel, videos }) {
                     </aside>
                     <article
                         className="flex-grow z-10"
-                        style={{ maxHeight: `80vh`, overflowY: `auto` }}
+                        style={{ overflowY: `auto` }}
                     >
-                    <h1 className="font-bold text-3xl text-center my-2">
-                        {channel.name}
-                    </h1>
                         {videos && channel.colors ? (
                             <Videos
                                 videos={videos}
-                                hideChannelAvatar={true}
-                                contrastColor={
-                                    channel.colors
-                                        ? getContrast(channel.colors.split(',')[0])
-                                        : undefined
-                                }
-                            />
+                                hideChannelAvatar={true}/>
                         ) : (
                             <Videos videos={videos} hideChannelAvatar={true} contrastColor="white" />
                         )}

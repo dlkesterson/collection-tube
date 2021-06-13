@@ -18,14 +18,8 @@ export default function ViewVideoPage({ data }) {
                 <Head>
                     <title>{data.title}</title>
                 </Head>
-                <Nav
-                    textColor={
-                        data.colors
-                            ? getContrast(data.colors.split(',')[0])
-                            : undefined
-                    }
-                />
-                <Container className="w-full flex flex-row flex-nowrap space-x-8 z-10">
+                <Nav />
+                <div className="w-full flex flex-row flex-nowrap space-x-8 z-10">
                     <aside
                         className="flex-none w-60 mix-blend-overlay px-2 py-4"
                     >
@@ -96,7 +90,7 @@ export default function ViewVideoPage({ data }) {
                             {data.title}
                         </h1>
                     </article>
-                </Container>
+                </div>
             </Wrap>
         );
     } else {
