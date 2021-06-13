@@ -12,36 +12,22 @@ import Nav from '@/components/nav';
 export default function ViewChannelPage({ channel, videos }) {
     if (channel) {
         return (
-            <Wrap
-                className="channel-bg"
-                inlineStyle={{
-                    background: `linear-gradient(-45deg, ${channel.colors
-                        .split(',')
-                        .slice(1, 5)
-                        .join()})`,
-                    backgroundSize: `400% 400%`,
-                    animation: `gradient 15s ease infinite`
-                }}
-            >
+            <Wrap>
                 <Head>
                     <title>{channel.name}</title>
                 </Head>
                 <Nav
-                    title="View"
                     textColor={
                         channel.colors
                             ? getContrast(channel.colors.split(',')[0])
                             : undefined
                     }
                 />
-                <Container className="w-full flex flex-row flex-nowrap space-x-8 z-10">
+                <div className="w-full flex flex-row flex-nowrap space-x-4 z-10">
                     <aside
                         className="flex-none w-60 px-2 py-4 text-white bg-blend-multiply rounded"
                         style={{ background: `rgba(0,0,0,0.5)` }}
                     >
-                        <h1 className="font-bold text-3xl text-center my-2">
-                            {channel.name}
-                        </h1>
                         {channel.description && (
                             <p className="my-2">
                                 <span className="font-bold text-sm">
@@ -77,28 +63,36 @@ export default function ViewChannelPage({ channel, videos }) {
                             <br />
                             {channel.views}
                         </p>
+                        <button type="button" className="flex align-center shadow-md rounded mx-auto my-4 py-2 px-4" style={{ backgroundColor: channel.colors ? channel.colors.split(',')[1] : 'white' }}>Get Latest Data</button>
                     </aside>
                     <article
                         className="flex-grow z-10"
                         style={{ maxHeight: `80vh`, overflowY: `auto` }}
                     >
+                    <h1 className="font-bold text-3xl text-center my-2">
+                        {channel.name}
+                    </h1>
                         {videos && channel.colors ? (
                             <Videos
                                 videos={videos}
                                 hideChannelAvatar={true}
-                                contrastColor="white"
+                                contrastColor={
+                                    channel.colors
+                                        ? getContrast(channel.colors.split(',')[0])
+                                        : undefined
+                                }
                             />
                         ) : (
                             <Videos videos={videos} hideChannelAvatar={true} contrastColor="white" />
                         )}
                     </article>
-                </Container>
+                </div>
             </Wrap>
         );
     } else {
         return (
             <>
-                <Nav title="View" />
+                <Nav />
                 <Container>
                     <h1 className="font-bold text-3xl my-2">...</h1>
                     <p>...</p>

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Nav from '@/components/nav';
 import Container from '@/components/container';
 import Skeleton from 'react-loading-skeleton';
+import ButtonLink from '@/components/button-link';
 
 import Channels from '@/components/channels';
 import { useChannels } from '@/lib/swr-hooks';
@@ -38,8 +39,11 @@ export default function ChannelsPage() {
 			</Head>
 			<Nav />
 			<h1 className='text-3xl border-b border-gray-300 py-4 my-6'>
-				Channels
+				Channels {channels.length > 1 ? `(${channels.length})` : undefined}
 			</h1>
+			<ButtonLink className="mr-4" href="/channel/new">
+				Add Channel
+			</ButtonLink>
 			<Channels channels={channels} />
 		</Container>
 	);

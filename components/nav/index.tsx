@@ -1,9 +1,6 @@
 import Link from 'next/link';
-import Container from '@/components/container';
-import ButtonLink from '@/components/button-link';
 
 export default function Nav({
-    title = 'Entries',
     textColor = 'black',
     className = '',
     inlineStyle = {}
@@ -24,9 +21,6 @@ export default function Nav({
                     </a>
                 </Link>
                 <div>
-                    <ButtonLink className="mr-4" href="/channel/new">
-                        Add Channel
-                    </ButtonLink>
                     <Link href="/channels">
                         <a
                             className={`mx-4 text-sm uppercase tracking-wider text-${textColor}`}

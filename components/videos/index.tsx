@@ -1,11 +1,10 @@
 import Video from './video';
 import getContrast from '@/lib/getContrast';
 
-export default function Videos({ videos, contrastColor, hideChannelAvatar = false }) {
+export default function Videos({ videos, contrastColor = 'black', hideChannelAvatar = false }) {
     if (videos) {
-        console.log(videos[0]);
         return (
-            <div className="p-4 grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-4">
                 {videos.map((v) => (
                     <Video
                         key={v.id}
