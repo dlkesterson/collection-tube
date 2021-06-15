@@ -10,7 +10,7 @@ export default async function saveChannelVideos(videos, transaction, saveColors 
         return {
             title: pv.title,
             video_id: pv.id,
-            video_url: pv.shortUrl || `https://www.youtube.com/watch?v=${pv.id}`,
+            video_url: pv.shortUrl,
             channel_id: pv.author.channelID || pv.author.id,
             thumbnail: pv.thumbnails[0].url,
             duration: pv.duration
@@ -37,16 +37,16 @@ export default async function saveChannelVideos(videos, transaction, saveColors 
             })
             .then(async (newVideos) => {
                 console.log('now saving videos to DB');
-                for (let i = 0; i < newVideos.length; i++) {
-                    await sequelize.models.Video.upsert(newVideos[i], { transaction });
-                }
+                // for (let i = 0; i < newVideos.length; i++) {
+                //     await sequelize.models.Video.upsert(newVideos[i], { transaction });
+                // }
+
+                await sequelize.models.Video.bulkCreate(newVideos, { ignoreDuplicates: true, transaction })
+                    .then(() => {
+                        return { newVideos, transaction};
+                    });
 
                 return { newVideos, transaction };
-
-                // await sequelize.models.Video.bulkCreate(newVideos, { ignoreDuplicates: true, transaction })
-                //     .then(() => {
-                //         return { newVideos, transaction};
-                //     });
             });
     } catch (e) {
         console.log(e);

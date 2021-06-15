@@ -6,7 +6,7 @@ import { getChannel } from '../../api/get-channel';
 export default function EditChannelPage({ data }) {
 	return (
 		<>
-			<Nav title={`Edit ${data.name}`} />
+			<Nav />
 			<Container>
 				<EditChannelForm data={data} />
 			</Container>

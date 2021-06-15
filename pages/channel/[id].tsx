@@ -8,6 +8,7 @@ import Container from '@/components/container';
 import Wrap from '@/components/wrap';
 import Videos from '@/components/videos/';
 import Nav from '@/components/nav';
+import UpdateChannelForm from '@/components/update-channel-form';
 
 export default function ViewChannelPage({ channel, videos }) {
     if (channel) {
@@ -60,7 +61,17 @@ export default function ViewChannelPage({ channel, videos }) {
                             <br />
                             {channel.views}
                         </p>
-                        <button type="button" className="flex align-center shadow-md rounded mx-auto my-4 py-2 px-4" style={{ backgroundColor: channel.colors ? channel.colors.split(',')[1] : 'white' }}>Get Latest Data</button>
+                        <button 
+                            type="button" 
+                            className="flex align-center shadow-md rounded mx-auto my-4 py-2 px-4" 
+                            style={{ 
+                                backgroundColor: 
+                                    channel.colors
+                                    ? channel.colors.split(',')[1] 
+                                    : 'white' }}>
+                            Get Latest Data
+                        </button>
+				        <UpdateChannelForm />
                     </aside>
                     <article
                         className="flex-grow z-10"
@@ -98,6 +109,8 @@ export async function getServerSideProps(context) {
         console.log(data.error);
     }
     const { channel, videos } = data;
+
+    console.log(videos[0]);
 
     // Pass data to the page via props
     return { props: { channel, videos } };
