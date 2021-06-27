@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { motion } from 'framer-motion';
 import { FiExternalLink } from 'react-icons/fi';
 
-import getContrast from '@/lib/getContrast';
+// import getContrast from '@/lib/getContrast';/
 import { getChannel } from '@/api/get-channel';
 import Container from '@/components/container';
 import Wrap from '@/components/wrap';
@@ -12,6 +12,7 @@ import UpdateChannelForm from '@/components/update-channel-form';
 
 export default function ViewChannelPage({ channel, videos }) {
     if (channel) {
+        console.log(channel);
         return (
             <Wrap>
                 <Head>
@@ -60,6 +61,11 @@ export default function ViewChannelPage({ channel, videos }) {
                             <span className="font-bold text-sm">views:</span>
                             <br />
                             {channel.views}
+                        </p>
+                        <p className="my-2 text-center">
+                            <span className="font-bold text-sm">last updated:</span>
+                            <br />
+                            {channel.last_updated}
                         </p>
                         <button 
                             type="button" 
