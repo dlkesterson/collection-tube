@@ -1,13 +1,11 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 
 import getContrast from '@/lib/getContrast';
 import { getVideo } from '@/api/get-video';
-import Container from '@/components/container';
 import Wrap from '@/components/wrap';
 import Nav from '@/components/nav';
-import { mapOptionFieldNames } from 'sequelize/types/lib/utils';
+import DownloadVideoForm from '@/components/download-video-form';
 
 export default function ViewVideoPage({ data }) {
     if (data && data.colors) {
@@ -70,6 +68,8 @@ export default function ViewVideoPage({ data }) {
                                 {data.description}
                             </p>
                         )}
+
+				        <DownloadVideoForm />
                     </aside>
                 </div>
             </Wrap>
