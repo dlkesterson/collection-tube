@@ -23,6 +23,9 @@ module.exports = {
                 allowNull: true,
                 defaultValue: null
             },
+            last_updated: {
+                type: Sequelize.STRING
+            },
             last_upload: {
                 type: Sequelize.STRING,
                 allowNull: true,

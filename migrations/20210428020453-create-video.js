@@ -38,9 +38,6 @@ module.exports = {
             published: {
                 type: Sequelize.STRING
             },
-            last_updated: {
-                type: Sequelize.STRING
-            },
             short_view_count_text: {
                 type: Sequelize.STRING
             },

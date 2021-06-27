@@ -7,6 +7,7 @@ module.exports = (sequelize) => {
             colors: DataTypes.STRING,
             views: DataTypes.INTEGER,
             last_upload: DataTypes.STRING,
+            last_updated: DataTypes.STRING,
             avatar: DataTypes.STRING,
             yt_user_url: { type: DataTypes.STRING, isUrl: true },
             channel_id: DataTypes.STRING,

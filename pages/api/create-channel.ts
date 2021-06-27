@@ -19,7 +19,8 @@ const handler: NextApiHandler = async (req, res) => {
             views: playlist.views,
             avatar: bestAvatar.url,
             channel_id: channelID,
-            channel_url: url
+            channel_url: url,
+            last_updated: playlist.lastUpdated
         };
 
         console.log('made new channel object');
