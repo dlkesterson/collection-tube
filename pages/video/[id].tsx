@@ -10,8 +10,6 @@ import Nav from '@/components/nav';
 import { mapOptionFieldNames } from 'sequelize/types/lib/utils';
 
 export default function ViewVideoPage({ data }) {
-    console.log(data);
-
     if (data && data.colors) {
         return (
             <Wrap>
