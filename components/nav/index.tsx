@@ -35,6 +35,13 @@ export default function Nav({
                             Latest
                         </a>
                     </Link>
+                    <Link href="/downloads">
+                        <a
+                            className={`mx-4 text-sm uppercase tracking-wider text-${textColor}`}
+                        >
+                            Downloads
+                        </a>
+                    </Link>
                 </div>
             </div>
         </nav>
