@@ -67,16 +67,6 @@ export default function ViewChannelPage({ channel, videos }) {
                             <br />
                             {channel.last_updated}
                         </p>
-                        <button 
-                            type="button" 
-                            className="flex align-center shadow-md rounded mx-auto my-4 py-2 px-4" 
-                            style={{ 
-                                backgroundColor: 
-                                    channel.colors
-                                    ? channel.colors.split(',')[1] 
-                                    : 'white' }}>
-                            Get Latest Data
-                        </button>
 				        <UpdateChannelForm />
                     </aside>
                     <article
