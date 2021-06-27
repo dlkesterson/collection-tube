@@ -25,7 +25,8 @@ export const getChannel = async (id) => {
         channelVideos = await models.Video.findAll({
             where: {
                 channel_id: channel.channel_id
-            }
+            },
+            order: [['updatedAt', 'DESC']]
         });
     } else {
         channel = await models.Channel.findOne({
