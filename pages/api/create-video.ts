@@ -1,5 +1,5 @@
 import { NextApiHandler } from 'next'
-import ytpl from 'ytpl'
+// import ytpl from 'ytpl'
 import ytdl from 'ytdl-core';
 const fs = require('fs');
 const fetch = require('node-fetch');
