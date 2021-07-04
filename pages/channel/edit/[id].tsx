@@ -1,7 +1,7 @@
 import Container from '@/components/container';
 import Nav from '@/components/nav';
 import EditChannelForm from '@/components/edit-channel-form';
-import { getChannel } from '../../api/get-channel';
+import { getChannel } from '@/api/get-channel';
 
 export default function EditChannelPage({ data }) {
 	return (
