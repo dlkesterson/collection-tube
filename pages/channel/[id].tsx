@@ -78,7 +78,7 @@ export default function ViewChannelPage({ channel, videos }) {
                                 videos={videos}
                                 hideChannelAvatar={true}/>
                         ) : (
-                            <Videos videos={videos} hideChannelAvatar={true} contrastColor="white" />
+                            <Videos videos={videos} hideChannelAvatar={true} contrastColor="black" />
                         )}
                     </article>
                 </div>

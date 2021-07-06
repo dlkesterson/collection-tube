@@ -40,7 +40,7 @@ export default function LatestPage() {
             <h1 className="text-3xl border-b border-gray-300 py-4 my-6">
                 Videos
             </h1>
-            <Videos videos={videos} contrastColor="white" />
+            <Videos videos={videos} contrastColor="black" />
         </Container>
     );
 }

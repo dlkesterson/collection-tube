@@ -3,7 +3,9 @@ const { models } = require('@/db');
 
 const handler: NextApiHandler = async (_, res) => {
     try {
-        return models.Channel.findAll()
+        return models.Channel.findAll({
+            order: [['updatedAt', 'DESC']]
+        })
             .then((channels) => res.json(channels))
             .catch((err) => {
                 console.log('There was an error querying channels', JSON.stringify(err))

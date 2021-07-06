@@ -29,7 +29,7 @@ const handler: NextApiHandler = async (req, res) => {
         downloadProgress += data.length;
 
         console.log("Downloading " + (100.0 * downloadProgress / (downloadSize > 0 ? downloadSize : 1)) + "% " + (downloadProgress / 1048576).toFixed(2) + " mb\r" + ".<br/> Total size: " + downloadSize + " mb")
-        res.send((downloadProgress / 1048576).toFixed(2));
+        // res.send((downloadProgress / 1048576).toFixed(2));
     } );
 
     downloadStream
