@@ -53,6 +53,11 @@ const handler: NextApiHandler = async (req, res) => {
                 await transaction.commit();
         
                 res.status(200).send(newChannel);
+            })
+            .catch(e => {
+                console.log('Error! Something failed after downloading the image for the new channel');
+                console.log(e);
+                console.log(e.message);
             });
 
     } catch (e) {
