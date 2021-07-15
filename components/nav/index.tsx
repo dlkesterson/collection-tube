@@ -15,7 +15,7 @@ export default function Nav({
             <div className="flex justify-between items-center">
                 <Link href="/">
                     <a
-                        className={`text-xl text-${textColor} font-extrabold uppercase tracking-tight mix-blend-color-dodge opacity-30`}
+                        className={`text-xl font-extrabold uppercase tracking-tight opacity-30`}
                     >
                         offline.tube
                     </a>
@@ -40,6 +40,13 @@ export default function Nav({
                             className={`mx-4 text-sm uppercase tracking-wider text-${textColor}`}
                         >
                             Downloads
+                        </a>
+                    </Link>
+                    <Link href="/settings">
+                        <a
+                            className={`mx-4 text-sm uppercase tracking-wider text-${textColor}`}
+                        >
+                            Settings
                         </a>
                     </Link>
                 </div>
