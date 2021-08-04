@@ -7,14 +7,14 @@ import Skeleton from 'react-loading-skeleton';
 import Videos from '@/components/videos';
 import { useVideos } from '@/lib/swr-hooks';
 
-export default function LatestPage() {
+export default function VideosPage() {
     const { videos, isLoading } = useVideos();
 
     if (isLoading) {
         return (
             <Container>
                 <Head>
-                    <title>Latest Videos</title>
+                    <title>Videos</title>
                 </Head>
                 <Nav />
                 <h1 className="text-3xl border-b border-gray-300 py-4 my-6">
@@ -34,7 +34,7 @@ export default function LatestPage() {
     return (
         <Container>
             <Head>
-                <title>Latest Videos</title>
+                <title>Videos</title>
             </Head>
             <Nav />
             <h1 className="text-3xl border-b border-gray-300 py-4 my-6">

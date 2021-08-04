@@ -28,11 +28,11 @@ export default function Nav({
                             Channels
                         </a>
                     </Link>
-                    <Link href="/latest">
+                    <Link href="/videos">
                         <a
                             className={`mx-4 text-sm uppercase tracking-wider text-${textColor}`}
                         >
-                            Latest
+                            Videos
                         </a>
                     </Link>
                     <Link href="/downloads">

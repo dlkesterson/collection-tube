@@ -1,6 +1,6 @@
 const next = require('next');
 const express = require('express');
-const db = require('./db');
+// const db = require('./db');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
@@ -19,23 +19,23 @@ const options = {
 	cert: fs.readFileSync('localhost.crt'),
 };
 
-async function assertDatabaseConnectionOk() {
-	console.log(`Checking database connection...`);
-	try {
-		await db.authenticate();
-		console.log('Database connection OK!');
-	} catch (error) {
-		console.log('Unable to connect to the database:');
-		console.log(error.message);
-		process.exit(1);
-	}
-}
-if (!fs.existsSync(`./public/data`)) {
-	fs.mkdirSync(`./public/data`);
-}
+// async function assertDatabaseConnectionOk() {
+// 	console.log(`Checking database connection...`);
+// 	try {
+// 		await db.authenticate();
+// 		console.log('Database connection OK!');
+// 	} catch (error) {
+// 		console.log('Unable to connect to the database:');
+// 		console.log(error.message);
+// 		process.exit(1);
+// 	}
+// }
+// if (!fs.existsSync(`./public/data`)) {
+// 	fs.mkdirSync(`./public/data`);
+// }
 
 app.prepare().then(() => {
-    await assertDatabaseConnectionOk();
+    // await assertDatabaseConnectionOk();
 
 	server.all('*', (req, res) => {
 		return handle(req, res);
