@@ -4,19 +4,20 @@ const express = require('express');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
+const cron = require('node-cron');
 
 const ports = {
-	http: 3080,
-	https: 3443,
+    http: 3080,
+    https: 3443
 };
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
-const server = express();
+const expressServer = express();
 
 const options = {
-	key: fs.readFileSync('localhost.key'),
-	cert: fs.readFileSync('localhost.crt'),
+    key: fs.readFileSync('localhost.key'),
+    cert: fs.readFileSync('localhost.crt')
 };
 
 // async function assertDatabaseConnectionOk() {
@@ -37,10 +38,11 @@ const options = {
 app.prepare().then(() => {
     // await assertDatabaseConnectionOk();
 
-	server.all('*', (req, res) => {
-		return handle(req, res);
+	cron.schedule('*/2 * * * *', () => {
+		console.log('running a task every minute');
+		fetch(`https://localhost:3000/api/get-channel-latest/3`)
 	});
 
-	http.createServer(server).listen(ports.http);
-	https.createServer(options, server).listen(ports.https);
+    http.createServer(expressServer).listen(ports.http);
+    https.createServer(options, expressServer).listen(ports.https);
 });
