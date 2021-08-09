@@ -1,0 +1,14 @@
+{
+	"extends": "./tsconfig.json",
+	"exclude": [
+		"components",
+		"styles",
+		"public"
+	],
+	"compilerOptions": {
+		"module": "esnext",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve"
+	}
+}

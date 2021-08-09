@@ -50,20 +50,7 @@ export default function Video({
                     </Link>
                 )}
             </div>
-            <div
-                className="flex-grow p-2"
-                // className="flex-grow py-4 px-2 border-l-2 border-r-2 border-b-2 border-solid rounded-b-sm"
-                // style={
-                //     colors
-                //         ? {
-                //               borderImageSlice: `1`,
-                //               borderImageSource: `linear-gradient(to left, ${
-                //                   colors.split(',')[0]
-                //               }, ${colors.split(',')[1]})`
-                //           }
-                //         : {}
-                // }
-            >
+            <div className="flex-grow p-2">
                 {hideChannelAvatar ? null : (
                     <div className="flex-none w-7 mr-2">
                         <img

@@ -2,10 +2,11 @@ import { NextApiHandler } from 'next';
 const { models } = require('@/db');
 
 const handler: NextApiHandler = async (req, res) => {
+    console.log('\ndeleting channel: ' + req.query.id);
     try {
         return models.Channel.destroy({
             where: {
-                id: req.body.id
+                id: req.query.id
             }
         })
             .then((response) => res.json(response))

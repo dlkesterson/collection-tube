@@ -1,5 +1,5 @@
 import { NextApiHandler } from 'next';
-const { models } = require('@/db');
+const sequelize = require('@/db/index.js');
 const path = require('path');
 const fs = require('fs');
 let videolist = [];
@@ -31,13 +31,13 @@ const handler: NextApiHandler = async (_, res) => {
 
         console.log(videoIdList);
 
-        const videoData = models.Video.findAll({
+        const videoData = sequelize.models.Video.findAll({
             where: {
                 video_id: videoIdList
             }
         })
 
-        console.log(videoData);
+        // console.log(videoData);
 
         res.status(200).send(videoData);
 
@@ -50,7 +50,7 @@ export default handler;
 
 export async function getDownloads() {
     let files  = [];
-        // const channels = models.Channel.findAll();
+        // const channels = sequelize.models.Channel.findAll();
         // return channels;
 
         //joining path of directory 
@@ -62,7 +62,7 @@ export async function getDownloads() {
 
         console.log(videoIdList);
 
-        const videos = await models.Video.findAll({
+        const videos = await sequelize.models.Video.findAll({
             where: {
                 video_id: videoIdList
             },
@@ -70,7 +70,7 @@ export async function getDownloads() {
         });
 
         return { files, videoIdList, videos };
-        // models.Video.findAll({
+        // sequelize.models.Video.findAll({
         //     where: {
         //         video_id: videoIdList
         //     }

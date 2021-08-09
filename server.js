@@ -1,6 +1,7 @@
 const next = require('next');
 const express = require('express');
-// const db = require('./db');
+const { models } = require('./db');
+// const Channel = require('./models/channel');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
@@ -38,9 +39,19 @@ const options = {
 app.prepare().then(() => {
     // await assertDatabaseConnectionOk();
 
-	cron.schedule('*/2 * * * *', () => {
-		console.log('running a task every minute');
-		fetch(`https://localhost:3000/api/get-channel-latest/3`)
+	expressServer.all('*', (req, res) => {
+		return handle(req, res);
+	});
+
+	cron.schedule('*/2 * * * *', async () => {
+		const channel =  await models.Channel.findOne({
+			where: {
+				id: '1'
+			},
+			order: [['updatedAt', 'DESC']]
+		});
+		console.log('\n#___CH CH CH CHRON JOBBBB!___#');
+		console.log('channel 1\'s name: ' + channel['name'] + '\n');
 	});
 
     http.createServer(expressServer).listen(ports.http);

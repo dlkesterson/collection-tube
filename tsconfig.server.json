@@ -1,0 +1,11 @@
+{
+	"extends": "./tsconfig.json",
+	"exclude": [
+		"components",
+		"styles",
+		"public"
+	],
+	"compilerOptions": {
+		"isolatedModules": false,
+	}
+}

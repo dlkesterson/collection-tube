@@ -36,6 +36,11 @@ module.exports = {
                 allowNull: true,
                 defaultValue: null
             },
+            auto_download: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                defaultValue: 0
+            },
             yt_user_url: {
                 type: Sequelize.STRING,
                 allowNull: true,

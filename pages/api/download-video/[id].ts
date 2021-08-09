@@ -8,15 +8,19 @@ const { models } = require('@/db');
 const handler: NextApiHandler = async (req, res) => {
     const { id } = req.query;
     console.log('in download video API request, ID passed is '+id);
-    const { video_url, video_id, channel_id } = await models.Video.findByPk(id);
-    const dir = `./public/data/${channel_id}`;
-    const videoPath = `${dir}/${video_id}.mp4`;
+    const video = await models.Video.findByPk(id);
+    const updatedVideo = {
+        ...video,
+        downloaded: 1
+    }
+    const dir = `./public/data/${video.channel_id}`;
+    const videoPath = `${dir}/${video.video_id}.mp4`;
 
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
     }
-    console.log('downloading video ' + video_url);
-    const downloadStream = ytdl(video_url);
+    console.log('downloading video ' + video.video_url);
+    const downloadStream = ytdl(video.video_url);
     let downloadProgress = 0;
     let downloadSize = 0;
 
@@ -38,6 +42,13 @@ const handler: NextApiHandler = async (req, res) => {
     downloadStream.on('end', function() {
         //Do something
         console.log('\n\ndownload finished!!!!!!!!\n\n');
+        
+        models.Video.update(updatedVideo, {
+            where: {
+                id
+            }
+        });
+
         res.status(200).send({ ok:true, message: 'done!' });
     });
 

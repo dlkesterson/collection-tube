@@ -69,7 +69,7 @@ export default function ViewVideoPage({ data }) {
                             </p>
                         )}
 
-				        <DownloadVideoForm />
+				        <DownloadVideoForm downloaded={data.downloaded} />
                     </aside>
                 </div>
             </Wrap>

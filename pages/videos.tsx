@@ -20,13 +20,71 @@ export default function VideosPage() {
                 <h1 className="text-3xl border-b border-gray-300 py-4 my-6">
                     Videos
                 </h1>
-                <Skeleton circle={true} height={50} width={50} />
-                <Skeleton width={180} height={24} />
-                <Skeleton height={48} />
-                <div className="my-4" />
-                <Skeleton circle={true} height={50} width={50} />
-                <Skeleton width={180} height={24} />
-                <Skeleton height={48} />
+                <div className="grid grid-cols-4 gap-4">
+                    <div className="flex flex-col flex-nowrap h-full">
+                        <div className="relative flex-none shadow hover:shadow-md">
+                            <Skeleton height={195} width={350} />
+                        </div>
+                        <div className="flex-grow p-2">
+                            <Skeleton circle={true} height={50} width={50} />
+                            <Skeleton className="ml-4" width={180} height={30} />
+                        </div>
+                    </div>
+                    <div className="flex flex-col flex-nowrap h-full">
+                        <div className="relative flex-none shadow hover:shadow-md">
+                            <Skeleton height={195} width={350} />
+                        </div>
+                        <div className="flex-grow p-2">
+                            <Skeleton circle={true} height={50} width={50} />
+                            <Skeleton className="ml-4" width={180} height={30} />
+                        </div>
+                    </div>
+                    <div className="flex flex-col flex-nowrap h-full">
+                        <div className="relative flex-none shadow hover:shadow-md">
+                            <Skeleton height={195} width={350} />
+                        </div>
+                        <div className="flex-grow p-2">
+                            <Skeleton circle={true} height={50} width={50} />
+                            <Skeleton className="ml-4" width={180} height={30} />
+                        </div>
+                    </div>
+                    <div className="flex flex-col flex-nowrap h-full">
+                        <div className="relative flex-none shadow hover:shadow-md">
+                            <Skeleton height={195} width={350} />
+                        </div>
+                        <div className="flex-grow p-2">
+                            <Skeleton circle={true} height={50} width={50} />
+                            <Skeleton className="ml-4" width={180} height={30} />
+                        </div>
+                    </div>
+                    <div className="flex flex-col flex-nowrap h-full">
+                        <div className="relative flex-none shadow hover:shadow-md">
+                            <Skeleton height={195} width={350} />
+                        </div>
+                        <div className="flex-grow p-2">
+                            <Skeleton circle={true} height={50} width={50} />
+                            <Skeleton className="ml-4" width={180} height={30} />
+                        </div>
+                    </div>
+                    <div className="flex flex-col flex-nowrap h-full">
+                        <div className="relative flex-none shadow hover:shadow-md">
+                            <Skeleton height={195} width={350} />
+                        </div>
+                        <div className="flex-grow p-2">
+                            <Skeleton circle={true} height={50} width={50} />
+                            <Skeleton className="ml-4" width={180} height={30} />
+                        </div>
+                    </div>
+                    <div className="flex flex-col flex-nowrap h-full">
+                        <div className="relative flex-none shadow hover:shadow-md">
+                            <Skeleton height={195} width={350} />
+                        </div>
+                        <div className="flex-grow p-2">
+                            <Skeleton circle={true} height={50} width={50} />
+                            <Skeleton className="ml-4" width={180} height={30} />
+                        </div>
+                    </div>
+                </div>
             </Container>
         );
     }
