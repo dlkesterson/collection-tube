@@ -53,18 +53,18 @@ export default function Video({
             <div className="flex-grow p-2">
                 {hideChannelAvatar ? null : (
                     <div className="flex-none w-7 mr-2">
-                        <img
-                            src={`/data/${channel_id}/${channel_id}.jpg`}
-                            className="rounded-full"
-                        />
+                        <Link href={`/video/${id}`}>
+                            <img
+                                src={`/data/${channel_id}/${channel_id}.jpg`}
+                                className="rounded-full"
+                            />
+                        </Link>
                     </div>
                 )}
                 <div className="flex flex-col space-y-2">
                     <div className="text-lg">
                         <Link href={`/video/${id}`}>
-                            <a
-                                className={`py-2 text-${contrastColor}`}
-                            >
+                            <a className={`py-2 text-${contrastColor}`}>
                                 {title}
                             </a>
                         </Link>

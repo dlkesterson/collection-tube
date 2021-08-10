@@ -4,7 +4,7 @@ const sequelize = require('@/db');
 import saveChannelVideos from '@/lib/saveChannelVideos';
 import ytpl from 'ytpl';
 
-function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
+// function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
 
 const handler: NextApiHandler = async (req, res) => {
     const { id } = req.query;

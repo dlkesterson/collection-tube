@@ -45,7 +45,7 @@ export default function DownloadVideoForm(downloaded) {
 
 
 	const [submitting, setSubmitting] = useState(false);
-	const [buttonText, setButtonText] = useState(downloaded ? 'Downloaded' : 'Download Video');
+	const [buttonText, setButtonText] = useState(downloaded > 0 ? 'Downloaded' : 'Download Video');
 	const router = useRouter();
 	const { id } = router.query;
 

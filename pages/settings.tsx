@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Nav from '@/components/nav';
 import Container from '@/components/container';
+import SettingsForm from '@/components/settings-form';
 
 export default function SettingsPage() {
     return (
@@ -12,7 +13,7 @@ export default function SettingsPage() {
             <h1 className="text-3xl border-b border-gray-300 py-4 my-6">
                 Settings
             </h1>
-            <p>(nothing here for now)</p>
+            <SettingsForm/>
         </Container>
     );
 }
