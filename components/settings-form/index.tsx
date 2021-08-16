@@ -21,7 +21,7 @@ export default function SettingsForm() {
 			});
 			setSubmitting(false);
 			if (!res.ok) throw Error('An error occurred, please try again');
-			Router.push('/channels');
+			// Router.push('/settings');
 		} catch (e) {
 			throw Error(e.message);
 		}

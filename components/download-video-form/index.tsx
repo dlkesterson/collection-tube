@@ -3,7 +3,7 @@ import Router, { useRouter } from 'next/router';
 
 import Button from '../button';
 
-export default function DownloadVideoForm(downloaded) {
+export default function DownloadVideoForm({ downloaded }) {
 	// // Step 1: start the fetch and obtain a reader
 	// let response = await fetch('https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits?per_page=100');
 
@@ -45,7 +45,7 @@ export default function DownloadVideoForm(downloaded) {
 
 
 	const [submitting, setSubmitting] = useState(false);
-	const [buttonText, setButtonText] = useState(downloaded > 0 ? 'Downloaded' : 'Download Video');
+	const [buttonText, setButtonText] = useState(downloaded === '1' ? 'Downloaded' : 'Download Video');
 	const router = useRouter();
 	const { id } = router.query;
 

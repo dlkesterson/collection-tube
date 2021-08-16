@@ -6,6 +6,7 @@ import { getVideo } from '@/api/get-video';
 import Wrap from '@/components/wrap';
 import Nav from '@/components/nav';
 import DownloadVideoForm from '@/components/download-video-form';
+import VideoPlayer from '@/components/video-player';
 
 export default function ViewVideoPage({ data }) {
     if (data && data.colors) {
@@ -19,12 +20,25 @@ export default function ViewVideoPage({ data }) {
                     <article className="bg-gray-900 flex-grow z-10">
                         {data.video_id && (
                             <div className="aspect-w-16 aspect-h-9">
-                                <iframe
-                                    src={`https://www.youtube.com/embed/${data.video_id}`}
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                ></iframe>
+                                {data.downloaded 
+                                ? 
+                                    <VideoPlayer options={{
+                                        controls: true,
+                                        responsive: true,
+                                        fluid: true,
+                                        sources: [{
+                                            src: `/data/${data.channel_id}/${data.video_id}.mp4`,
+                                            type: 'video/mp4'
+                                        }]
+                                    }}/> 
+                                : 
+                                    <iframe
+                                        src={`https://www.youtube.com/embed/${data.video_id}`}
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
+                                }
                             </div>
                         )}
                     </article>

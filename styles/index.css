@@ -1,4 +1,5 @@
 @tailwind base;
+@import url('video-js.min.css');
 
 /* Write your own custom base styles here */
 body {
