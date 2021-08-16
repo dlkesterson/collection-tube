@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { mutate } from 'swr';
 import { motion } from 'framer-motion';
+import { FiX } from 'react-icons/fi';
 
 import ButtonLink from '@/components/button-link';
 import Button from '@/components/button';
@@ -17,6 +18,7 @@ export default function Video({
     videoId,
     colors,
     published,
+    downloaded,
     layoutId,
     contrastColor,
     hideChannelAvatar
@@ -33,9 +35,14 @@ export default function Video({
         mutate('/api/get-videos');
         setDeleting(false);
     }
+    console.log('downloaded is ...');console.log(downloaded);
     return (
         <motion.div className="flex flex-col flex-nowrap h-full">
             <div className="relative flex-none shadow hover:shadow-md">
+                {downloaded === 1 && (
+                <div className="absolute top-0 right-0 bg-black bg-opacity-75 p-2">
+                    <FiX className="text-white"/>
+                </div>)}
                 <div className="absolute bottom-0 right-0 text-white rounded-sm bg-black p-1 text-xs">
                     {duration}
                 </div>
@@ -50,7 +57,7 @@ export default function Video({
                     </Link>
                 )}
             </div>
-            <div className="flex-grow p-2">
+            <div className="flex-grow p-2 flex flex-row flex-nowrap">
                 {hideChannelAvatar ? null : (
                     <div className="flex-none w-7 mr-2">
                         <Link href={`/video/${id}`}>

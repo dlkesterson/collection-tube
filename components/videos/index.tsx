@@ -12,6 +12,7 @@ export default function Videos({ videos, contrastColor = 'black', hideChannelAva
                         title={v.title}
                         duration={v.duration}
                         published={v.published}
+                        downloaded={v.downloaded}
                         layoutId={v.video_id}
                         videoId={v.video_id}
                         contrastColor={contrastColor}
