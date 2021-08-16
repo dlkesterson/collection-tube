@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { FiPlus } from 'react-icons/fi';
 import Channel from './channel';
 
 export default function Channels({ channels }) {
@@ -25,7 +26,7 @@ export default function Channels({ channels }) {
                         <a
                             className={`underline`}
                         >
-                            Add a Channel
+                            <FiPlus className="text-white text-xl inline mr-2"/>Add a Channel
                         </a>
                     </Link>
             </p>

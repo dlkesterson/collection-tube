@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Router, { useRouter } from 'next/router';
+import { FiCheck, FiDownload } from 'react-icons/fi';
 
 import Button from '../button';
 
@@ -45,7 +46,7 @@ export default function DownloadVideoForm({ downloaded }) {
 
 
 	const [submitting, setSubmitting] = useState(false);
-	const [buttonText, setButtonText] = useState(downloaded === '1' ? 'Downloaded' : 'Download Video');
+	const [buttonText, setButtonText] = useState(downloaded === 1 ? 'Downloaded!' : 'Download Video');
 	const router = useRouter();
 	const { id } = router.query;
 
@@ -66,7 +67,7 @@ export default function DownloadVideoForm({ downloaded }) {
 	return (
 		<form onSubmit={submitHandler}>
 			<Button disabled={submitting||downloaded} type='submit'>
-				{buttonText}
+			{downloaded ? <FiCheck className="text-white text-xl inline mr-2"/> : <FiDownload className="text-white text-xl inline mr-2"/>}{buttonText}
 			</Button>
 		</form>
 	);

@@ -5,6 +5,7 @@ import Container from '@/components/container';
 import Wrap from '@/components/wrap';
 import Skeleton from 'react-loading-skeleton';
 import ButtonLink from '@/components/button-link';
+import { FiPlus } from 'react-icons/fi';
 
 import Channels from '@/components/channels';
 import { useChannels } from '@/lib/swr-hooks';
@@ -46,7 +47,7 @@ export default function ChannelsPage() {
                     className="self-center ml-4 my-4"
                     href="/channel/add"
                 >
-                    Add Channel
+                    <FiPlus className="text-white text-xl inline mr-2"/>Add Channel
                 </ButtonLink>
             </div>
 
