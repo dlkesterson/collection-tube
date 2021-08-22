@@ -1,12 +1,12 @@
 const next = require('next');
 const express = require('express');
 const { models } = require('./db');
-const ytpl = require('ytpl');
+// const ytpl = require('ytpl');
 // const Channel = require('./models/channel');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
-const cron = require('node-cron');
+// const cron = require('node-cron');
 const ports = {
     http: 3080,
     https: 3443
@@ -44,6 +44,10 @@ const options = {
 // 		console.log('no new videos found for ' + channel['name']);
 // 	}
 // });
+
+if (!fs.existsSync('./public/data/')) {
+    fs.mkdirSync('./public/data/');
+}
 
 app.prepare().then(() => {
     // await assertDatabaseConnectionOk();

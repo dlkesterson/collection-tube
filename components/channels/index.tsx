@@ -1,5 +1,3 @@
-import Link from 'next/link';
-import { FiPlus } from 'react-icons/fi';
 import Channel from './channel';
 
 export default function Channels({ channels }) {
@@ -20,15 +18,8 @@ export default function Channels({ channels }) {
         );
     } else {
         return (
-            <p>
-                No channels have been added yet.{' '}
-                    <Link href="/channel/add">
-                        <a
-                            className={`underline`}
-                        >
-                            <FiPlus className="text-white text-xl inline mr-2"/>Add a Channel
-                        </a>
-                    </Link>
+            <p className="py-2 my-8 text-center">
+                No channels have been added yet.
             </p>
         );
     }

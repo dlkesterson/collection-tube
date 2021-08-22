@@ -12,6 +12,7 @@ module.exports = (sequelize) => {
             view_count: DataTypes.STRING,
             description: DataTypes.STRING,
             downloaded: DataTypes.INTEGER,
+            downloadedAt: DataTypes.STRING,
             thumbnail: DataTypes.STRING,
             duration: DataTypes.STRING,
             colors: DataTypes.STRING,

@@ -1,4 +1,6 @@
 'use strict';
+const { remove } = require('fs-extra');
+
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.createTable('Channels', {
@@ -69,5 +71,9 @@ module.exports = {
     },
     down: async (queryInterface, Sequelize) => {
         await queryInterface.dropTable('Channels');
+
+        remove('./public/data/') 
+            .then(() => console.log("Directory and files inside it are deleted")) 
+            .catch((e) => console.log(e));
     }
 };

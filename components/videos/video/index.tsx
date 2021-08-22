@@ -4,22 +4,22 @@ import { mutate } from 'swr';
 import { motion } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
 
-import ButtonLink from '@/components/button-link';
-import Button from '@/components/button';
+// import ButtonLink from '@/components/button-link';
+// import Button from '@/components/button';
 
 export default function Video({
     id,
     title,
     thumbnail,
     duration,
-    video_url,
+    // video_url,
     channel_id,
     views,
     videoId,
-    colors,
+    // colors,
     published,
     downloaded,
-    layoutId,
+    // layoutId,
     contrastColor,
     hideChannelAvatar
 }) {

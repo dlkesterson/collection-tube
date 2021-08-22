@@ -11,7 +11,8 @@ const handler: NextApiHandler = async (req, res) => {
     const video = await models.Video.findByPk(id);
     const updatedVideo = {
         ...video,
-        downloaded: 1
+        downloaded: 1,
+        downloadedAt: Math.floor((new Date()).getTime() / 1000)
     };
     const dir = `./public/data/${video.channel_id}`;
     const videoPath = `${dir}/${video.video_id}.mp4`;

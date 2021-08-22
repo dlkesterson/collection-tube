@@ -2,6 +2,7 @@ import Head from 'next/head';
 
 import Nav from '@/components/nav';
 import Container from '@/components/container';
+import Wrap from '@/components/wrap';
 import Skeleton from 'react-loading-skeleton';
 
 import Videos from '@/components/videos';
@@ -90,6 +91,7 @@ export default function VideosPage() {
     }
 
     return (
+        <Wrap>
         <Container>
             <Head>
                 <title>Videos</title>
@@ -100,5 +102,6 @@ export default function VideosPage() {
             </h1>
             <Videos videos={videos} contrastColor="black" />
         </Container>
+        </Wrap>
     );
 }

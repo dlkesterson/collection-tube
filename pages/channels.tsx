@@ -15,7 +15,7 @@ export default function ChannelsPage() {
 
     if (isLoading) {
         return (
-            <Wrap>
+            <Container>
                 <Head>
                     <title>Channels</title>
                 </Head>
@@ -28,12 +28,12 @@ export default function ChannelsPage() {
                 <Skeleton circle={true} height={50} width={50} />
                 <Skeleton width={180} height={24} />
                 <Skeleton height={48} />
-            </Wrap>
+            </Container>
         );
     }
 
     return (
-        <Wrap>
+        <Container>
             <Head>
                 <title>Channels</title>
             </Head>
@@ -52,6 +52,6 @@ export default function ChannelsPage() {
             </div>
 
             <Channels channels={channels} />
-        </Wrap>
+        </Container>
     );
 }

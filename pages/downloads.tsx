@@ -5,6 +5,7 @@ import Nav from '@/components/nav';
 import Container from '@/components/container';
 import Videos from '@/components/videos';
 import { getDownloads } from '@/api/get-downloads';
+import Wrap from '@/components/wrap';
 
 export default function DownloadsPage({ data }) {
     const router = useRouter();
@@ -14,6 +15,7 @@ export default function DownloadsPage({ data }) {
     }
 console.log(data);
     return (
+        <Wrap>
         <Container>
             <Head>
                 <title>Downloads</title>
@@ -28,6 +30,7 @@ console.log(data);
                 <p>No videos downloaded yet</p>
             )}
         </Container>
+        </Wrap>
     );
 }
 
