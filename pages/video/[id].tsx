@@ -4,6 +4,7 @@ import Link from 'next/link';
 import getContrast from '@/lib/getContrast';
 import { getVideo } from '@/api/get-video';
 import Wrap from '@/components/wrap';
+import Container from '@/components/container';
 import Nav from '@/components/nav';
 import DownloadVideoForm from '@/components/download-video-form';
 import VideoPlayer from '@/components/video-player';
@@ -42,7 +43,7 @@ export default function ViewVideoPage({ data }) {
                             </div>
                         )}
                     </article>
-                    <aside
+                    <Container
                         className="flex-col w-full px-2 py-2"
                     >
                         <h1
@@ -84,7 +85,7 @@ export default function ViewVideoPage({ data }) {
                         )}
 
 				        <DownloadVideoForm downloaded={data.downloaded} />
-                    </aside>
+                    </Container>
                 </div>
             </Wrap>
         );
