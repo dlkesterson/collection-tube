@@ -4,10 +4,12 @@ import '../styles/index.css';
 import { WebSocketDemo } from '@/components/websocket-demo';
 
 function MyApp({ Component, pageProps }) {
-    return (<>
-        <Component {...pageProps} />
-        <WebSocketDemo />
-    </>);
+    return (
+        <>
+            <Component {...pageProps} />
+            <WebSocketDemo />
+        </>
+    );
 }
 
 export default MyApp;

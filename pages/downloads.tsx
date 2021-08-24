@@ -11,25 +11,25 @@ export default function DownloadsPage({ data }) {
     const router = useRouter();
 
     if (router.isFallback) {
-      return <div>Loading...</div>
+        return <div>Loading...</div>;
     }
-console.log(data);
+    console.log(data);
     return (
         <Wrap>
-        <Container>
-            <Head>
-                <title>Downloads</title>
-            </Head>
-            <Nav />
-            <h1 className="text-3xl border-b border-gray-300 py-4 my-6">
-                Downloads
-            </h1>
-            {data && data.videos ? (
-                <Videos videos={data.videos} contrastColor="black" />
-            ) : (
-                <p>No videos downloaded yet</p>
-            )}
-        </Container>
+            <Container>
+                <Head>
+                    <title>Downloads</title>
+                </Head>
+                <Nav />
+                <h1 className="text-3xl border-b border-gray-300 py-4 my-6">
+                    Downloads
+                </h1>
+                {data && data.videos ? (
+                    <Videos videos={data.videos} contrastColor="black" />
+                ) : (
+                    <p>No videos downloaded yet</p>
+                )}
+            </Container>
         </Wrap>
     );
 }
@@ -39,13 +39,13 @@ export async function getStaticProps() {
     // If the route is like /posts/1, then params.id is 1
     const data = await getDownloads();
     // console.log(data);
-	// const data = await JSON.parse(res);
-  
+    // const data = await JSON.parse(res);
+
     // Pass post data to the page via props
     return {
-      props: { data },
-      // Re-generate the post at most once per second
-      // if a request comes in
-      revalidate: 1,
-    }
-  }
+        props: { data },
+        // Re-generate the post at most once per second
+        // if a request comes in
+        revalidate: 1
+    };
+}

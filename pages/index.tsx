@@ -12,24 +12,24 @@ export default function Home() {
     const { channels, isLoading } = useChannels();
     return (
         <Wrap>
-        <Container>
-            <Head>
-                <title>offline.tube</title>
-            </Head>
-            <Nav />
-            <h1 className="block mt-6 mx-auto p-4 text-center text-4xl text-black_coffee font-extrabold uppercase tracking-tight">
-                offline.tube
-            </h1>
-            <p className="text-center text-lg italic text-black_coffee">
-                A place to automatically download the latest videos from your
-                favorite channels
-            </p>
-            {isLoading ? (
-                <Skeleton width={180} height={24} />
-            ) : (
-                <Channels channels={channels} />
-            )}
-        </Container>
+            <Container>
+                <Head>
+                    <title>offline.tube</title>
+                </Head>
+                <Nav />
+                <h1 className="block mt-6 mx-auto p-4 text-center text-4xl text-black_coffee font-extrabold uppercase tracking-tight">
+                    offline.tube
+                </h1>
+                <p className="text-center text-lg italic text-black_coffee">
+                    A place to automatically download the latest videos from
+                    your favorite channels
+                </p>
+                {isLoading ? (
+                    <Skeleton width={180} height={24} />
+                ) : (
+                    <Channels channels={channels} />
+                )}
+            </Container>
         </Wrap>
     );
 }

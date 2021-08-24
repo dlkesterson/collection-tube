@@ -63,22 +63,26 @@ export default function ViewChannelPage({ channel, videos }) {
                             {channel.views}
                         </p>
                         <p className="my-2 text-center">
-                            <span className="font-bold text-sm">last updated:</span>
+                            <span className="font-bold text-sm">
+                                last updated:
+                            </span>
                             <br />
                             {channel.last_updated}
                         </p>
-				        <UpdateChannelForm id={channel.id} />
+                        <UpdateChannelForm id={channel.id} />
                     </aside>
                     <article
                         className="flex-grow z-10"
                         style={{ overflowY: `auto` }}
                     >
                         {videos && channel.colors ? (
+                            <Videos videos={videos} hideChannelAvatar={true} />
+                        ) : (
                             <Videos
                                 videos={videos}
-                                hideChannelAvatar={true}/>
-                        ) : (
-                            <Videos videos={videos} hideChannelAvatar={true} contrastColor="black" />
+                                hideChannelAvatar={true}
+                                contrastColor="black"
+                            />
                         )}
                     </article>
                 </div>

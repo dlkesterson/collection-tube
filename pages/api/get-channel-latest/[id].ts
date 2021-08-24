@@ -17,6 +17,6 @@ const handler: NextApiHandler = async (req, res) => {
     } else {
         res.status(500).send(result);
     }
-}
+};
 
 export default handler;

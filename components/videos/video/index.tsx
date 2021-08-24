@@ -35,14 +35,16 @@ export default function Video({
         mutate('/api/get-videos');
         setDeleting(false);
     }
-    console.log('downloaded is ...');console.log(downloaded);
+    console.log('downloaded is ...');
+    console.log(downloaded);
     return (
         <motion.div className="flex flex-col flex-nowrap h-full">
             <div className="relative flex-none shadow hover:shadow-md">
                 {downloaded === 1 && (
-                <div className="absolute top-0 right-0 bg-black bg-opacity-75 p-2">
-                    <FiX className="text-white"/>
-                </div>)}
+                    <div className="absolute top-0 right-0 bg-black bg-opacity-75 p-2">
+                        <FiX className="text-white" />
+                    </div>
+                )}
                 <div className="absolute bottom-0 right-0 text-white rounded-sm bg-black p-1 text-xs">
                     {duration}
                 </div>

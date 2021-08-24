@@ -15,45 +15,50 @@ export default function ChannelsPage() {
 
     if (isLoading) {
         return (
-            <Container>
-                <Head>
-                    <title>Channels</title>
-                </Head>
-                <Nav />
-                <h1 className="text-3xl my-6">Channels</h1>
-                <Skeleton circle={true} height={50} width={50} />
-                <Skeleton width={180} height={24} />
-                <Skeleton height={48} />
-                <div className="my-4" />
-                <Skeleton circle={true} height={50} width={50} />
-                <Skeleton width={180} height={24} />
-                <Skeleton height={48} />
-            </Container>
+            <Wrap>
+                <Container>
+                    <Head>
+                        <title>Channels</title>
+                    </Head>
+                    <Nav />
+                    <h1 className="text-3xl my-6">Channels</h1>
+                    <Skeleton circle={true} height={50} width={50} />
+                    <Skeleton width={180} height={24} />
+                    <Skeleton height={48} />
+                    <div className="my-4" />
+                    <Skeleton circle={true} height={50} width={50} />
+                    <Skeleton width={180} height={24} />
+                    <Skeleton height={48} />
+                </Container>
+            </Wrap>
         );
     }
 
     return (
         <Wrap>
-        <Container>
-            <Head>
-                <title>Channels</title>
-            </Head>
-			<Nav />
-			<div className="w-full flex p-4 flex-column flex-nowrap space-y-4 z-10">
-                <h1 className="flex-grow text-3xl border-b border-gray-300 py-4 my-6">
-                    Channels{' '}
-                    {channels.length > 1 ? `(${channels.length})` : undefined}
-                </h1>
-                <ButtonLink
-                    className="self-center ml-4 my-4"
-                    href="/channel/add"
-                >
-                    <FiPlus className="text-white text-xl inline mr-2"/>Add Channel
-                </ButtonLink>
-            </div>
+            <Container>
+                <Head>
+                    <title>Channels</title>
+                </Head>
+                <Nav />
+                <div className="w-full flex p-4 flex-column flex-nowrap space-y-4 z-10">
+                    <h1 className="flex-grow text-3xl border-b border-gray-300 py-4 my-6">
+                        Channels{' '}
+                        {channels.length > 1
+                            ? `(${channels.length})`
+                            : undefined}
+                    </h1>
+                    <ButtonLink
+                        className="self-center ml-4 my-4"
+                        href="/channel/add"
+                    >
+                        <FiPlus className="text-white text-xl inline mr-2" />
+                        Add Channel
+                    </ButtonLink>
+                </div>
 
-            <Channels channels={channels} />
-        </Container>
+                <Channels channels={channels} />
+            </Container>
         </Wrap>
     );
 }
