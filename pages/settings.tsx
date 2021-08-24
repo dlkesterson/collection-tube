@@ -1,10 +1,12 @@
 import Head from 'next/head';
 import Nav from '@/components/nav';
+import Wrap from '@/components/wrap';
 import Container from '@/components/container';
 import SettingsForm from '@/components/settings-form';
 
 export default function SettingsPage() {
     return (
+        <Wrap>
         <Container>
             <Head>
                 <title>Settings</title>
@@ -15,5 +17,6 @@ export default function SettingsPage() {
             </h1>
             <SettingsForm/>
         </Container>
+        </Wrap>
     );
 }

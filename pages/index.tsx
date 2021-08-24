@@ -3,6 +3,7 @@ import styles from '../styles/Home.module.css';
 import Skeleton from 'react-loading-skeleton';
 
 import Nav from '@/components/nav';
+import Wrap from '@/components/wrap';
 import Container from '@/components/container';
 import Channels from '@/components/channels';
 import { useChannels } from '@/lib/swr-hooks';
@@ -10,6 +11,7 @@ import { useChannels } from '@/lib/swr-hooks';
 export default function Home() {
     const { channels, isLoading } = useChannels();
     return (
+        <Wrap>
         <Container>
             <Head>
                 <title>offline.tube</title>
@@ -28,5 +30,6 @@ export default function Home() {
                 <Channels channels={channels} />
             )}
         </Container>
+        </Wrap>
     );
 }

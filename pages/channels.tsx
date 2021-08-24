@@ -33,6 +33,7 @@ export default function ChannelsPage() {
     }
 
     return (
+        <Wrap>
         <Container>
             <Head>
                 <title>Channels</title>
@@ -53,5 +54,6 @@ export default function ChannelsPage() {
 
             <Channels channels={channels} />
         </Container>
+        </Wrap>
     );
 }

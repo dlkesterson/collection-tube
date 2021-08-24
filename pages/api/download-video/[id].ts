@@ -1,8 +1,8 @@
 import { NextApiHandler } from 'next';
 // import ytpl from 'ytpl'
+// const fetch = require('node-fetch');
 import ytdl from 'ytdl-core';
 const fs = require('fs');
-// const fetch = require('node-fetch');
 const { models } = require('@/db');
 
 const handler: NextApiHandler = async (req, res) => {

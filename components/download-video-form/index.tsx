@@ -55,7 +55,7 @@ export default function DownloadVideoForm({ downloaded }) {
 		setSubmitting(true);
 		setButtonText(`Downloading Video (id: ${id})`);
 		
-		const res = await fetch(`/api/download-video/${id}`);
+		const res = await fetch(`/download/${id}`);
 
 		setSubmitting(false);
 		setButtonText('Downloaded!');

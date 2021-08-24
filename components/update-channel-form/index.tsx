@@ -3,16 +3,16 @@ import Router, { useRouter } from 'next/router';
 
 import Button from '../button';
 
-export default function UpdateChannelForm() {
+export default function UpdateChannelForm({id}) {
 	const [submitting, setSubmitting] = useState(false);
 	const router = useRouter();
-	const { id } = router.query;
+	// const { id } = router.query;
 
 	async function submitHandler(e) {
 		e.preventDefault();
 		setSubmitting(true);
 		try {
-			const res = await fetch(`/api/get-channel-latest/${id}`);
+			const res = await fetch(`/websockets/${id}`);
 			const json = await res.json();
 			setSubmitting(false);
 			if (!res.ok) throw Error(json.message);

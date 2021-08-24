@@ -67,7 +67,7 @@ export default function ViewChannelPage({ channel, videos }) {
                             <br />
                             {channel.last_updated}
                         </p>
-				        <UpdateChannelForm />
+				        <UpdateChannelForm id={channel.id} />
                     </aside>
                     <article
                         className="flex-grow z-10"

@@ -48,7 +48,7 @@
     "db/extra-setup.js",
     "db/index.ts",
     "server.ts"
-  ],
+, "lib/downloadImage.js", "lib/downloadImages.js", "lib/saveChannelVideos.js"  ],
   "exclude": [
     "node_modules"
   ]

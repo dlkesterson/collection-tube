@@ -1,6 +1,9 @@
 const next = require('next');
 const express = require('express');
 const { models } = require('./db');
+const ytdl = require('ytdl-core');
+const wsServer = require('./lib/websockets');
+const saveChannel = require('./lib/saveChannel');
 // const ytpl = require('ytpl');
 // const Channel = require('./models/channel');
 const http = require('http');
@@ -52,10 +55,104 @@ if (!fs.existsSync('./public/data/')) {
 app.prepare().then(() => {
     // await assertDatabaseConnectionOk();
 
-	expressServer.all('*', (req, res) => {
-		return handle(req, res);
-	});
+    expressServer.get('/download/:id', async function (req, res) {
+        const { id } = req.params;
+        const video = await models.Video.findByPk(id);
+        const updatedVideo = {
+            ...video,
+            downloaded: 1,
+            downloadedAt: Math.floor((new Date()).getTime() / 1000)
+        };
+        const dir = `./public/data/${video.channel_id}`;
+        const videoPath = `${dir}/${video.video_id}.mp4`;
+    
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir);
+        }
 
-    http.createServer(expressServer).listen(ports.http);
+        wsServer.clients.forEach((client) => {
+            console.log('in download video ExpressJS request, ID passed is ' + id);
+            client.send('in download video ExpressJS request, ID passed is ' + id);
+            console.log('downloading video ' + video.video_url);
+            const downloadStream = ytdl(video.video_url);
+            let downloadProgress = 0;
+            let downloadSize = 0;
+        
+            downloadStream.on('response', function (data) {
+                downloadSize = data.headers['content-length'];
+                console.log('download size: ' + data.headers['content-length']);
+            });
+        
+            downloadStream.on('data', function (data) {
+                downloadProgress += data.length;
+                client.send(
+                    `video #${id} is ${(
+                        (downloadProgress / downloadSize) *
+                        100
+                    ).toFixed(2)}% complete\n`
+                );
+            });
+        
+            downloadStream.pipe(fs.createWriteStream(videoPath));
+        
+            downloadStream.on('end', function () {
+                //Do something
+                console.log('\n\ndownload finished!!!!!!!!\n\n');
+        
+                models.Video.update(updatedVideo, {
+                    where: {
+                        id
+                    }
+                });
+        
+                res.status(200).send({ ok: true, message: 'done!' });
+            });
+        });
+    });
+
+    expressServer.get('/websockets/:id', async function (req, res) {
+        const result = await saveChannel(req.params.id);
+        wsServer.clients.forEach((client) => {
+            console.log(
+                'sending message to client from server (random number)'
+            );
+
+            // Note: we add a `time` attribute to help with the UI state management
+            client.send(Math.random() * 100);
+        
+            if (result && result.channel) {
+                client.send('channel: '+ result.channel.channel_url);
+                res.status(200).send(result);
+            } else {
+                res.status(500).send(result);
+            }
+        });
+    });
+
+    expressServer.all('*', (req, res) => {
+        return handle(req, res);
+    });
+
+    // http.createServer(expressServer).listen(ports.http);
+    // https.createServer(options, expressServer).listen(ports.https);
+
+    wsServer.on('connection', (socket) => {
+        console.log('websocket connection!');
+        // console.log(socket);
+        socket.on('message', function incoming(message) {
+            // console.log('received: %s', message);
+
+            // socket.send('helloooooooo from server!');
+        });
+    });
+
+    http.createServer(expressServer)
+        .listen(ports.http)
+        .on('upgrade', (request, socket, head) => {
+            console.log('upgrade event');
+            wsServer.handleUpgrade(request, socket, head, (socket) => {
+                wsServer.emit('connection', socket, request);
+            });
+        });
     https.createServer(options, expressServer).listen(ports.https);
 });

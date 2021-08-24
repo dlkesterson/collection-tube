@@ -4,8 +4,9 @@ import { mutate } from 'swr';
 
 import ButtonLink from '@/components/button-link';
 import Button from '@/components/button';
+import UpdateChannelForm from '@/components/update-channel-form';
 
-function Channel({ id, name, colorprimary, avatar }) {
+function Channel({ id, name, colorprimary, avatar, channel_url }) {
     const [deleting, setDeleting] = useState(false);
     const dotStyles = {
         width: '100px',
@@ -35,7 +36,7 @@ function Channel({ id, name, colorprimary, avatar }) {
         mutate('/api/get-channels');
         setDeleting(false);
     }
-    return (
+    return name && name.length > 0 ? (
         <div className="channel shadow rounded-md p-3">
             <div className="flex items-center">
                 <span style={dotStyles}></span>
@@ -60,6 +61,11 @@ function Channel({ id, name, colorprimary, avatar }) {
                     </Button>
                 </div>
             </div>
+        </div>
+    ) : (
+        <div className="channel shadow rounded-md p-3">
+            <div className="flex items-center">{channel_url}</div>
+            <UpdateChannelForm id={id} />
         </div>
     );
 }

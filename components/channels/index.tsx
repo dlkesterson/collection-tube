@@ -11,6 +11,7 @@ export default function Channels({ channels }) {
                             name={c.name}
                             avatar={c.avatar}
                             colorprimary={c.color_primary}
+                            channel_url={c.channel_url}
                         />
                     </div>
                 ))}
