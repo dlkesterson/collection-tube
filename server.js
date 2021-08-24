@@ -53,8 +53,6 @@ if (!fs.existsSync('./public/data/')) {
 }
 
 app.prepare().then(() => {
-    // await assertDatabaseConnectionOk();
-
     expressServer.get('/download/:id', async function (req, res) {
         const { id } = req.params;
         const video = await models.Video.findByPk(id);
@@ -71,9 +69,6 @@ app.prepare().then(() => {
         }
 
         wsServer.clients.forEach((client) => {
-            console.log(
-                'in download video ExpressJS request, ID passed is ' + id
-            );
             client.send(
                 'in download video ExpressJS request, ID passed is ' + id
             );
@@ -100,7 +95,6 @@ app.prepare().then(() => {
             downloadStream.pipe(fs.createWriteStream(videoPath));
 
             downloadStream.on('end', function () {
-                //Do something
                 console.log('\n\ndownload finished!!!!!!!!\n\n');
 
                 models.Video.update(updatedVideo, {

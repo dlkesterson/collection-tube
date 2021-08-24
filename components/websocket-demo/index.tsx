@@ -13,7 +13,7 @@ export const WebSocketDemo = () => {
         [lastMessage]
     );
 
-    if (messageHistory.current.length > 99) messageHistory.current.length = 99;
+    if (messageHistory.current.length > 99) messageHistory.current.slice(0, 1);
 
     const handleClickChangeSocketUrl = useCallback(
         () => setSocketUrl('wss://echo.websocket.org'),

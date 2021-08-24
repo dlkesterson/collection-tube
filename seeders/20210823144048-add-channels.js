@@ -45,6 +45,18 @@ module.exports = {
                         auto_download: 0,
                         createdAt: new Date(),
                         updatedAt: new Date()
+                },
+                {
+                    channel_url: 'https://www.youtube.com/channel/UCLNgu_OupwoeESgtab33CCw',
+                    auto_download: 0,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                },
+                {
+                    channel_url: 'https://www.youtube.com/c/TailwindLabs',
+                    auto_download: 0,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
                 }
             ],
             {}
