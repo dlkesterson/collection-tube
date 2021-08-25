@@ -138,8 +138,16 @@ app.prepare().then(() => {
         console.log('websocket connection!');
         // console.log(socket);
         socket.on('message', function incoming(message) {
-            // console.log('received: %s', message);
-            // socket.send('helloooooooo from server!');
+            try {
+                const data = JSON.parse(message);
+                console.log('got JSON parsed data:');
+                console.log(data);
+                console.log(data.message);
+            } catch (e) {
+                console.log(`error occurred when receiving client websocket data: ${e.message}`);
+            }
+            console.log('received: %s', message);
+            socket.send(JSON.stringify({ status: 'success', data: { message: 'hello from server' } }));
         });
     });
 
