@@ -118,13 +118,6 @@ app.prepare().then(() => {
     expressServer.get('/websockets/:id', async function (req, res) {
         const result = await saveChannel(req.params.id);
         wsServer.clients.forEach((client) => {
-            console.log(
-                'sending message to client from server (random number)'
-            );
-
-            // Note: we add a `time` attribute to help with the UI state management
-            client.send(Math.random() * 100);
-
             if (result && result.channel) {
                 client.send('channel: ' + result.channel.channel_url);
                 res.status(200).send(result);
@@ -138,13 +131,9 @@ app.prepare().then(() => {
         return handle(req, res);
     });
 
-    // http.createServer(expressServer).listen(ports.http);
-    // https.createServer(options, expressServer).listen(ports.https);
-
     wsServer.on('connection', (socket) => {
         let responseCount = 0;
         console.log('websocket connection!');
-        // console.log(socket);
         socket.on('message', function incoming(message) {
             try {
                 const data = JSON.parse(message);
@@ -156,7 +145,7 @@ app.prepare().then(() => {
                 console.log(`error occurred when receiving client websocket data: ${e.message}`);
             }
             console.log('received: %s', message);
-            socket.send(JSON.stringify({ status: 'success', data: { message: `#${responseCount} rand num: ${Math.random() * 100}` } }));
+            socket.send(JSON.stringify({ status: 'success', data: { message: `#${responseCount} rand num: ${(Math.random() * 100).toFixed(2)}` } }));
         });
     });
 

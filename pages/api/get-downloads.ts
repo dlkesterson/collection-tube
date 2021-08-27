@@ -13,7 +13,6 @@ async function throughDirectory(dir) {
         if (stats.isDirectory()) {
             return throughDirectory(absolute);
         } else if (file.includes('.mp4')) {
-            files.push(dir + '/' + file);
             videolist.push({ 
                 file,
                 path: path.resolve(absolute),
@@ -21,6 +20,7 @@ async function throughDirectory(dir) {
                 video_id: file.slice(0,file.length-4)
             });
         }
+        files.push(dir + '/' + file);
     }
     return {
         files,
@@ -36,6 +36,12 @@ export async function getDownloads() {
         },
         raw: true
     });
+    // const stats = fs.statSync("./public/data/");
+    // const totalFileSize = stats.size;
+
+    // console.log(stats);
+
+    // console.log('total file size: ' + totalFileSize);
 
     // for each download, append file data to the DB data
     videos.map((video, i) => {
@@ -45,7 +51,7 @@ export async function getDownloads() {
         video['file_path'] = videolist[i]['path'];
     })
 
-    return { files, videos };
+    return { videos };
 }
 
 const handler: NextApiHandler = async (_, res) => {

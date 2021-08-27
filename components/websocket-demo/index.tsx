@@ -10,49 +10,23 @@ import useWebSocket, { ReadyState } from 'react-use-websocket';
 export const WebSocketDemo = () => {
     //Public API that will echo messages sent to it back to the client
     const messageHistory = useRef([]);
+    const messageBox = useRef();
+    const endOfMessageBox = useRef();
 
     const { sendMessage, lastJsonMessage, readyState } = useWebSocket(
         'ws://localhost:3080'
     );
 
     useEffect(() => {
-        console.log(
-            'type of messageHistory curent : ' + typeof messageHistory.current
-        );
-        console.log(messageHistory.current);
-        if (messageHistory.current.length > 9) {
-            console.log('messageHistory.current.length > 9');
-            messageHistory.current.shift();
-        }
-
         messageHistory.current.push(lastJsonMessage);
 
-        console.log('length is now: ' + messageHistory.current.length);
+        if (messageHistory.current.length > 9) {
+            messageHistory.current.shift();
+        }
+        if (endOfMessageBox.current) {
+            endOfMessageBox.current.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+        }
     }, [lastJsonMessage]);
-
-    // const memoFunc = () => {
-    //   console.log('lastmessage:');
-    //   console.log(lastJsonMessage);
-    //   console.log('type is: ' + typeof lastJsonMessage);
-    //   console.log('type of messageHistory curent : ' + typeof messageHistory.current);
-    //   console.log(messageHistory.current);
-    //   if (messageHistory.current.length > 10) {
-
-    //     console.log('messageHistory.current.length > 10');
-    //     messageHistory.current.shift();
-    //     // delete messageHistory.current[0];
-    //   }
-
-    //   console.log('length is now: '+ messageHistory.current.length);
-    //   messageHistory.current.push(lastJsonMessage)
-
-    //   return;
-    // };
-
-    // messageHistory.current = useMemo(
-    //     memoFunc,
-    //     [lastJsonMessage]
-    // );
 
     const handleClickSendMessage = useCallback(() => {
         sendMessage(JSON.stringify({ message: 'hello!' }));
@@ -87,10 +61,11 @@ export const WebSocketDemo = () => {
                     Last message: {lastJsonMessage.data.message}
                 </p>
             ) : null}
-            <ul className="flex-grow h-32 overflow-y-auto w-full p-2 my-4 bg-gray-800 text-gray-100 font-mono">
+            <ul ref={messageBox} className="flex-grow h-32 overflow-y-auto w-full p-2 my-4 bg-gray-800 text-gray-100 font-mono">
                 {messageHistory.current.map((message, idx) => (
                     <li key={idx}>{message ? message.data.message : null}</li>
                 ))}
+                <li key={'endOfMessageBox'} ref={endOfMessageBox}></li>
             </ul>
         </div>
     );
