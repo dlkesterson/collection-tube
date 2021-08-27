@@ -35,8 +35,6 @@ export default function Video({
         mutate('/api/get-videos');
         setDeleting(false);
     }
-    console.log('downloaded is ...');
-    console.log(downloaded);
     return (
         <motion.div className="flex flex-col flex-nowrap h-full">
             <div className="relative flex-none shadow hover:shadow-md">

@@ -68,10 +68,14 @@ app.prepare().then(() => {
             fs.mkdirSync(dir);
         }
 
-        wsServer.clients.forEach((client) => {
+        wsServer.clients.forEach((client) => {        
             client.send(
-                'in download video ExpressJS request, ID passed is ' + id
-            );
+                JSON.stringify({ 
+                    status: 'starting', 
+                    data: { 
+                        message: `in download video ExpressJS request, ID passed is: ${id}`
+                    } }));
+
             console.log('downloading video ' + video.video_url);
             const downloadStream = ytdl(video.video_url);
             let downloadProgress = 0;
@@ -85,11 +89,14 @@ app.prepare().then(() => {
             downloadStream.on('data', function (data) {
                 downloadProgress += data.length;
                 client.send(
-                    `video #${id} is ${(
-                        (downloadProgress / downloadSize) *
-                        100
-                    ).toFixed(2)}% complete\n`
-                );
+                    JSON.stringify({ 
+                        status: 'progress', 
+                        data: { 
+                            message: `video #${id} is ${(
+                                (downloadProgress / downloadSize) *
+                                100
+                            ).toFixed(2)}% complete\n`
+                        } }));
             });
 
             downloadStream.pipe(fs.createWriteStream(videoPath));
@@ -135,11 +142,13 @@ app.prepare().then(() => {
     // https.createServer(options, expressServer).listen(ports.https);
 
     wsServer.on('connection', (socket) => {
+        let responseCount = 0;
         console.log('websocket connection!');
         // console.log(socket);
         socket.on('message', function incoming(message) {
             try {
                 const data = JSON.parse(message);
+                responseCount++;
                 console.log('got JSON parsed data:');
                 console.log(data);
                 console.log(data.message);
@@ -147,7 +156,7 @@ app.prepare().then(() => {
                 console.log(`error occurred when receiving client websocket data: ${e.message}`);
             }
             console.log('received: %s', message);
-            socket.send(JSON.stringify({ status: 'success', data: { message: 'hello from server' } }));
+            socket.send(JSON.stringify({ status: 'success', data: { message: `#${responseCount} rand num: ${Math.random() * 100}` } }));
         });
     });
 

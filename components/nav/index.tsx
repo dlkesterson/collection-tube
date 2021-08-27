@@ -1,10 +1,18 @@
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { FiClock, FiDownload, FiSettings, FiYoutube } from 'react-icons/fi';
 
 export default function Nav({
     textColor = 'black',
     className = '',
     inlineStyle = {}
 }) {
+    const spring = {
+        type: "spring",
+        damping: 10,
+        stiffness: 80
+    };
+
     return (
         <nav
             className={`w-full px-4 py-8 z-10${
@@ -14,40 +22,45 @@ export default function Nav({
         >
             <div className="flex justify-between items-center">
                 <Link href="/">
-                    <a
-                        className={`text-xl font-extrabold uppercase tracking-tight opacity-30`}
+                    <motion.a
+                        transition={spring} whileHover={{ scale:1.1 }}
+                        className={`text-xl font-extrabold uppercase opacity-30 cursor-pointer`}
                     >
                         offline.tube
-                    </a>
+                    </motion.a>
                 </Link>
-                <div>
+                <div className="flex flex-row flex-nowrap">
                     <Link href="/channels">
-                        <a
-                            className={`mx-4 text-sm uppercase tracking-wider text-${textColor}`}
+                        <motion.a
+                            transition={spring} whileHover={{ scale:1.2 }}
+                            className={`flex mx-4 cursor-pointer text-xl text-${textColor}`}
                         >
-                            Channels
-                        </a>
+                            <FiYoutube title="Channels" />
+                        </motion.a>
                     </Link>
                     <Link href="/videos">
-                        <a
-                            className={`mx-4 text-sm uppercase tracking-wider text-${textColor}`}
+                        <motion.a
+                            transition={spring} whileHover={{ scale:1.2 }}
+                            className={`flex mx-4 cursor-pointer text-xl text-${textColor}`}
                         >
-                            Videos
-                        </a>
+                            <FiClock title="Latest Videos" />
+                        </motion.a>
                     </Link>
                     <Link href="/downloads">
-                        <a
-                            className={`mx-4 text-sm uppercase tracking-wider text-${textColor}`}
+                        <motion.a
+                            transition={spring} whileHover={{ scale:1.2 }}
+                            className={`flex mx-4 cursor-pointer text-xl text-${textColor}`}
                         >
-                            Downloads
-                        </a>
+                            <FiDownload title="Downloads" />
+                        </motion.a>
                     </Link>
                     <Link href="/settings">
-                        <a
-                            className={`mx-4 text-sm uppercase tracking-wider text-${textColor}`}
+                        <motion.a
+                            transition={spring} whileHover={{ scale:1.2 }}
+                            className={`flex mx-4 cursor-pointer text-xl text-${textColor}`}
                         >
-                            Settings
-                        </a>
+                            <FiSettings title="Settings" />
+                        </motion.a>
                     </Link>
                 </div>
             </div>

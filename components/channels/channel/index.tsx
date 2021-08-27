@@ -40,7 +40,7 @@ function Channel({ id, name, colorprimary, avatar, channel_url }) {
         <div className="channel shadow rounded-md p-3">
             <div className="flex items-center">
                 <span style={dotStyles}></span>
-                <img src={avatar} alt={name} style={avatarStyles} />
+                {avatar && <img src={avatar} alt={name} style={avatarStyles} />}
                 <Link href={`/channel/${id}`}>
                     <a className="font-bold py-2">{name}</a>
                 </Link>
