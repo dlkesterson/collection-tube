@@ -15,7 +15,8 @@ async function throughDirectory(dir) {
         } else if (file.includes('.mp4')) {
             files.push(dir + '/' + file);
             videolist.push({ 
-                file, 
+                file,
+                path: path.resolve(absolute),
                 size: `${(stats.size/(1024*1024)).toFixed(2)}mb`,
                 video_id: file.slice(0,file.length-4)
             });
@@ -41,6 +42,7 @@ export async function getDownloads() {
         video['color'] = video['colors'].split(',')[0];
         video['file_size'] = videolist[i]['size'];
         video['file_name'] = videolist[i]['file'];
+        video['file_path'] = videolist[i]['path'];
     })
 
     return { files, videos };

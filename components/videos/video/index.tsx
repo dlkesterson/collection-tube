@@ -16,6 +16,9 @@ export default function Video({
     channel_id,
     views,
     videoId,
+    fileSize,
+    fileName,
+    filePath,
     // colors,
     published,
     downloaded,
@@ -57,18 +60,9 @@ export default function Video({
                     </Link>
                 )}
             </div>
-            <div className="flex-grow p-2 flex flex-row flex-nowrap">
-                {hideChannelAvatar ? null : (
-                    <div className="flex-none w-7 mr-2">
-                        <Link href={`/video/${id}`}>
-                            <img
-                                src={`/data/${channel_id}/${channel_id}.jpg`}
-                                className="rounded-full"
-                            />
-                        </Link>
-                    </div>
-                )}
-                <div className="flex flex-col space-y-2">
+            <div className="flex-grow p-2 flex flex-col flex-nowrap">
+                <div className="flex flex-row flex-nowrap">
+                    {hideChannelAvatar ? (
                     <div className="text-lg">
                         <Link href={`/video/${id}`}>
                             <a className={`py-2 text-${contrastColor}`}>
@@ -76,9 +70,43 @@ export default function Video({
                             </a>
                         </Link>
                     </div>
-                    <div className="flex flex-col float-right pb-4">
+                    ) : (<>
+                        <div className="flex-none w-7 mr-2">
+                            <Link href={`/video/${id}`}>
+                                <img
+                                    src={`/data/${channel_id}/${channel_id}.jpg`}
+                                    className="rounded-full"
+                                />
+                            </Link>
+                        </div>
+                        <div className="text-lg">
+                            <Link href={`/video/${id}`}>
+                                <a className={`py-2 text-${contrastColor}`}>
+                                    {title}
+                                </a>
+                            </Link>
+                        </div>
+                    </>)}
+                </div>
+                <div className="flex flex-col space-y-1 pb-4">
+                    <div className="flex flex-col float-right">
                         {views && published && `${views} views | ${published}`}
                     </div>
+                    {filePath && (
+                        <div className="text-xs rounded-md bg-gray-400 p-2 text-gray-50 font-mono break-all">
+                            {filePath}
+                        </div>
+                    )}
+                    {fileName && (
+                        <div className="text-gray-500">
+                            {fileName}
+                        </div>
+                    )}
+                    {fileSize && (
+                        <div className="text-sm font-bold">
+                            {fileSize}
+                        </div>
+                    )}
                 </div>
             </div>
         </motion.div>
