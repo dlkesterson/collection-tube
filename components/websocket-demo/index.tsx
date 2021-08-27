@@ -6,6 +6,7 @@ import React, {
     useRef
 } from 'react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
+import { FiActivity } from 'react-icons/fi';
 
 export const WebSocketDemo = () => {
     //Public API that will echo messages sent to it back to the client
@@ -63,7 +64,7 @@ export const WebSocketDemo = () => {
             ) : null}
             <ul ref={messageBox} className="flex-grow h-32 overflow-y-auto w-full p-2 my-4 bg-gray-800 text-gray-100 font-mono">
                 {messageHistory.current.map((message, idx) => (
-                    <li key={idx}>{message ? message.data.message : null}</li>
+                    <li key={idx}><FiActivity className="mr-2 text-green-300 inline"/>{message ? message.data.message : null}</li>
                 ))}
                 <li key={'endOfMessageBox'} ref={endOfMessageBox}></li>
             </ul>
