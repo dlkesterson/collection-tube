@@ -1,25 +1,34 @@
-import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, {
+    useState,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef
+} from 'react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 
 export const WebSocketDemo = () => {
     //Public API that will echo messages sent to it back to the client
     const messageHistory = useRef([]);
 
-    const { sendMessage, lastJsonMessage, readyState } = useWebSocket('ws://localhost:3080');
+    const { sendMessage, lastJsonMessage, readyState } = useWebSocket(
+        'ws://localhost:3080'
+    );
 
     useEffect(() => {
-        console.log('type of messageHistory curent : ' + typeof messageHistory.current);
+        console.log(
+            'type of messageHistory curent : ' + typeof messageHistory.current
+        );
         console.log(messageHistory.current);
         if (messageHistory.current.length > 9) {
-          
-          console.log('messageHistory.current.length > 9');
-          messageHistory.current.shift();
+            console.log('messageHistory.current.length > 9');
+            messageHistory.current.shift();
         }
 
         messageHistory.current.push(lastJsonMessage);
-  
-        console.log('length is now: '+ messageHistory.current.length);
-    }, [lastJsonMessage])
+
+        console.log('length is now: ' + messageHistory.current.length);
+    }, [lastJsonMessage]);
 
     // const memoFunc = () => {
     //   console.log('lastmessage:');
@@ -28,7 +37,7 @@ export const WebSocketDemo = () => {
     //   console.log('type of messageHistory curent : ' + typeof messageHistory.current);
     //   console.log(messageHistory.current);
     //   if (messageHistory.current.length > 10) {
-        
+
     //     console.log('messageHistory.current.length > 10');
     //     messageHistory.current.shift();
     //     // delete messageHistory.current[0];
@@ -46,8 +55,8 @@ export const WebSocketDemo = () => {
     // );
 
     const handleClickSendMessage = useCallback(() => {
-      sendMessage(JSON.stringify({ message: 'hello!' }));
-      // return;
+        sendMessage(JSON.stringify({ message: 'hello!' }));
+        // return;
     }, []);
 
     const connectionStatus = {
@@ -59,16 +68,26 @@ export const WebSocketDemo = () => {
     }[readyState];
 
     return (
-        <div>
+        <div className="flex flex-row flex-wrap">
             <button
+                className="rounded-full bg-gray-500 text-gray-50 hover:bg-gray-600 transition text-sm py-1 px-3 mx-4"
                 onClick={handleClickSendMessage}
                 disabled={readyState !== ReadyState.OPEN}
             >
-                Click Me to send 'Hello'
+                Test Connection
             </button>
-            <span>The WebSocket is currently {connectionStatus}</span>
-            {lastJsonMessage && lastJsonMessage.data ? <span>Last message: {lastJsonMessage.data.message}</span> : null}
-            <ul className="h-32 overflow-y-auto w-full p-2 my-4 bg-gray-800 text-gray-100">
+            <p className="text-sm uppercase text-gray-600 my-2 mx-4 tracking-wide">
+                Status:{' '}
+                <span className="font-bold text-gray-800">
+                    {connectionStatus}
+                </span>
+            </p>
+            {lastJsonMessage && lastJsonMessage.data ? (
+                <p className="text-sm text-gray-800 my-2 mx-4">
+                    Last message: {lastJsonMessage.data.message}
+                </p>
+            ) : null}
+            <ul className="flex-grow h-32 overflow-y-auto w-full p-2 my-4 bg-gray-800 text-gray-100 font-mono">
                 {messageHistory.current.map((message, idx) => (
                     <li key={idx}>{message ? message.data.message : null}</li>
                 ))}
