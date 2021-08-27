@@ -24,10 +24,10 @@ export default function DownloadsPage({ data }) {
                 <h1 className="text-3xl border-b border-gray-300 py-4 my-6">
                     Downloads
                 </h1>
-                {data && data.videos ? (
+                {data && data.videos && data.videos.length ? (
                     <Videos videos={data.videos} contrastColor="black" />
                 ) : (
-                    <p>No videos downloaded yet</p>
+                    <p className="text-center">No videos downloaded yet</p>
                 )}
             </Container>
         </Wrap>

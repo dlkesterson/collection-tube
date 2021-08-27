@@ -2,28 +2,35 @@ import { NextApiHandler } from 'next';
 const sequelize = require('@/db/index.js');
 const path = require('path');
 const fs = require('fs');
-let videolist = [];
-let files  = [];
 
-function throughDirectory(dir) {
+async function throughDirectory(dir) {
+    let videolist = [];
+    let files = [];
+    const filepaths = fs.readdirSync(dir);
     // console.log('through dir: ' + dir);
-    fs.readdirSync(dir).forEach(file => {
+    for (const file of filepaths) {
+    // fs.readdirSync(dir).forEach(file => {
         // console.log(file);
         const absolute = path.join(dir, file);
         if (fs.statSync(absolute).isDirectory()) {
             return throughDirectory(absolute);
         } else if (file.includes('.mp4')) {
-            // console.log('\n\nfile IS A VIDEEEOOOOOO: ' + file);
+            console.log('\n\nfile IS A VIDEEEOOOOOO: ' + file);
             files.push(dir + '/' + file);
             videolist.push(file);
         }
-    });
+    // });
+    }
+    return {
+        files,
+        videolist
+    };
 }
 
 const handler: NextApiHandler = async (_, res) => {
     let files  = [];
     try {
-        throughDirectory("./public/data/");
+        const { files, videolist } = await throughDirectory("./public/data/");
 
         const videoIdList = videolist.map(file => {
             return file.slice(0,file.length-4);
@@ -49,12 +56,12 @@ const handler: NextApiHandler = async (_, res) => {
 export default handler;
 
 export async function getDownloads() {
-    let files  = [];
+    // let files  = [];
         // const channels = sequelize.models.Channel.findAll();
         // return channels;
 
         //joining path of directory 
-        throughDirectory("./public/data/");
+        const { files, videolist } = await throughDirectory("./public/data/");
 
         const videoIdList = videolist.map(file => {
             return file.slice(0,file.length-4);
