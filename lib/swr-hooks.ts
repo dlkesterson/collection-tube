@@ -31,3 +31,13 @@ export function useVideos() {
 export function useVideo(id: string) {
     return useSWR(`/api/get-video?id=${id}`, fetcher)
 }
+
+export function useDownloads() {
+    const { data, error } = useSWR(`/api/get-downloads`, fetcher)
+
+    return {
+        videos: data && data.videos ? data.videos : [],
+        isLoading: !error && !data,
+        isError: error,
+    }
+}
