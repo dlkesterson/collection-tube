@@ -6,7 +6,21 @@ import ButtonLink from '@/components/button-link';
 import Button from '@/components/button';
 import UpdateChannelForm from '@/components/update-channel-form';
 
-function Channel({ id, name, colorprimary, avatar, channel_url }) {
+interface ChannelInterface {
+    id: number;
+    name: string;
+    colorprimary: string;
+    avatar: string;
+    channel_url: string;
+}
+
+function Channel({
+    id,
+    name,
+    colorprimary,
+    avatar,
+    channel_url
+}: ChannelInterface) {
     const [deleting, setDeleting] = useState(false);
     const dotStyles = {
         width: '100px',
