@@ -4,6 +4,7 @@ import Nav from '@/components/nav';
 import Container from '@/components/container';
 import Wrap from '@/components/wrap';
 import Skeleton from 'react-loading-skeleton';
+import { motion } from 'framer-motion';
 
 import Videos from '@/components/videos';
 import { useVideos } from '@/lib/swr-hooks';
@@ -15,12 +16,12 @@ export default function VideosPage() {
         return (
             <Container>
                 <Head>
-                    <title>Videos</title>
+                    <title>Latest Videos</title>
                 </Head>
                 <Nav />
-                <h1 className="text-3xl border-b border-gray-300 py-4 my-6">
-                    Videos
-                </h1>
+                <motion.h1 layoutId="pageTitle" className="text-3xl border-b border-gray-300 py-4 my-6">
+                    Latest Videos
+                </motion.h1>
                 <div className="grid grid-cols-4 gap-4">
                     <div className="flex flex-col flex-nowrap h-full">
                         <div className="relative flex-none shadow hover:shadow-md">
@@ -94,12 +95,12 @@ export default function VideosPage() {
         <Wrap>
         <Container>
             <Head>
-                <title>Videos</title>
+                <title>Latest Videos</title>
             </Head>
             <Nav />
-            <h1 className="text-3xl border-b border-gray-300 py-4 my-6">
-                Videos
-            </h1>
+            <motion.h1 layoutId="pageTitle" className="text-3xl border-b border-gray-300 py-4 my-6">
+                Latest Videos
+            </motion.h1>
             <Videos videos={videos} contrastColor="black" />
         </Container>
         </Wrap>

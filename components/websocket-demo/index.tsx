@@ -24,7 +24,11 @@ export const WebSocketDemo = () => {
         if (messageHistory.current.length > 9) {
             messageHistory.current.shift();
         }
-        endOfMessageBox?.current?.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+        endOfMessageBox?.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+            inline: 'nearest'
+        });
     }, [lastJsonMessage]);
 
     const handleClickSendMessage = useCallback(() => {
@@ -60,10 +64,19 @@ export const WebSocketDemo = () => {
                     Last message: {lastJsonMessage.data.message}
                 </p>
             ) : null}
-            <ul ref={messageBox} className="flex-grow h-32 overflow-y-auto w-full p-2 my-4 bg-gray-800 text-gray-100 font-mono">
-                {messageHistory.current && messageHistory.current.map((message, idx) => (
-                    <li key={idx}><FiActivity className="mr-2 text-green-300 inline"/>{message && message.data ? message.data.message : null}</li>
-                ))}
+            <ul
+                ref={messageBox}
+                className="flex-grow h-32 overflow-y-auto w-full p-2 my-4 bg-gray-800 text-gray-100 font-mono"
+            >
+                {messageHistory.current &&
+                    messageHistory.current.map((message, idx) => (
+                        <li key={idx}>
+                            <FiActivity className="mr-2 text-green-300 inline" />
+                            {message && message.data
+                                ? message.data.message
+                                : null}
+                        </li>
+                    ))}
                 <li key={'endOfMessageBox'} ref={endOfMessageBox}></li>
             </ul>
         </div>

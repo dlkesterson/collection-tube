@@ -6,6 +6,7 @@ import Wrap from '@/components/wrap';
 import Skeleton from 'react-loading-skeleton';
 import ButtonLink from '@/components/button-link';
 import { FiPlus } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 
 import Channels from '@/components/channels';
 import { useChannels } from '@/lib/swr-hooks';
@@ -42,12 +43,12 @@ export default function ChannelsPage() {
                 </Head>
                 <Nav />
                 <div className="w-full flex p-4 flex-column flex-nowrap space-y-4 z-10">
-                    <h1 className="flex-grow text-3xl border-b border-gray-300 py-4 my-6">
+                    <motion.h1 layoutId="pageTitle" className="flex-grow text-3xl border-b border-gray-300 py-4 my-6">
                         Channels{' '}
                         {channels.length > 1
                             ? `(${channels.length})`
                             : undefined}
-                    </h1>
+                    </motion.h1>
                     <ButtonLink
                         className="self-center ml-4 my-4"
                         href="/channel/add"
