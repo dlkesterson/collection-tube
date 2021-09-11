@@ -11,12 +11,14 @@ import VideoPlayer from '@/components/video-player';
 
 export default function ViewVideoPage({ data }) {
     if (data && data.colors) {
+        const firstColor = data.colors.split(',')[0];
+        const firstColorContrast = `text-${getContrast(firstColor)}`;
         return (
-            <Wrap>
+            <Wrap inlineStyle={{ backgroundColor: firstColor }}>
                 <Head>
                     <title>{data.title}</title>
                 </Head>
-                <Nav />
+                <Nav textColor={`${getContrast(firstColor)}`} className={`${firstColorContrast}`} />
                 <div className="w-full flex flex-col flex-nowrap space-x-8 z-10">
                     <article className="bg-gray-900 flex-grow z-10">
                         {data.video_id && (
@@ -47,7 +49,7 @@ export default function ViewVideoPage({ data }) {
                         )}
                     </article>
                     <Container className="flex-col w-full px-2 py-2">
-                        <h1 className={`font-bold text-3xl text-black my-8`}>
+                        <h1 className={`font-bold text-3xl ${firstColorContrast} my-8`}>
                             <Link href={`/channel/${data.channel_id}`}>
                                 <img
                                     src={`/data/${data.channel_id}/${data.channel_id}.jpg`}

@@ -5,8 +5,16 @@ import React, {
     useMemo,
     useRef
 } from 'react';
+import { motion } from 'framer-motion';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { FiActivity } from 'react-icons/fi';
+
+const spring = {
+    type: "easeIn",
+    damping: 10,
+    stiffness: 100,
+    duration: 0.3
+}
 
 export const WebSocketDemo = () => {
     //Public API that will echo messages sent to it back to the client
@@ -45,7 +53,12 @@ export const WebSocketDemo = () => {
     }[readyState];
 
     return (
-        <div className="flex flex-row flex-wrap">
+        <motion.div
+            transition={spring}
+            initial={{ opacity: 0.5 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="flex flex-row flex-wrap mt-2">
             <button
                 className="rounded-full bg-gray-500 text-gray-50 hover:bg-gray-600 transition text-sm py-1 px-3 mx-4"
                 onClick={handleClickSendMessage}
@@ -66,7 +79,7 @@ export const WebSocketDemo = () => {
             ) : null}
             <ul
                 ref={messageBox}
-                className="flex-grow h-32 overflow-y-auto w-full p-2 my-4 bg-gray-800 text-gray-100 font-mono"
+                className="flex-grow h-32 overflow-y-auto divide-y divide-gray-500 w-full p-2 mt-2 bg-gray-800 text-gray-100 font-mono"
             >
                 {messageHistory.current &&
                     messageHistory.current.map((message, idx) => (
@@ -79,6 +92,6 @@ export const WebSocketDemo = () => {
                     ))}
                 <li key={'endOfMessageBox'} ref={endOfMessageBox}></li>
             </ul>
-        </div>
+        </motion.div>
     );
 };
