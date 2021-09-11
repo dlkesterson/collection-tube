@@ -1,13 +1,44 @@
 version: '3'
 services:
   nextjs:
+    stdin_open: true
     build:
-      context: ./ytdl-gui-v2
-      dockerfile: dockerfile
+      context: ./
+      dockerfile: Dockerfile
     ports:
-      - 3000:3000
+      - 3080:3080
     volumes:
-       - ./ytdl-gui-v2:/mnt/c/Code/ytdl-gui-v2
+       - ./:/mnt/c/Code/ytdl-gui-v2
        - /mnt/c/Code/ytdl-gui-v2/node_modules
-    env_file:
-      - .env.local
+    # env_file:
+    #   - .env.local
+
+
+  
+# version: "2"
+# services:
+#     ytdl_material:
+#         environment: 
+#             ALLOW_CONFIG_MUTATIONS: 'true'
+#             ytdl_mongodb_connection_string: 'mongodb://ytdl-mongo-db:27017'
+#             ytdl_use_local_db: 'false'
+#             write_ytdl_config: 'true'
+#         restart: always
+#         volumes:
+#             - ./appdata:/app/appdata
+#             - ./audio:/app/audio
+#             - ./video:/app/video
+#             - ./subscriptions:/app/subscriptions
+#             - ./users:/app/users
+#         ports:
+#             - "8998:17442"
+#         image: tzahi12345/youtubedl-material:latest
+#     ytdl-mongo-db:
+#         image: mongo
+#         ports:
+#             - "27017:27017"
+#         logging:
+#             driver: "none"          
+#         container_name: mongo-db
+#         volumes:
+#             - ./db/:/data/db
