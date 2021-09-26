@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:16
 ENV PORT 3080
 
 WORKDIR /mnt/c/Code/ytdl-gui-v2
