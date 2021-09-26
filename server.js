@@ -132,7 +132,7 @@ app.prepare().then(() => {
     });
 
     wsServer.on('connection', (socket) => {
-        let responseCount = 0;
+        let responseCount = 1;
         console.log('websocket connection!');
         socket.on('message', function incoming(message) {
             try {
