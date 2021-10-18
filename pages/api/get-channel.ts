@@ -5,6 +5,7 @@ const handler: NextApiHandler = async (req, res) => {
     const { id } = req.body
     try {
         return models.Channel.findByPk(id)
+            // TODO: format for status & data props
             .then((channels) => res.json(channels))
             .catch((err) => {
                 console.log('There was an error querying channels', JSON.stringify(err))
@@ -43,6 +44,7 @@ export const getChannel = async (id) => {
     }
 
     if (channel) {
+        // TODO: format for status & data props
         return {
             channel,
             videos: channelVideos
@@ -51,13 +53,12 @@ export const getChannel = async (id) => {
 };
 
 export const getAllChannels = async (id) => {
-
-    console.log('id is ' + id);
-
     const channels = await models.Channel.findByPk(id);
     if (channels) {
+        // TODO: format for status & data props
         return channels;
     } else {
+        // TODO: format for status & data props
         return { error: '404 - Not found' };
     }
 };
