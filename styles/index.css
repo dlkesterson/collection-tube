@@ -45,6 +45,26 @@ body {
 .channel {
     background-color: #fff;
 }
+.video-details {
+    display: grid;
+    grid-template:
+      "h h h h" 80px
+      "c c c s" auto
+      / 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+}
+  
+.video-details__header {
+    grid-area: h;
+}
+  
+.video-details__content {
+    grid-area: c;
+  }
+  
+.video-details__sidebar {
+    grid-area: s;
+}
 
 /* Start purging... */
 @tailwind utilities;

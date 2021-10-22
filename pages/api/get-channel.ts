@@ -1,5 +1,7 @@
 import { NextApiHandler } from 'next';
 const { models } = require('@/db');
+const fs = require('fs');
+const downloadImage = require('@/lib/downloadImage');
 
 const handler: NextApiHandler = async (req, res) => {
     const { id } = req.body
@@ -44,6 +46,17 @@ export const getChannel = async (id) => {
     }
 
     if (channel) {
+        const thumbnailPath = `/public/data/${channel.channel_id}/${channel.channel_id}.jpg`;
+        console.log('checking for channel image: ' + thumbnailPath);
+
+        // check if thumbnail image is downloaded
+        if (!fs.existsSync(thumbnailPath)) {
+            console.log('detected no thumbnail! now downloading thumbnail');
+            await downloadImage(channel.avatar, `${channel.channel_id}`, `${channel.channel_id}`);
+            console.log('finished downloading thumbnail');
+        } else {
+            console.log('code thinks thumbnail image already exists');
+        }
         // TODO: format for status & data props
         return {
             channel,

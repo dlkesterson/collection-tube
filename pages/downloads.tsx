@@ -147,24 +147,24 @@ export default function DownloadsPage() {
                 </Container>
             </Wrap>
         );
+    } else {
+        return (
+            <Wrap>
+                <Container>
+                    <Head>
+                        <title>Downloads</title>
+                    </Head>
+                    <Nav />
+                    <h1 className="text-3xl border-b border-gray-300 py-4 my-6">
+                        Downloads
+                    </h1>
+                    {videos && videos.length ? (
+                        <Videos videos={videos} contrastColor="black" />
+                    ) : (
+                        <p className="text-center">No videos downloaded yet</p>
+                    )}
+                </Container>
+            </Wrap>
+        );
     }
-
-    return (
-        <Wrap>
-            <Container>
-                <Head>
-                    <title>Downloads</title>
-                </Head>
-                <Nav />
-                <h1 className="text-3xl border-b border-gray-300 py-4 my-6">
-                    Downloads
-                </h1>
-                {videos && videos.length ? (
-                    <Videos videos={videos} contrastColor="black" />
-                ) : (
-                    <p className="text-center">No videos downloaded yet</p>
-                )}
-            </Container>
-        </Wrap>
-    );
 }

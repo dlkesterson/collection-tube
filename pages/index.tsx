@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+// import styles from '../styles/Home.module.css';
 import Skeleton from 'react-loading-skeleton';
 
 import Nav from '@/components/nav';

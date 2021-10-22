@@ -2,9 +2,10 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { mutate } from 'swr';
 
-import ButtonLink from '@/components/button-link';
+// import ButtonLink from '@/components/button-link';
 import Button from '@/components/button';
 import UpdateChannelForm from '@/components/update-channel-form';
+import { FiTrash2 } from 'react-icons/fi';
 
 interface ChannelInterface {
     id: number;
@@ -60,18 +61,12 @@ function Channel({
                 </Link>
 
                 <div className="flex ml-4">
-                    <ButtonLink
-                        href={`/channel/edit/${id}`}
-                        className="h-5 py-0 mx-1"
-                    >
-                        Edit
-                    </ButtonLink>
                     <Button
                         disabled={deleting}
                         onClick={deleteChannel}
-                        className="h-5 py-0 mx-1"
+                        className="h-6 py-0 mx-1"
                     >
-                        {deleting ? 'Deleting ...' : 'Delete'}
+                        {deleting ? 'Deleting ...' : <FiTrash2 className="text-red-300 inline" />}
                     </Button>
                 </div>
             </div>

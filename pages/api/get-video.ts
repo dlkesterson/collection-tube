@@ -1,8 +1,11 @@
+
+const fs = require('fs');
 import { NextApiHandler } from 'next';
 import ytdl from 'ytdl-core';
 const sequelize = require('@/db');
 const { models } = require('@/db');
-import saveChannelVideos from '@/lib/saveChannelVideos';
+const downloadImage = require('@/lib/downloadImage');
+// import saveChannelVideos from '@/lib/saveChannelVideos';
 
 const handler: NextApiHandler = async (req, res) => {
     let { id } = req.body;
@@ -21,10 +24,8 @@ const handler: NextApiHandler = async (req, res) => {
         }
 
         if (video.description) {
-            console.log('video had a description: ' + video.description);
             res.json(video);
         } else {
-            console.log('no video description found');
             try {
                 transaction = await sequelize.transaction();
                 const info = await ytdl.getInfo(video.video_url);
@@ -67,13 +68,43 @@ export const getVideo = async (id) => {
     const video = await models.Video.findByPk(id);
     let transaction;
 
-
     if (video) {
-        console.log(video);
+        const channelThumbnailPath = `./public/data/${video.channel_id}/${video.channel_id}.jpg`;
+        const videoThumbnailPath = `./public/data/${video.channel_id}/${video.video_id}.jpg`;
+        // fetch info via ytdl
         const info = await ytdl.getInfo(video.video_url);
+
+        // check if thumbnail image is downloaded
+        if (!fs.existsSync(channelThumbnailPath)) {
+            const { avatar } = await models.Channel.findOne({ where: { channel_id: video.channel_id } })
+            await downloadImage(avatar, `${video.channel_id}`, `${video.channel_id}`);
+        }
+        if (!fs.existsSync(videoThumbnailPath)) {
+            await downloadImage(video.thumbnail, `${video.channel_id}`, `${video.video_id}`);
+        }
+        // videoId: 'GE2eGGiwx9s',
+        // title: 'KILL TONY #510 - ALEX JONES',
+        // lengthSeconds: '6971',
+        // keywords: [Array],
+        // channelId: 'UCwzCMiicL-hBUzyjWiJaseg',
+        // isOwnerViewing: false,
+        // shortDescription: 'Alex Jones, Joe Rogan, Duncan Trussell, William Montgomery, Zac Bogus, Michael Lehrer, Matthew Muehling, Michael A. Gonzales, Yoni, Tony Hinchcliffe, Brian Redban – 06/07/2021',
+        // isCrawlable: true,
+        // thumbnail: [Object],
+        // averageRating: 4.8401895,
+        // allowRatings: true,
+        // viewCount: '496720',
+        // author: 'Kill Tony',
+        // isLowLatencyLiveStream: false,
+        // isPrivate: false,
+        // isUnpluggedCorpus: false,
+        // latencyClass: 'MDE_STREAM_OPTIMIZATIONS_RENDERER_LATENCY_NORMAL',
+        // isLiveContent: false
+
         if (video.description) {
             // we have data, return it to client
             video['related'] = info.related_videos;
+            video['keywords'] = info.videoDetails.keywords;
             // TODO: format for status & data props
             return video;
         } else {
@@ -98,14 +129,16 @@ export const getVideo = async (id) => {
                     err => err ? console.log(err) : null
                 );
                     
-                    await transaction.commit();
+                await transaction.commit();
 
-                    updatedVideo['related'] = info.related_videos;
+                updatedVideo['related'] = info.related_videos;
 
-                    // TODO: format for status & data props
-                    return updatedVideo;
+                // TODO: format for status & data props
+                return updatedVideo;
             } catch (e) {
                 console.log('error occurred', e);
+
+                video['related'] = info.related_videos;
 
                 // TODO: format for status & data props
                 return video;
