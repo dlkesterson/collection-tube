@@ -48,7 +48,7 @@ body {
 .video-details {
     display: grid;
     grid-template:
-      "h h h h" 80px
+      "h h h h" auto
       "c c c s" auto
       / 1fr 1fr 1fr 1fr;
     grid-gap: 5px;
