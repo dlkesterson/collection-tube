@@ -12,6 +12,9 @@ import Wrap from '@/components/wrap';
 import Nav from '@/components/nav';
 import DownloadVideoForm from '@/components/download-video-form';
 import VideoPlayer from '@/components/video-player';
+import { GetStaticProps, GetStaticPaths } from 'next';
+import { useVideos } from '@/lib/swr-hooks';
+import { getAllVideoPaths } from '@/api/get-videos';
 
 extend([harmoniesPlugin]);
 
@@ -211,12 +214,19 @@ export default function ViewVideoPage({ data }) {
         </Wrap>
     </>);
 }
-export async function getServerSideProps(context) {
-    // Fetch data from external API
-    console.log('using id: ' + context.params.id);
-    const res = await getVideo(context.params.id);
+
+// This function gets called at build time
+export const getStaticPaths: GetStaticPaths = async () => {
+    const paths = await getAllVideoPaths();
+    return { paths, fallback: `blocking` }
+}
+
+// This also gets called at build time
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+    const res = await getVideo(params.id);
+    // parse/stringify for deep cloning the response
+    console.log('inside getStaticProps()');
     const data = await JSON.parse(JSON.stringify(res));
 
-    // Pass data to the page via props
-    return { props: { data } };
+    return { props: { data }, revalidate: 60 };
 }
