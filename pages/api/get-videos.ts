@@ -17,3 +17,35 @@ const handler: NextApiHandler = async (_, res) => {
 }
 
 export default handler
+
+export const getVideos = async () => {
+    let videos = await models.Video.findAll();
+    
+    videos = videos.map(video => {
+        return video.dataValues
+    });
+
+    if (videos) {
+        console.log('found videos, count: ' + videos.length);
+        console.log('first vid from backend:');console.log(videos[0]);
+        return videos;
+    } else {
+        return { error: '404 - Not found' };
+    }
+};
+
+export const getAllVideoIDs = async () => {
+    const videos = await models.Video.findAll();
+    const videoIDs = videos.filter(v => { return v.id });
+    console.log(`found ${videoIDs.length} ids`);
+    return videoIDs;
+};
+
+export const getAllVideoPaths = async () => {
+    const videos = await getAllVideoIDs();
+    let paths = [];
+    for (let video of videos) {
+        paths.push({ params: { id: String(video.id) } } );
+    }
+    return paths;
+}
