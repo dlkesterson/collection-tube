@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npx ts-node --project tsconfig.server.json server.ts",
-    "build": "next build",
+    "ts-dev": "npx ts-node --project tsconfig.server.json server.ts",
+    "build": "npx next build",
     "start": "node server.js",
     "migrate": "node scripts/migrate-db.js"
   },
