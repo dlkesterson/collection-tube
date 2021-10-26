@@ -15,7 +15,7 @@ export default function Nav({
 
     return (
         <nav
-            className={`w-full px-4 py-8 z-10${
+            className={`w-full px-4 py-4 z-10${
                 className ? ' ' + className : ''
             }`}
             style={inlineStyle ? inlineStyle : {}}
@@ -24,7 +24,7 @@ export default function Nav({
                 <Link href="/">
                     <motion.a
                         transition={spring} whileHover={{ scale:1.1 }}
-                        className={`text-xl font-extrabold uppercase opacity-30 cursor-pointer`}
+                        className={`text-xl font-extrabold uppercase opacity-50 cursor-pointer`}
                     >
                         offline.tube
                     </motion.a>
