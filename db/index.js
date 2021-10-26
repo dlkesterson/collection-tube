@@ -2,7 +2,8 @@ const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize({
     dialect: "sqlite",
-    storage: "./database.sqlite3"
+    storage: "./database.sqlite3",
+    raw: true, // avoids having to append everything with ".dataValues"
 });
 
 const modelDefiners = [
