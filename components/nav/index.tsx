@@ -12,6 +12,8 @@ export default function Nav({
         damping: 10,
         stiffness: 80
     };
+    const homeLinkStyle = `text-xl font-extrabold uppercase opacity-50 cursor-pointer`;
+    const navLinkStyle = `flex mx-4 transition duration-500 transform hover:scale-125 cursor-pointer text-xl text-${textColor}`;
 
     return (
         <nav
@@ -22,45 +24,30 @@ export default function Nav({
         >
             <div className="flex justify-between items-center">
                 <Link href="/">
-                    <motion.a
-                        transition={spring} whileHover={{ scale:1.1 }}
-                        className={`text-xl font-extrabold uppercase opacity-50 cursor-pointer`}
-                    >
+                    <a className={homeLinkStyle}>
                         offline.tube
-                    </motion.a>
+                    </a>
                 </Link>
                 <div className="flex flex-row flex-nowrap">
                     <Link href="/channels">
-                        <motion.a
-                            transition={spring} whileHover={{ scale:1.2 }}
-                            className={`flex mx-4 cursor-pointer text-xl text-${textColor}`}
-                        >
-                            <FiYoutube title="Channels" />
-                        </motion.a>
+                        <a className={navLinkStyle}>
+                            <FiYoutube className="pointer-events-none" title="Channels" />
+                        </a>
                     </Link>
                     <Link href="/videos">
-                        <motion.a
-                            transition={spring} whileHover={{ scale:1.2 }}
-                            className={`flex mx-4 cursor-pointer text-xl text-${textColor}`}
-                        >
-                            <FiClock title="Latest Videos" />
-                        </motion.a>
+                        <a className={navLinkStyle}>
+                            <FiClock className="pointer-events-none" title="Latest Videos" />
+                        </a>
                     </Link>
                     <Link href="/downloads">
-                        <motion.a
-                            transition={spring} whileHover={{ scale:1.2 }}
-                            className={`flex mx-4 cursor-pointer text-xl text-${textColor}`}
-                        >
-                            <FiDownload title="Downloads" />
-                        </motion.a>
+                        <a className={navLinkStyle}>
+                            <FiDownload className="pointer-events-none" title="Downloads" />
+                        </a>
                     </Link>
                     <Link href="/settings">
-                        <motion.a
-                            transition={spring} whileHover={{ scale:1.2 }}
-                            className={`flex mx-4 cursor-pointer text-xl text-${textColor}`}
-                        >
-                            <FiSettings title="Settings" />
-                        </motion.a>
+                        <a className={navLinkStyle}>
+                            <FiSettings className="pointer-events-none" title="Settings" />
+                        </a>
                     </Link>
                 </div>
             </div>
