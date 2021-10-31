@@ -34,17 +34,11 @@ export const getVideos = async () => {
     }
 };
 
-export const getAllVideoIDs = async () => {
-    const videos = await models.Video.findAll();
-    const videoIDs = videos.filter(v => { return v.id });
-    console.log(`found ${videoIDs.length} ids`);
-    return videoIDs;
-};
-
 export const getAllVideoPaths = async () => {
-    const videos = await getAllVideoIDs();
+    const videos = await models.Video.findAll();
+    const videoIDs = videos.filter(v => { v.id });;
     let paths = [];
-    for (let video of videos) {
+    for (let video of videoIDs) {
         paths.push({ params: { id: String(video.id) } } );
     }
     return paths;
