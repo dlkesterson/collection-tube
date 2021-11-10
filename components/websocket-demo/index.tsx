@@ -1,8 +1,8 @@
 import React, {
     useState,
-    useCallback,
+    // useCallback,
     useEffect,
-    useMemo,
+    // useMemo,
     useRef
 } from 'react';
 import { motion } from 'framer-motion';
@@ -10,15 +10,14 @@ import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { FiActivity } from 'react-icons/fi';
 
 const spring = {
-    type: "easeIn",
+    type: 'easeIn',
     damping: 10,
     stiffness: 100,
     duration: 0.3
-}
+};
 
 export const WebSocketDemo = () => {
-    //Public API that will echo messages sent to it back to the client
-    const messageHistory = useRef([]);
+    const [messageHistory, setMessageHistory] = useState([]);
     const messageBox = useRef();
     const endOfMessageBox = useRef(null);
 
@@ -27,22 +26,27 @@ export const WebSocketDemo = () => {
     );
 
     useEffect(() => {
-        messageHistory.current.push(lastJsonMessage);
-
-        if (messageHistory.current.length > 9) {
-            messageHistory.current.shift();
+        if (lastJsonMessage !== null) {
+            setMessageHistory((prev) => prev.concat(lastJsonMessage));
         }
-        endOfMessageBox?.current?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'end',
-            inline: 'nearest'
-        });
-    }, [lastJsonMessage]);
+    }, [lastJsonMessage, setMessageHistory]);
 
-    const handleClickSendMessage = useCallback(() => {
+    // useEffect(() => {
+    //     messageHistory.current.push(lastJsonMessage);
+
+    //     if (messageHistory.current.length > 9) {
+    //         messageHistory.current.shift();
+    //     }
+    //     endOfMessageBox?.current?.scrollIntoView({
+    //         behavior: 'smooth',
+    //         block: 'end',
+    //         inline: 'nearest'
+    //     });
+    // }, [lastJsonMessage]);
+
+    const handleClickSendMessage = () => {
         sendMessage(JSON.stringify({ message: 'hello!' }));
-        // return;
-    }, []);
+    };
 
     const connectionStatus = {
         [ReadyState.CONNECTING]: 'Connecting',
@@ -52,15 +56,23 @@ export const WebSocketDemo = () => {
         [ReadyState.UNINSTANTIATED]: 'Uninstantiated'
     }[readyState];
 
+    const messageBoxStyles = `flex-grow h-32 overflow-y-auto 
+        divide-y divide-gray-500 w-full p-2 mt-2 bg-gray-800 
+        text-gray-100 font-mono`;
+    const messageTestButtonStyles = `rounded-full bg-gray-500 
+        text-gray-50 hover:bg-gray-600 transition text-sm py-1 
+        px-3 mx-4`;
+    
     return (
         <motion.div
             transition={spring}
             initial={{ opacity: 0.5 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex flex-row flex-wrap mt-2">
+            className="flex flex-row flex-wrap mt-2"
+        >
             <button
-                className="rounded-full bg-gray-500 text-gray-50 hover:bg-gray-600 transition text-sm py-1 px-3 mx-4"
+                className={messageTestButtonStyles}
                 onClick={handleClickSendMessage}
                 disabled={readyState !== ReadyState.OPEN}
             >
@@ -77,19 +89,13 @@ export const WebSocketDemo = () => {
                     Last message: {lastJsonMessage.data.message}
                 </p>
             ) : null}
-            <ul
-                ref={messageBox}
-                className="flex-grow h-32 overflow-y-auto divide-y divide-gray-500 w-full p-2 mt-2 bg-gray-800 text-gray-100 font-mono"
-            >
-                {messageHistory.current &&
-                    messageHistory.current.map((message, idx) => (
-                        <li key={idx}>
-                            <FiActivity className="mr-2 text-green-300 inline" />
-                            {message && message.data
-                                ? message.data.message
-                                : null}
-                        </li>
-                    ))}
+            <ul ref={messageBox} className={messageBoxStyles}>
+                {messageHistory.map((message, idx) => (
+                    <li key={idx}>
+                        <FiActivity className="mr-2 text-green-300 inline" />
+                        {message && message.data ? message.data.message : null}
+                    </li>
+                ))}
                 <li key={'endOfMessageBox'} ref={endOfMessageBox}></li>
             </ul>
         </motion.div>

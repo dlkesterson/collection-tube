@@ -68,6 +68,8 @@ app.prepare().then(() => {
             fs.mkdirSync(dir);
         }
 
+        console.log(wsServer.clients);
+
         wsServer.clients.forEach((client) => {        
             client.send(
                 JSON.stringify({ 

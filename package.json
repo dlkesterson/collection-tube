@@ -40,7 +40,8 @@
     "video.js": "^7.14.3",
     "ws": "^8.2.0",
     "ytdl-core": "^4.9.1",
-    "ytpl": "^2.2.3"
+    "ytpl": "^2.2.3",
+    "ytsr": "^3.5.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
