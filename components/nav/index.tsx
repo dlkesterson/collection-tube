@@ -17,7 +17,7 @@ export default function Nav({
 
     return (
         <nav
-            className={`w-full px-4 py-4 z-10${
+            className={`w-full px-3 py-3 z-10${
                 className ? ' ' + className : ''
             }`}
             style={inlineStyle ? inlineStyle : {}}
