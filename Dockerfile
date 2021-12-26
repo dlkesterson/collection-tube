@@ -1,5 +1,5 @@
 FROM node:16
-ENV PORT 3080
+ENV PORT 3091
 
 WORKDIR /mnt/c/Code/ytdl-gui-v2
 
@@ -11,7 +11,7 @@ COPY . /mnt/c/Code/ytdl-gui-v2
 
 # Building app
 RUN npm run build
-EXPOSE 3080
+EXPOSE 3091
 
 # Running the app
 CMD "node" "server.js"

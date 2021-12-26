@@ -21,7 +21,7 @@ body {
 	animation: gradient 15s ease infinite;
 }
  */
-.channel-bg {
+.subscription-bg {
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
 }
@@ -42,7 +42,7 @@ body {
 /* Stop purging. */
 
 /* Write your own custom component styles here */
-.channel {
+.subscription {
     background-color: #fff;
 }
 .video-details {

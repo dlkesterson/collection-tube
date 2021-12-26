@@ -8,21 +8,21 @@ import ButtonLink from '@/components/button-link';
 import { FiPlus } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 
-import Channels from '@/components/channels';
-import { useChannels } from '@/lib/swr-hooks';
+import Subscriptions from '@/components/subscriptions';
+import { useSubscriptions } from '@/lib/swr-hooks';
 
-export default function ChannelsPage() {
-    const { channels, isLoading } = useChannels();
+export default function SubscriptionsPage() {
+    const { subscriptions, isLoading } = useSubscriptions();
 
     if (isLoading) {
         return (
             <Wrap>
                 <Container>
                     <Head>
-                        <title>Channels</title>
+                        <title>Subscriptions</title>
                     </Head>
                     <Nav />
-                    <h1 className="text-3xl my-6">Channels</h1>
+                    <h1 className="text-3xl my-6">Subscriptions</h1>
                     <Skeleton circle={true} height={50} width={50} />
                     <Skeleton width={180} height={24} />
                     <Skeleton height={48} />
@@ -39,26 +39,26 @@ export default function ChannelsPage() {
         <Wrap>
             <Container>
                 <Head>
-                    <title>Channels</title>
+                    <title>Subscriptions</title>
                 </Head>
                 <Nav />
                 <div className="w-full flex p-4 flex-column flex-nowrap space-y-4 z-10">
                     <motion.h1 layoutId="pageTitle" className="flex-grow text-3xl border-b border-gray-300 py-4 my-6">
-                        Channels{' '}
-                        {channels.length > 1
-                            ? `(${channels.length})`
+                        Subscriptions{' '}
+                        {subscriptions && subscriptions.length > 1
+                            ? `(${subscriptions.length})`
                             : undefined}
                     </motion.h1>
                     <ButtonLink
                         className="self-center ml-4 my-4"
-                        href="/channel/add"
+                        href="/subscription/add"
                     >
                         <FiPlus className="text-white text-xl inline mr-2" />
-                        Add Channel
+                        Add Subscription
                     </ButtonLink>
                 </div>
 
-                <Channels channels={channels} />
+                <Subscriptions subscriptions={subscriptions} />
             </Container>
         </Wrap>
     );

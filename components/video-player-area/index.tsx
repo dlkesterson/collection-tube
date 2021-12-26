@@ -1,6 +1,6 @@
 import VideoPlayer from '@/components/video-player';
 
-export default function VideoPlayerArea({ downloaded, channel_id, video_id }) {
+export default function VideoPlayerArea({ downloaded, subscription_id, video_id }) {
     return (
         <article className="bg-gray-900 flex-grow z-10">
             <div className="aspect-w-16 aspect-h-9">
@@ -12,7 +12,7 @@ export default function VideoPlayerArea({ downloaded, channel_id, video_id }) {
                             fluid: true,
                             sources: [
                                 {
-                                    src: `/data/${channel_id}/${video_id}.mp4`,
+                                    src: `/data/${subscription_id}/${video_id}.mp4`,
                                     type: 'video/mp4'
                                 }
                             ]

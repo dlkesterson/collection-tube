@@ -13,7 +13,7 @@ interface VideoInterface {
     title: string;
     thumbnail: string;
     duration: string;
-    channel_id: string;
+    subscription_id: string;
     views: number;
     videoId: string;
     fileSize: string;
@@ -22,7 +22,7 @@ interface VideoInterface {
     published: number;
     downloaded: number;
     contrastColor: string;
-    hideChannelAvatar: boolean;
+    hideSubscriptionAvatar: boolean;
 }
 
 export default function Video({
@@ -31,7 +31,7 @@ export default function Video({
     thumbnail,
     duration,
     // video_url,
-    channel_id,
+    subscription_id,
     views,
     videoId,
     fileSize,
@@ -42,7 +42,7 @@ export default function Video({
     downloaded,
     // layoutId,
     contrastColor,
-    hideChannelAvatar
+    hideSubscriptionAvatar
 }: VideoInterface) {
     const [deleting, setDeleting] = useState(false);
 
@@ -70,7 +70,7 @@ export default function Video({
                 {thumbnail && (
                     <Link href={`/video/${id}`}>
                         <img
-                            src={`/data/${channel_id}/${videoId}.jpg`}
+                            src={`/data/${subscription_id}/${videoId}.jpg`}
                             className="w-full rounded-sm cursor-pointer"
                             title={title}
                             alt={title}
@@ -80,10 +80,10 @@ export default function Video({
             </div>
             <div className="flex-grow p-2 flex flex-col flex-nowrap">
                 <div className="flex flex-row flex-nowrap">
-                    {hideChannelAvatar ? (
+                    {hideSubscriptionAvatar ? (
                         <div className="text-lg">
                             <Link href={`/video/${id}`}>
-                                <a className={`py-2 text-${contrastColor}`}>
+                                <a className={`break-all py-2 text-${contrastColor}`}>
                                     {title}
                                 </a>
                             </Link>
@@ -93,7 +93,7 @@ export default function Video({
                             <div className="flex-none w-7 mr-2">
                                 <Link href={`/video/${id}`}>
                                     <img
-                                        src={`/data/${channel_id}/${channel_id}.jpg`}
+                                        src={`/data/${subscription_id}/${subscription_id}.jpg`}
                                         className="rounded-full"
                                     />
                                 </Link>

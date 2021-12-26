@@ -5,11 +5,11 @@ import Skeleton from 'react-loading-skeleton';
 import Nav from '@/components/nav';
 import Wrap from '@/components/wrap';
 import Container from '@/components/container';
-import Channels from '@/components/channels';
-import { useChannels } from '@/lib/swr-hooks';
+import Subscriptions from '@/components/subscriptions';
+import { useSubscriptions } from '@/lib/swr-hooks';
 
 export default function Home() {
-    const { channels, isLoading } = useChannels();
+    const { subscriptions, isLoading } = useSubscriptions();
     return (
         <Wrap>
             <Container>
@@ -22,12 +22,12 @@ export default function Home() {
                 </h1>
                 <p className="text-center text-lg italic text-black_coffee">
                     A place to automatically download the latest videos from
-                    your favorite channels
+                    your favorite subscriptions
                 </p>
                 {isLoading ? (
                     <Skeleton width={180} height={24} />
                 ) : (
-                    <Channels channels={channels} />
+                    <Subscriptions subscriptions={subscriptions} />
                 )}
             </Container>
         </Wrap>

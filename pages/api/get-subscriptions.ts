@@ -3,12 +3,12 @@ const { models } = require('@/db');
 
 const handler: NextApiHandler = async (_, res) => {
     try {
-        return models.Channel.findAll({
+        return models.Subscription.findAll({
             order: [['updatedAt', 'DESC']]
         })
-            .then((channels) => res.json(channels))
+            .then((subscriptions) => res.json(subscriptions))
             .catch((err) => {
-                console.log('There was an error querying channels', JSON.stringify(err))
+                console.log('There was an error querying subscriptions', JSON.stringify(err))
                 return res.send(err)
             });
     } catch (e) {

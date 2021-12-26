@@ -3,7 +3,7 @@ const { remove } = require('fs-extra');
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('Channels', {
+        await queryInterface.createTable('Subscriptions', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -48,13 +48,13 @@ module.exports = {
                 allowNull: true,
                 defaultValue: null
             },
-            channel_id: {
+            subscription_id: {
                 type: Sequelize.STRING,
                 allowNull: true,
                 defaultValue: null,
                 unique: true
             },
-            channel_url: {
+            subscription_url: {
                 type: Sequelize.STRING,
                 allowNull: false,
                 unique: true
@@ -70,7 +70,7 @@ module.exports = {
         });
     },
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable('Channels');
+        await queryInterface.dropTable('Subscriptions');
 
         remove('./public/data/') 
             .then(() => console.log("Directory and files inside it are deleted")) 

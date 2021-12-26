@@ -12,48 +12,48 @@ module.exports = {
          * }], {});
          */
         await queryInterface.bulkInsert(
-            'Channels',
+            'Subscriptions',
             [
                 {
-                    channel_url: 'https://www.youtube.com/user/wesbos',
+                    subscription_url: 'https://www.youtube.com/user/wesbos',
                     auto_download: 0,
                     createdAt: new Date(),
                     updatedAt: new Date()
                 },
                 {
-                    channel_url: 'https://www.youtube.com/user/shiffman',
+                    subscription_url: 'https://www.youtube.com/user/shiffman',
                     auto_download: 0,
                     createdAt: new Date(),
                     updatedAt: new Date()
                 },
                 {
-                    channel_url: 'https://www.youtube.com/user/LevelUpTuts',
+                    subscription_url: 'https://www.youtube.com/user/LevelUpTuts',
                     auto_download: 0,
                     createdAt: new Date(),
                     updatedAt: new Date()
                 },
                 {
-                    channel_url:
-                        'https://www.youtube.com/channel/UCsBjURrPoezykLs9EqgamOA',
+                    subscription_url:
+                        'https://www.youtube.com/subscription/UCsBjURrPoezykLs9EqgamOA',
                         auto_download: 0,
                         createdAt: new Date(),
                         updatedAt: new Date()
                 },
                 {
-                    channel_url:
-                        'https://www.youtube.com/channel/UCqrxiLP9RHz2GxDJaZuTRBw',
+                    subscription_url:
+                        'https://www.youtube.com/subscription/UCqrxiLP9RHz2GxDJaZuTRBw',
                         auto_download: 0,
                         createdAt: new Date(),
                         updatedAt: new Date()
                 },
                 {
-                    channel_url: 'https://www.youtube.com/channel/UCLNgu_OupwoeESgtab33CCw',
+                    subscription_url: 'https://www.youtube.com/subscription/UCLNgu_OupwoeESgtab33CCw',
                     auto_download: 0,
                     createdAt: new Date(),
                     updatedAt: new Date()
                 },
                 {
-                    channel_url: 'https://www.youtube.com/c/TailwindLabs',
+                    subscription_url: 'https://www.youtube.com/c/TailwindLabs',
                     auto_download: 0,
                     createdAt: new Date(),
                     updatedAt: new Date()

@@ -1,10 +1,10 @@
 import { NextApiHandler } from 'next';
-const saveChannel = require('@/lib/saveChannel');
+const saveSubscription = require('@/lib/saveSubscription');
 const handler: NextApiHandler = async (req, res) => {
-    const { channel_url } = req.query;
-    const result = await saveChannel(channel_url);
+    const { subscription_url } = req.query;
+    const result = await saveSubscription(subscription_url);
 
-    if (result && result.channel) {
+    if (result && result.subscription) {
         res.status(200).send(result);
     } else {
         res.status(500).send(result);

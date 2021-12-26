@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FiClock, FiDownload, FiSettings, FiYoutube } from 'react-icons/fi';
+import { FiClock, FiFolder, FiDownload, FiSettings, FiYoutube } from 'react-icons/fi';
 
 export default function Nav({
     textColor = 'black',
@@ -29,9 +29,14 @@ export default function Nav({
                     </a>
                 </Link>
                 <div className="flex flex-row flex-nowrap">
-                    <Link href="/channels">
+                    <Link href="/collections">
                         <a className={navLinkStyle}>
-                            <FiYoutube className="pointer-events-none" title="Channels" />
+                            <FiFolder className="pointer-events-none" title="Collections" />
+                        </a>
+                    </Link>
+                    <Link href="/subscriptions">
+                        <a className={navLinkStyle}>
+                            <FiYoutube className="pointer-events-none" title="Subscriptions" />
                         </a>
                     </Link>
                     <Link href="/videos">

@@ -48,16 +48,16 @@ export default function ViewVideoPage({ data }) {
         </Wrap>
         <div className="flex flex-grow flex-col flex-nowrap justify-start items-center overflow-auto px-20 bg-black">
             <div className="w-full flex flex-col flex-nowrap space-x-8 z-10">
-                <VideoPlayerArea downloaded={data.downloaded} channel_id={data.channel_id} video_id={data.video_id} />
+                <VideoPlayerArea downloaded={data.downloaded} subscription_id={data.subscription_id} video_id={data.video_id} />
             </div>
         </div>
         <Wrap inlineStyle={{ backgroundImage: bgGradient }}>
             <section className="video-details">
                 <header className="video-details__header">
-                    <Link href={`/channel/${data.channel_id}`}>
+                    <Link href={`/subscription/${data.subscription_id}`}>
                         <img
-                            src={`/data/${data.channel_id}/${data.channel_id}.jpg`}
-                            alt={data.channel_id}
+                            src={`/data/${data.subscription_id}/${data.subscription_id}.jpg`}
+                            alt={data.subscription_id}
                             className="inline-block w-16 h-16 rounded-full float-left cursor-pointer mr-4"
                         />
                     </Link>

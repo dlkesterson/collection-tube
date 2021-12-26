@@ -15,7 +15,7 @@ module.exports = {
             'Settings',
             [
                 {
-                    name: 'deleteAllRelatedDataWhenDeletingChannel',
+                    name: 'deleteAllRelatedDataWhenDeletingSubscription',
                     value: 1
                 }
             ],

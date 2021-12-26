@@ -1,17 +1,17 @@
-import Channel from './channel';
+import Subscription from './subscription';
 
-export default function Channels({ channels }) {
-    if (channels && channels.length > 0) {
+export default function Subscriptions({ subscriptions }) {
+    if (subscriptions && subscriptions.length > 0) {
         return (
             <div className="w-full">
-                {channels.map((c) => (
+                {subscriptions.map((c) => (
                     <div key={c.id} className="py-2">
-                        <Channel
+                        <Subscription
                             id={c.id}
                             name={c.name}
                             avatar={c.avatar}
                             colorprimary={c.color_primary}
-                            channel_url={c.channel_url}
+                            subscription_url={c.subscription_url}
                         />
                     </div>
                 ))}
@@ -20,7 +20,7 @@ export default function Channels({ channels }) {
     } else {
         return (
             <p className="py-2 my-8 text-center">
-                No channels have been added yet.
+                No subscriptions have been added yet.
             </p>
         );
     }

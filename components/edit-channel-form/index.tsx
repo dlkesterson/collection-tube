@@ -4,30 +4,30 @@ import Head from 'next/head';
 
 import Button from '../button';
 
-export default function EditChannelForm({ data }) {
-	const [channel_url, setChannelUrl] = useState(data.channel_url || '');
+export default function EditSubscriptionForm({ data }) {
+	const [subscription_url, setSubscriptionUrl] = useState(data.subscription_url || '');
 	const [submitting, setSubmitting] = useState(false);
 	const router = useRouter();
 	const { id } = router.query;
 
 	useEffect(() => {
-		if (typeof channel_url === 'string') {
-			setChannelUrl(channel_url);
+		if (typeof subscription_url === 'string') {
+			setSubscriptionUrl(subscription_url);
 		}
-	}, [channel_url]);
+	}, [subscription_url]);
 
 	async function submitHandler(e) {
 		e.preventDefault();
 		setSubmitting(true);
 		try {
-			const res = await fetch('/api/edit-channel', {
+			const res = await fetch('/api/edit-subscription', {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
 					id,
-					channel_url: channel_url,
+					subscription_url: subscription_url,
 				}),
 			});
 			const json = await res.json();
@@ -48,16 +48,16 @@ export default function EditChannelForm({ data }) {
 				{`Edit ${data.name}`}
 			</h1>
 			<div className='my-4'>
-				<label htmlFor='channel_url'>
-					<h3 className='font-bold'>Channel URL</h3>
+				<label htmlFor='subscription_url'>
+					<h3 className='font-bold'>Subscription URL</h3>
 				</label>
 				<input
-					id='channel_url'
+					id='subscription_url'
 					className='shadow border rounded w-full'
 					type='text'
-					name='channel_url'
-					value={data.channel_url}
-					onChange={(e) => setChannelUrl(e.target.value)}
+					name='subscription_url'
+					value={data.subscription_url}
+					onChange={(e) => setSubscriptionUrl(e.target.value)}
 				/>
 			</div>
 			<Button disabled={submitting} type='submit'>

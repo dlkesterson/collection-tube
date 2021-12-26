@@ -5,7 +5,7 @@ import ytdl from 'ytdl-core';
 const sequelize = require('@/db');
 const { models } = require('@/db');
 const downloadImage = require('@/lib/downloadImage');
-// import saveChannelVideos from '@/lib/saveChannelVideos';
+// import saveSubscriptionVideos from '@/lib/saveSubscriptionVideos';
 
 const handler: NextApiHandler = async (req, res) => {
     let { id } = req.body;
@@ -69,24 +69,24 @@ export const getVideo = async (id) => {
     let transaction;
 
     if (video) {
-        const channelThumbnailPath = `./public/data/${video.channel_id}/${video.channel_id}.jpg`;
-        const videoThumbnailPath = `./public/data/${video.channel_id}/${video.video_id}.jpg`;
+        const subscriptionThumbnailPath = `./public/data/${video.subscription_id}/${video.subscription_id}.jpg`;
+        const videoThumbnailPath = `./public/data/${video.subscription_id}/${video.video_id}.jpg`;
         // fetch info via ytdl
         const info = await ytdl.getInfo(video.video_url);
 
         // check if thumbnail image is downloaded
-        if (!fs.existsSync(channelThumbnailPath)) {
-            const { avatar } = await models.Channel.findOne({ where: { channel_id: video.channel_id } })
-            await downloadImage(avatar, `${video.channel_id}`, `${video.channel_id}`);
+        if (!fs.existsSync(subscriptionThumbnailPath)) {
+            const { avatar } = await models.Subscription.findOne({ where: { subscription_id: video.subscription_id } })
+            await downloadImage(avatar, `${video.subscription_id}`, `${video.subscription_id}`);
         }
         if (!fs.existsSync(videoThumbnailPath)) {
-            await downloadImage(video.thumbnail, `${video.channel_id}`, `${video.video_id}`);
+            await downloadImage(video.thumbnail, `${video.subscription_id}`, `${video.video_id}`);
         }
         // videoId: 'GE2eGGiwx9s',
         // title: 'KILL TONY #510 - ALEX JONES',
         // lengthSeconds: '6971',
         // keywords: [Array],
-        // channelId: 'UCwzCMiicL-hBUzyjWiJaseg',
+        // subscriptionId: 'UCwzCMiicL-hBUzyjWiJaseg',
         // isOwnerViewing: false,
         // shortDescription: 'Alex Jones, Joe Rogan, Duncan Trussell, William Montgomery, Zac Bogus, Michael Lehrer, Matthew Muehling, Michael A. Gonzales, Yoni, Tony Hinchcliffe, Brian Redban – 06/07/2021',
         // isCrawlable: true,
@@ -149,8 +149,8 @@ export const getVideo = async (id) => {
     }
 };
 
-export const getAllChannelVideos = async (channel_id) => {
-    const videos = await models.Video.findByPk(channel_id);
+export const getAllSubscriptionVideos = async (subscription_id) => {
+    const videos = await models.Video.findByPk(subscription_id);
     if (videos) {
         // TODO: format for status & data props
         return videos;

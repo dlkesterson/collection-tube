@@ -3,16 +3,16 @@ const express = require('express');
 const { models } = require('./db');
 const ytdl = require('ytdl-core');
 const wsServer = require('./lib/websockets');
-const saveChannel = require('./lib/saveChannel');
+const saveSubscription = require('./lib/saveSubscription');
 // const ytpl = require('ytpl');
-// const Channel = require('./models/channel');
+// const Subscription = require('./models/subscription');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
 // const cron = require('node-cron');
 const ports = {
-    http: 3080,
-    https: 3443
+    http: 3091,
+    https: 3779
 };
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -24,27 +24,27 @@ const options = {
 };
 
 // cron.schedule('*/2 * * * *', async () => {
-// 	const channel =  await models.Channel.findOne({
+// 	const subscription =  await models.Subscription.findOne({
 // 		where: {
 // 			id: '3'
 // 		}
 // 	});
-// 	const channelVideos = await models.Video.findAll({
+// 	const subscriptionVideos = await models.Video.findAll({
 // 		where: {
-// 			channel_id: channel.channel_id
+// 			subscription_id: subscription.subscription_id
 // 		}
 // 	});
-// 	const channelYTPlaylist = await ytpl(channel.channel_url);
+// 	const subscriptionYTPlaylist = await ytpl(subscription.subscription_url);
 // 	console.log('\n#___CH CH CH CHRON JOBBBB!___#');
-// 	console.log('channel 3\'s name: ' + channel['name'] + '\n');
-// 	console.log('first video found for channel on YT: ' + channelYTPlaylist.videos[0]['id']);
-// 	console.log(channelYTPlaylist.videos);
-// 	if (channelVideos.length > 0 && channelVideos[0]['video_id'] !== channelYTPlaylist.videos[0]['id']) {
+// 	console.log('subscription 3\'s name: ' + subscription['name'] + '\n');
+// 	console.log('first video found for subscription on YT: ' + subscriptionYTPlaylist.videos[0]['id']);
+// 	console.log(subscriptionYTPlaylist.videos);
+// 	if (subscriptionVideos.length > 0 && subscriptionVideos[0]['video_id'] !== subscriptionYTPlaylist.videos[0]['id']) {
 // 		console.log('\nnew videos are available to grab from YT!');
-// 		console.log('newest from YT: ' + channelYTPlaylist.videos[0]['title']);
-// 		console.log('newest from local database: ' + channelVideos[0]['title'] + '\n');
+// 		console.log('newest from YT: ' + subscriptionYTPlaylist.videos[0]['title']);
+// 		console.log('newest from local database: ' + subscriptionVideos[0]['title'] + '\n');
 // 	} else {
-// 		console.log('no new videos found for ' + channel['name']);
+// 		console.log('no new videos found for ' + subscription['name']);
 // 	}
 // });
 
@@ -61,7 +61,7 @@ app.prepare().then(() => {
             downloaded: 1,
             downloadedAt: Math.floor(new Date().getTime() / 1000)
         };
-        const dir = `./public/data/${video.channel_id}`;
+        const dir = `./public/data/${video.subscription_id}`;
         const videoPath = `${dir}/${video.video_id}.mp4`;
 
         if (!fs.existsSync(dir)) {
@@ -117,11 +117,11 @@ app.prepare().then(() => {
         });
     });
 
-    expressServer.get('/websockets/:id', async function (req, res) {
-        const result = await saveChannel(req.params.id);
+    expressServer.get('/websockets/subscription/:id', async function (req, res) {
+        const result = await saveSubscription(req.params.id);
         wsServer.clients.forEach((client) => {
-            if (result && result.channel) {
-                client.send('channel: ' + result.channel.channel_url);
+            if (result && result.subscription) {
+                client.send('subscription: ' + result.subscription.subscription_url);
                 res.status(200).send(result);
             } else {
                 res.status(500).send(result);

@@ -2,16 +2,16 @@ import { NextApiHandler } from 'next';
 const { models } = require('@/db');
 
 const handler: NextApiHandler = async (req, res) => {
-    console.log('\ndeleting channel: ' + req.query.id);
+    console.log('\ndeleting subscription: ' + req.query.id);
     try {
-        return models.Channel.destroy({
+        return models.Subscription.destroy({
             where: {
                 id: req.query.id
             }
         })
         .then((response) => res.json(response))
         .catch((err) => {
-            console.log('There was an error deleting channel', JSON.stringify(err))
+            console.log('There was an error deleting subscription', JSON.stringify(err))
             return res.send(err)
         });
     } catch (e) {

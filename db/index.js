@@ -7,8 +7,10 @@ const sequelize = new Sequelize({
 });
 
 const modelDefiners = [
-    require('../models/channel'),
-    require('../models/video')
+    require('../models/subscription'),
+    require('../models/video'),
+    require('../models/collection'),
+    require('../models/collection-subscription')
 ];
 
 // We define all models according to their files.

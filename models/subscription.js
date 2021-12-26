@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
-    class Channel extends Model {}
-    Channel.init(
+    class Subscription extends Model {}
+    Subscription.init(
         {
             name: DataTypes.STRING,
             colors: DataTypes.STRING,
@@ -11,13 +11,13 @@ module.exports = (sequelize) => {
             avatar: DataTypes.STRING,
             auto_download: DataTypes.INTEGER,
             yt_user_url: { type: DataTypes.STRING, isUrl: true },
-            channel_id: DataTypes.STRING,
-            channel_url: { type: DataTypes.STRING, isUrl: true, required: true }
+            subscription_id: DataTypes.STRING,
+            subscription_url: { type: DataTypes.STRING, isUrl: true, required: true }
         },
         {
             sequelize,
-            modelName: 'Channel'
+            modelName: 'Subscription'
         }
     );
-    return Channel;
+    return Subscription;
 };

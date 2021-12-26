@@ -3,7 +3,7 @@ import Router, { useRouter } from 'next/router';
 
 import Button from '../button';
 
-export default function UpdateChannelForm({ id }) {
+export default function UpdateSubscriptionForm({ id }) {
     const [submitting, setSubmitting] = useState(false);
     const router = useRouter();
     // const { id } = router.query;
@@ -12,11 +12,11 @@ export default function UpdateChannelForm({ id }) {
         e.preventDefault();
         setSubmitting(true);
         try {
-            const res = await fetch(`/websockets/${id}`);
+            const res = await fetch(`/websockets/subscription/${id}`);
             const json = await res.json();
             setSubmitting(false);
             if (!res.ok) throw Error(json.message);
-            Router.push(`/channel/${id}`);
+            Router.push(`/subscription/${id}`);
         } catch (e) {
             throw Error(e.message);
         }

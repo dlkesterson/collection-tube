@@ -2,26 +2,26 @@ import { useState } from 'react';
 import Router from 'next/router';
 import Button from '@/components/button';
 
-export default function ChannelForm() {
-	const [channel_url, setChannelUrl] = useState('');
+export default function SubscriptionForm() {
+	const [subscription_url, setSubscriptionUrl] = useState('');
 	const [submitting, setSubmitting] = useState(false);
 
-	async function submitHandler(e) {
+	async function submitHandler(e: Event) {
 		setSubmitting(true);
 		e.preventDefault();
 		try {
-			const res = await fetch('/api/create-channel', {
+			const res = await fetch('/api/create-subscription', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					channel_url,
+					subscription_url,
 				}),
 			});
 			setSubmitting(false);
 			if (!res.ok) throw Error('An error occurred, please try again');
-			Router.push('/channels');
+			Router.push('/subscriptions');
 		} catch (e) {
 			throw Error(e.message);
 		}
@@ -30,16 +30,16 @@ export default function ChannelForm() {
 	return (
 		<form onSubmit={submitHandler}>
 			<div className='my-4'>
-				<label htmlFor='channel_url'>
-					<h3 className='font-bold'>Channel URL (required)</h3>
+				<label htmlFor='subscription_url'>
+					<h3 className='font-bold'>Subscription URL (required)</h3>
 				</label>
 				<input
-					id='channel_url'
+					id='subscription_url'
 					className='shadow border rounded w-full'
 					type='text'
-					name='channel_url'
-					value={channel_url}
-					onChange={(e) => setChannelUrl(e.target.value)}
+					name='subscription_url'
+					value={subscription_url}
+					onChange={(e) => setSubscriptionUrl(e.target.value)}
 				/>
 			</div>
 			<Button disabled={submitting} type='submit'>

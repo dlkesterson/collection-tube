@@ -3,52 +3,52 @@ import { motion } from 'framer-motion';
 import { FiExternalLink } from 'react-icons/fi';
 
 import getContrast from '@/lib/getContrast';
-import { getChannel } from '@/api/get-channel';
+import { getSubscription } from '@/api/get-subscription';
 import Container from '@/components/container';
 import Wrap from '@/components/wrap';
 import Videos from '@/components/videos/';
 import Nav from '@/components/nav';
-import UpdateChannelForm from '@/components/update-channel-form';
+import UpdateSubscriptionForm from '@/components/update-subscription-form';
 
-export default function ViewChannelPage({ channel, videos }) {
-    if (channel) {
-        console.log(channel);
+export default function ViewSubscriptionPage({ subscription, videos }) {
+    if (subscription) {
+        console.log(subscription);
         return (
             <Wrap>
                 <Head>
-                    <title>{channel.name}</title>
+                    <title>{subscription.name}</title>
                 </Head>
                 <Nav />
                 <h1 className="font-bold text-3xl text-center my-8">
-                    {channel.name}
+                    {subscription.name}
                 </h1>
                 <div className="w-full flex flex-row flex-nowrap space-x-4 z-10">
                     <aside
                         className="flex-none w-60 px-2 py-4 text-white bg-blend-multiply rounded"
                         style={
-                            channel.colors
+                            subscription.colors
                                 ? {
                                       background: `${
-                                          channel.colors.split(',')[0]
+                                          subscription.colors.split(',')[0]
                                       }`
                                   }
                                 : { background: `rgba(0,0,0,0.5)` }
                         }
                     >
-                        {channel.description && (
+                        {subscription.description && (
                             <p className="my-2">
                                 <span className="font-bold text-sm">
                                     Description:
                                 </span>
                                 <br />
-                                {channel.description}
+                                {subscription.description}
                             </p>
                         )}
-                        {channel.avatar && (
+                        {subscription.avatar && (
                             <motion.img
-                                layoutId="channelAvatar"
-                                src={`/data/${channel.channel_id}/${channel.channel_id}.jpg`}
-                                alt={channel.channel_id}
+                                layoutId="subscriptionAvatar"
+                                src={`/data/${subscription.subscription_id}/${subscription.subscription_id}.jpg`}
+                                alt={subscription.subscription_id}
                                 className="cursor-pointer m-4"
                                 style={{
                                     width: '200px',
@@ -59,8 +59,8 @@ export default function ViewChannelPage({ channel, videos }) {
                             />
                         )}
                         <div className="flex flex-wrap">
-                            {channel.colors &&
-                                channel.colors.split(',').map((color) => (
+                            {subscription.colors &&
+                                subscription.colors.split(',').map((color) => (
                                     <p
                                         key={color}
                                         className={`rounded-full h-16 w-16 text-sm px-4 m-2 flex items-center justify-center shadow text-${getContrast(
@@ -75,36 +75,36 @@ export default function ViewChannelPage({ channel, videos }) {
                         <p className="my-2">
                             <a
                                 className="underline flex flex-row w-full justify-center items-center"
-                                href={channel.channel_url}
+                                href={subscription.subscription_url}
                                 target="_blank"
                             >
-                                YT Channel <FiExternalLink className="ml-2" />
+                                YT Subscription <FiExternalLink className="ml-2" />
                             </a>
                         </p>
                         <p className="my-2 text-center">
                             <span className="font-bold text-sm">views:</span>
                             <br />
-                            {channel.views}
+                            {subscription.views}
                         </p>
                         <p className="my-2 text-center">
                             <span className="font-bold text-sm">
                                 last updated:
                             </span>
                             <br />
-                            {channel.last_updated}
+                            {subscription.last_updated}
                         </p>
-                        <UpdateChannelForm id={channel.id} />
+                        <UpdateSubscriptionForm id={subscription.id} />
                     </aside>
                     <article
                         className="flex-grow z-10"
                         style={{ overflowY: `auto` }}
                     >
-                        {videos && channel.colors ? (
-                            <Videos videos={videos} hideChannelAvatar={true} />
+                        {videos && subscription.colors ? (
+                            <Videos videos={videos} hideSubscriptionAvatar={true} />
                         ) : (
                             <Videos
                                 videos={videos}
-                                hideChannelAvatar={true}
+                                hideSubscriptionAvatar={true}
                                 contrastColor="black"
                             />
                         )}
@@ -127,15 +127,15 @@ export default function ViewChannelPage({ channel, videos }) {
 }
 export async function getServerSideProps(context) {
     // Fetch data from external API
-    const res = await getChannel(context.params.id);
+    const res = await getSubscription(context.params.id);
     const data = await JSON.parse(JSON.stringify(res));
     if (data.error) {
         console.log(data.error);
     }
-    const { channel, videos } = data;
+    const { subscription, videos } = data;
 
     console.log(videos[0]);
 
     // Pass data to the page via props
-    return { props: { channel, videos } };
+    return { props: { subscription, videos } };
 }

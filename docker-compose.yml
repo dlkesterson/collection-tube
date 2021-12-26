@@ -6,7 +6,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     ports:
-      - 3080:3080
+      - 3091:3091
     volumes:
        - ./:/mnt/c/Code/ytdl-gui-v2
        - /mnt/c/Code/ytdl-gui-v2/node_modules

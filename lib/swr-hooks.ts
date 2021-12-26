@@ -4,18 +4,32 @@ function fetcher(url: string) {
     return window.fetch(url).then((res) => res.json())
 }
 
-export function useChannels() {
-    const { data, error } = useSWR(`/api/get-channels`, fetcher)
+export function useSubscriptions() {
+    const { data, error } = useSWR(`/api/get-subscriptions`, fetcher)
 
     return {
-        channels: data,
+        subscriptions: data,
         isLoading: !error && !data,
         isError: error,
     }
 }
 
-export function useChannel(id: string) {
-    return useSWR(`/api/get-channel?id=${id}`, fetcher)
+export function useCollections() {
+    const { data, error } = useSWR(`/api/get-collections`, fetcher)
+
+    return {
+        collections: data,
+        isLoading: !error && !data,
+        isError: error,
+    }
+}
+
+export function useSubscription(id: string) {
+    return useSWR(`/api/get-subscription?id=${id}`, fetcher)
+}
+
+export function useCollection(id: string) {
+    return useSWR(`/api/get-collection?id=${id}`, fetcher)
 }
 
 export function useVideos() {

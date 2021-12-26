@@ -25,10 +25,10 @@ module.exports = {
                 allowNull: false,
                 unique: true
             },
-            channel_id: {
+            subscription_id: {
                 type: Sequelize.STRING
                 // references: {
-                //     model: 'Channels',
+                //     model: 'Subscriptions',
                 //     key: 'id'
                 // }
             },

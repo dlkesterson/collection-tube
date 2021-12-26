@@ -43,12 +43,12 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "models/channel.js",
+    "models/subscription.js",
     "models/index.js",
     "db/extra-setup.js",
     "db/index.ts",
     "server.ts"
-, "lib/downloadImage.js", "lib/downloadImages.js", "lib/saveChannelVideos.js"  ],
+, "lib/downloadImage.js", "lib/downloadImages.js", "lib/saveSubscriptionVideos.js"  ],
   "exclude": [
     "node_modules"
   ]
