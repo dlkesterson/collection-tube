@@ -1,15 +1,22 @@
-import cn from 'clsx'
+import cn from 'clsx';
+import { ReactNode } from 'react';
+
+type ButtonProps = {
+  onClick(): void|undefined;
+	disabled?: boolean;
+	className?: string;
+	children?: ReactNode;
+};
 
 function Button({
   onClick = console.log,
   className = '',
-  children = null,
-  type = null,
+  children,
   disabled = false,
-}) {
+}: ButtonProps) {
   return (
     <button
-      type={type}
+      type={"button"}
       onClick={onClick}
       disabled={disabled}
       className={cn(

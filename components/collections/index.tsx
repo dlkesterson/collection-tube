@@ -1,14 +1,16 @@
 import Collection from './collection';
 
-interface CollectionInterface {
+interface CollectionSubscriptionInterface {
     id: number;
-    name: string;
+    collectionName: string;
+    subscriptionName: string;
 }
-export default function Collections({ collections }) {
+
+export default function Collections({ collections }: { collections: [CollectionSubscriptionInterface] }) {
     if (collections && collections.length > 0) {
         return (
             <div className="w-full">
-                {collections.map((c: CollectionInterface) => (
+                {collections.map((c: CollectionSubscriptionInterface) => (
                     <div key={c.id} className="py-2">
                         <Collection
                             id={c.id}

@@ -8,8 +8,8 @@ services:
     ports:
       - 3091:3091
     volumes:
-       - ./:/mnt/c/Code/ytdl-gui-v2
-       - /mnt/c/Code/ytdl-gui-v2/node_modules
+       - ./:/mnt/c/Code/collection-tube
+       - /mnt/c/Code/collection-tube/node_modules
     # env_file:
     #   - .env.local
 

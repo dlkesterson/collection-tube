@@ -13,6 +13,15 @@ interface CollectionInterface {
     subscription?: string;
 }
 
+interface DeleteButtonInterface {
+    deleting: boolean;
+}
+
+function DeleteButton({ deleting }: DeleteButtonInterface) {
+    if (deleting) return (<p>Deleting...</p>);
+    return (<FiTrash2 className="text-red-300 inline" />);
+}
+
 function Collection({
     id,
     name
@@ -46,7 +55,7 @@ function Collection({
                         onClick={deleteCollection}
                         className="h-6 py-0 mx-1"
                     >
-                        {deleting ? 'Deleting ...' : <FiTrash2 className="text-red-300 inline" />}
+                        <DeleteButton deleting={deleting}/>
                     </Button>
                 </div>
             </div>

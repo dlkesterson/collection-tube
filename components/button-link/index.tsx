@@ -1,7 +1,14 @@
 import Link from 'next/link';
 import cn from 'clsx';
+import { ReactNode } from 'react';
 
-function ButtonLink({ href = '/', className = '', children }) {
+type ButtonLinkProps = {
+	href: string;
+	className: string;
+	children?: ReactNode;
+};
+
+function ButtonLink({ href = '/', className = '', children }: ButtonLinkProps) {
 	return (
 		<Link href={href}>
 			<a

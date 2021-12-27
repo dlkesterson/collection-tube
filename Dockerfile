@@ -1,13 +1,13 @@
 FROM node:16
 ENV PORT 3091
 
-WORKDIR /mnt/c/Code/ytdl-gui-v2
+WORKDIR /mnt/c/Code/collection-tube
 
 COPY package*.json ./
 
 RUN npm install
 
-COPY . /mnt/c/Code/ytdl-gui-v2
+COPY . /mnt/c/Code/collection-tube
 
 # Building app
 RUN npm run build
