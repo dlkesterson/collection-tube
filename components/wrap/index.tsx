@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { ReactNode } from 'react';
 
 const spring = {
     type: "easeIn",
@@ -7,7 +8,7 @@ const spring = {
     duration: 0.3
 }
 
-function Wrap({ className = '', inlineStyle = {}, children }) {
+function Wrap({ className = '', inlineStyle = {}, children }: { className?: string; inlineStyle?: object; children?: ReactNode; }) {
     return (
         <motion.div
             transition={spring}

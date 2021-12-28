@@ -2,23 +2,25 @@ import cn from 'clsx';
 import { ReactNode } from 'react';
 
 type ButtonProps = {
-  onClick(): void|undefined;
-	disabled?: boolean;
+  onClick?(): Promise<void>|void|undefined;
+	disabled?: boolean|number;
 	className?: string;
+  type?: 'button' | 'submit' | 'reset' | undefined;
 	children?: ReactNode;
 };
 
 function Button({
   onClick = console.log,
   className = '',
+  type = 'button',
   children,
   disabled = false,
 }: ButtonProps) {
   return (
     <button
-      type={"button"}
+      type={type}
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled? true : false}
       className={cn(
         'bg-black',
         'text-white',

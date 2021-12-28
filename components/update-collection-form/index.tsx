@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import Router, { useRouter } from 'next/router';
 
 import Button from '../button';
 
-export default function UpdateCollectionForm({ id }) {
+export default function UpdateCollectionForm({ id }: { id: number|string; }) {
     const [submitting, setSubmitting] = useState(false);
     const router = useRouter();
     // const { id } = router.query;
 
-    async function submitHandler(e: Event) {
+    async function submitHandler(e: FormEvent) {
         e.preventDefault();
         setSubmitting(true);
         try {
@@ -17,7 +17,7 @@ export default function UpdateCollectionForm({ id }) {
             setSubmitting(false);
             if (!res.ok) throw Error(json.message);
             Router.push(`/collection/${id}`);
-        } catch (e) {
+        } catch (e: any) {
             throw Error(e.message);
         }
     }

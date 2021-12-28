@@ -5,24 +5,26 @@ const getColors = require('get-image-colors');
 const sequelize = require('@/db');
 import saveSubscriptionVideos from '@/lib/saveSubscriptionVideos';
 import downloadImage from '@/lib/downloadImage';
+import { stringify } from 'querystring';
 
 const handler: NextApiHandler = async (req, res) => {
     const playlist = await ytpl(req.body.subscription_url);
     const { name, bestAvatar, url, channelID } = playlist.author;
     const videos = playlist.items;
-    let transaction;
+    let transaction: any;
 
     console.log('create subscription via TS serverless API endpoint');
 
     try {
         transaction = await sequelize.transaction();
-        const newSubscription = {
+        let newSubscription = {
             name,
             views: playlist.views,
             avatar: bestAvatar.url,
             subscription_id: channelID,
             subscription_url: url,
-            last_updated: playlist.lastUpdated
+            last_updated: playlist.lastUpdated,
+            colors: ''
         };
 
         console.log('made new subscription object');
@@ -32,9 +34,9 @@ const handler: NextApiHandler = async (req, res) => {
                 console.log('downloaded image: ' + imagePath);
                     if (fs.existsSync(imagePath)) {
                         console.log('about to save colors');
-                        newSubscription['colors'] = await getColors(imagePath).then(colors => {
+                        newSubscription['colors'] = await getColors(imagePath).then((colors: [any]) => {
                             console.log('generated colors');
-                            const result = colors.map(color => color.hex()).toString();
+                            const result = colors.map((color: { hex(): []}) => color.hex()).toString();
                             console.log(result);
                             return result;
                         });
@@ -62,7 +64,7 @@ const handler: NextApiHandler = async (req, res) => {
                 console.log(e.message);
             });
 
-    } catch (e) {
+    } catch (e: any) {
         if (transaction) await transaction.rollback();
 
         res.status(500).json({ message: e.message });

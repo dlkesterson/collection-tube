@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { FormEvent, FormEventHandler, useState } from 'react';
 import Router, { useRouter } from 'next/router';
 import { FiCheck, FiDownload } from 'react-icons/fi';
 
 import Button from '../button';
 
-export default function DownloadVideoForm({ downloaded }) {
+interface DownloadVideoFormProps {
+    downloaded: number;
+}
+
+export default function DownloadVideoForm({ downloaded }: DownloadVideoFormProps) {
     // // Step 1: start the fetch and obtain a reader
     // let response = await fetch('https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits?per_page=100');
 
@@ -51,7 +55,7 @@ export default function DownloadVideoForm({ downloaded }) {
     const router = useRouter();
     const { id } = router.query;
 
-    async function submitHandler(e) {
+    async function submitHandler(e: FormEvent) {
         e.preventDefault();
         setSubmitting(true);
         setButtonText(`Downloading Video (id: ${id})`);
@@ -65,7 +69,7 @@ export default function DownloadVideoForm({ downloaded }) {
     }
 
     return (
-        <form onSubmit={submitHandler}>
+        <form onSubmit={(e)=>{submitHandler(e); }}>
             <Button disabled={submitting || downloaded} type="submit">
                 {downloaded ? (
                     <FiCheck className="text-white text-xl inline mr-2" />

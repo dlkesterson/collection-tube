@@ -1,6 +1,6 @@
 
 
-export default function VideoRelated({ related, colorContrast }) {
+export default function VideoRelated({ related, colorContrast }: { related: [{ id: string; thumbnails: [{ url: string; }]; richThumbnails: [{ url: string; }]; title: string; }], colorContrast: string; }) {
     return (
         <div className="w-full">
             {related.map((v) => (

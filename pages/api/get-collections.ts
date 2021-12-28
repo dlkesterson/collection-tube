@@ -22,7 +22,7 @@ const handler: NextApiHandler = async (_, res) => {
 
     try {        
         res.json(collectionsWithSubs[0]);
-    } catch (e) {
+    } catch (e: any) {
         res.status(500).json({ message: e.message })
     }
 }

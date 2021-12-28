@@ -56,15 +56,15 @@ const handler: NextApiHandler = async (req, res) => {
                 return res.json(video);
             }
         }
-    } catch (e) {
+    } catch (e: any) {
         res.status(500).json({ message: e.message })
     }
 }
 
 
-function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
+const isNumber = (val: any) => typeof val === "number" && val === val;
 
-export const getVideo = async (id) => {
+export const getVideo = async (id: string) => {
     const video = await models.Video.findByPk(id);
     let transaction;
 
@@ -126,7 +126,7 @@ export const getVideo = async (id) => {
                             video_id: video.video_id
                         }, transaction
                     },
-                    err => err ? console.log(err) : null
+                    (err: any) => err ? console.log(err) : null
                 );
                     
                 await transaction.commit();
@@ -149,7 +149,7 @@ export const getVideo = async (id) => {
     }
 };
 
-export const getAllSubscriptionVideos = async (subscription_id) => {
+export const getAllSubscriptionVideos = async (subscription_id: string) => {
     const videos = await models.Video.findByPk(subscription_id);
     if (videos) {
         // TODO: format for status & data props

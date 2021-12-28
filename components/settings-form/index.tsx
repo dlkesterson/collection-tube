@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Router from 'next/router';
 import Button from '@/components/button';
 
@@ -6,7 +6,7 @@ export default function SettingsForm() {
 	const [deleteAllRelatedDataWhenDeletingSubscription, setDeleteAllRelatedDataWhenDeletingSubscription] = useState('');
 	const [submitting, setSubmitting] = useState(false);
 
-	async function submitHandler(e) {
+	async function submitHandler(e: FormEvent) {
 		setSubmitting(true);
 		e.preventDefault();
 		try {
@@ -22,7 +22,7 @@ export default function SettingsForm() {
 			setSubmitting(false);
 			if (!res.ok) throw Error('An error occurred, please try again');
 			// Router.push('/settings');
-		} catch (e) {
+		} catch (e: any) {
 			throw Error(e.message);
 		}
 	}

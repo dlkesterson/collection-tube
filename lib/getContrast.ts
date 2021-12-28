@@ -7,7 +7,7 @@
  * @param  {String} A hexcolor value
  * @return {String} The contrasting color (black or white)
  */
-export default function getContrast(hexcolor) {
+export default function getContrast(hexcolor: string) {
     // If a leading # is provided, remove it
     if (hexcolor.slice(0, 1) === '#') {
         hexcolor = hexcolor.slice(1);

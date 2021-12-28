@@ -10,7 +10,32 @@ import Videos from '@/components/videos/';
 import Nav from '@/components/nav';
 import UpdateSubscriptionForm from '@/components/update-subscription-form';
 
-export default function ViewSubscriptionPage({ subscription, videos }) {
+interface VideoProps { 
+    key?: number;
+    id: number; 
+    title: string; 
+    duration: string; 
+    published: number; 
+    video_id: string; 
+    downloaded: number;
+    subscription_id: string;
+    file_size: string;
+    file_name: string;
+    file_path: string;
+    views: number;
+}
+
+export default function ViewSubscriptionPage({ subscription, videos }: { subscription: {
+    id: string;
+    name: string;
+    colors: string;
+    description: string;
+    avatar: string;
+    subscription_url: string;
+    subscription_id: string;
+    last_updated: string;
+    views: number;
+}; videos: [VideoProps]; }) {
     if (subscription) {
         console.log(subscription);
         return (
@@ -125,7 +150,7 @@ export default function ViewSubscriptionPage({ subscription, videos }) {
         );
     }
 }
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
     // Fetch data from external API
     const res = await getSubscription(context.params.id);
     const data = await JSON.parse(JSON.stringify(res));

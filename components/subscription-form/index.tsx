@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import Router from 'next/router';
 import Button from '@/components/button';
 
@@ -6,7 +6,7 @@ export default function SubscriptionForm() {
 	const [subscription_url, setSubscriptionUrl] = useState('');
 	const [submitting, setSubmitting] = useState(false);
 
-	async function submitHandler(e: Event) {
+	async function submitHandler(e: FormEvent) {
 		setSubmitting(true);
 		e.preventDefault();
 		try {
@@ -22,7 +22,7 @@ export default function SubscriptionForm() {
 			setSubmitting(false);
 			if (!res.ok) throw Error('An error occurred, please try again');
 			Router.push('/subscriptions');
-		} catch (e) {
+		} catch (e: any) {
 			throw Error(e.message);
 		}
 	}

@@ -1,13 +1,33 @@
 import Video from './video';
 // import getContrast from '@/lib/getContrast';
 
-export default function Videos({ videos, contrastColor = 'black', hideSubscriptionAvatar = false }) {
+interface VideoProps { 
+    key?: number;
+    id: number; 
+    title: string; 
+    duration: string; 
+    published: number; 
+    video_id: string; 
+    downloaded: number;
+    subscription_id: string;
+    file_size: string;
+    file_name: string;
+    file_path: string;
+    views: number;
+}
+interface VideosPageProps {
+    videos: [VideoProps];
+    contrastColor?: string;
+    hideSubscriptionAvatar?: boolean;
+}
+
+export default function Videos({ videos, contrastColor = 'black', hideSubscriptionAvatar = false }: VideosPageProps) {
     if (videos) {
         console.log('videos count: ' + videos.length);
         if (videos.length > 0) {
             return (
                 <div className="grid grid-cols-4 gap-4">
-                    {videos.map((v) => (
+                    {videos.map((v: VideoProps) => (
                         <Video
                             key={v.id}
                             id={v.id}

@@ -18,7 +18,7 @@ const spring = {
 
 export const WebSocketDemo = () => {
     const [messageHistory, setMessageHistory] = useState([]);
-    const messageBox = useRef();
+    const messageBox = useRef<HTMLUListElement>(null);
     const endOfMessageBox = useRef(null);
 
     const { sendMessage, lastJsonMessage, readyState } = useWebSocket(
@@ -88,14 +88,14 @@ export const WebSocketDemo = () => {
                 <p className="text-sm text-gray-800 my-2 mx-4">
                     Last message: {lastJsonMessage.data.message}
                 </p>
-            ) : null}
+            ) : null}s
             <ul ref={messageBox} className={messageBoxStyles}>
-                {messageHistory.map((message, idx) => (
+                {messageHistory.map((message: {data: {message: string}}, idx: number) => {
                     <li key={idx}>
                         <FiActivity className="mr-2 text-green-300 inline" />
                         {message && message.data ? message.data.message : null}
                     </li>
-                ))}
+                })}
                 <li key={'endOfMessageBox'} ref={endOfMessageBox}></li>
             </ul>
         </motion.div>

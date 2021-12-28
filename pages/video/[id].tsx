@@ -9,15 +9,16 @@ import Wrap from '@/components/wrap';
 // import Container from '@/components/container';
 import Nav from '@/components/nav';
 import DownloadVideoForm from '@/components/download-video-form';
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetStaticProps, GetStaticPaths, GetStaticPropsContext } from 'next';
 import { getAllVideoPaths } from '@/api/get-videos';
 import VideoColors from '@/components/video-colors';
 import VideoRelated from '@/components/video-related';
 import VideoPlayerArea from '@/components/video-player-area';
+import { ParsedUrlQuery } from 'querystring';
 
 extend([harmoniesPlugin]);
 
-export default function ViewVideoPage({ data }) {
+export default function ViewVideoPage({ data }: any) {
     if (data.related) {
         console.log('this page has related videos, count is: ' + data.related.length);
     }
@@ -30,7 +31,7 @@ export default function ViewVideoPage({ data }) {
         colorSecondaryHarmonics[0].toRgbString() + ' 50%, ' + 
         colorSecondaryHarmonics[2].toRgbString() + ' 100%)';
 
-    const videoDescription = data.description.split("\n").map((value, index) => {
+    const videoDescription = data.description.split("\n").map((value: string, index: number) => {
         return (
             <Fragment key={index}>
                 {value}
@@ -73,7 +74,7 @@ export default function ViewVideoPage({ data }) {
                     </p>
                     {data.keywords && (
                         <ul>
-                            {data.keywords.map(keyword => {
+                            {data.keywords.map((keyword: string) => {
                                 <li>{keyword}</li>
                             })}
                         </ul>
@@ -94,8 +95,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return { paths, fallback: `blocking` }
 }
 
+interface paramsProps {
+    params: {
+        id: string;
+    }
+}
+
 // This also gets called at build time
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params }: any) => {
+    if (params === undefined || params.id === undefined) return;
     const res = await getVideo(params.id);
     // parse/stringify for deep cloning the response
     console.log('inside getStaticProps()');

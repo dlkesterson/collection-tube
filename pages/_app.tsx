@@ -2,8 +2,10 @@
 import '../styles/index.css';
 // import { AnimateSharedLayout, AnimatePresence } from 'framer-motion';
 import { WebSocketDemo } from '@/components/websocket-demo';
+import { ComponentClass } from 'react';
 
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }: { Component?: ComponentClass<any>; pageProps?: []}) {
+    if (!Component) return null;
     return (
         <>
             <Component {...pageProps} />
@@ -12,4 +14,4 @@ function MyApp({ Component, pageProps }) {
     );
 }
 
-export default MyApp;
+export default App;

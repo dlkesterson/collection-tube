@@ -13,12 +13,11 @@ const handler: NextApiHandler = async (req, res) => {
                 console.log('There was an error querying subscriptions', JSON.stringify(err))
                 return res.send(err)
             });
-    } catch (e) {
+    } catch (e: any) {
         res.status(500).json({ message: e.message })
     }
 }
-
-function isNumber(n: string | number): boolean { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
+const isNumber = (val: any) => typeof val === "number" && val === val;
 
 export const getSubscription = async (id: string | number) => {
     let subscription;
@@ -65,7 +64,7 @@ export const getSubscription = async (id: string | number) => {
     }
 };
 
-export const getAllSubscriptions = async (id) => {
+export const getAllSubscriptions = async (id: string) => {
     const subscriptions = await models.Subscription.findByPk(id);
     if (subscriptions) {
         // TODO: format for status & data props

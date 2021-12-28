@@ -1,5 +1,7 @@
 
-export default function VideoColors({ colors, mainColor }) {
+import { Colord } from "colord";
+
+export default function VideoColors({ colors, mainColor }: { colors: string; mainColor: Colord; }) {
     const styleBorders = `border-2 border-opacity-50 border-white`;
     const styleColorDots = `rounded-full h-8 w-8 ${styleBorders} m-2 flex`;
     return (<>

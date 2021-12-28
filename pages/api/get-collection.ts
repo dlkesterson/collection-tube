@@ -14,7 +14,7 @@ const handler: NextApiHandler = async (req, res) => {
                         // .then((collection_subscriptions: object) => res.json({ collection, collection_subscriptions }))
                         console.log(subs);
                     res.json({ collection, subs });
-                } catch (e) {
+                } catch (e: any) {
                     res.status(500).json({ message: e.message })
                 }
                 
@@ -24,7 +24,7 @@ const handler: NextApiHandler = async (req, res) => {
                 console.log('There was an error querying collection', JSON.stringify(err))
                 return res.send(err)
             });
-    } catch (e) {
+    } catch (e: any) {
         res.status(500).json({ message: e.message })
     }
 }

@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 
 import Button from '../button';
 
-export default function EditSubscriptionForm({ data }) {
+export default function EditSubscriptionForm({ data }:any) {
 	const [subscription_url, setSubscriptionUrl] = useState(data.subscription_url || '');
 	const [submitting, setSubmitting] = useState(false);
 	const router = useRouter();
@@ -16,7 +16,7 @@ export default function EditSubscriptionForm({ data }) {
 		}
 	}, [subscription_url]);
 
-	async function submitHandler(e) {
+	async function submitHandler(e: FormEvent) {
 		e.preventDefault();
 		setSubmitting(true);
 		try {
@@ -34,7 +34,7 @@ export default function EditSubscriptionForm({ data }) {
 			setSubmitting(false);
 			if (!res.ok) throw Error(json.message);
 			Router.push('/');
-		} catch (e) {
+		} catch (e: any) {
 			throw Error(e.message);
 		}
 	}

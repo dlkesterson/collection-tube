@@ -3,7 +3,17 @@ import Nav from '@/components/nav';
 import EditSubscriptionForm from '@/components/edit-subscription-form';
 import { getSubscription } from '@/api/get-subscription';
 
-export default function EditSubscriptionPage({ data }) {
+interface SubscriptionInterface {
+	data: {
+		id: number;
+		name: string;
+		colorprimary: string;
+		avatar: string;
+		subscription_url: string;
+	}
+}
+
+export default function EditSubscriptionPage({ data }: SubscriptionInterface) {
 	return (
 		<>
 			<Nav />
@@ -13,7 +23,7 @@ export default function EditSubscriptionPage({ data }) {
 		</>
 	);
 }
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
 	// Fetch data from external API
 	const res = await getSubscription(context.params.id);
 	const data = await JSON.parse(JSON.stringify(res));

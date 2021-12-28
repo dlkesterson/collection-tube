@@ -10,12 +10,12 @@ const handler: NextApiHandler = async (req, res) => {
                 id: req.query.id
             }
         })
-        .then((response) => res.json(response))
-        .catch((err) => {
+        .then((response: any) => res.json(response))
+        .catch((err: object) => {
             console.log('There was an error deleting collection', JSON.stringify(err))
             return res.send(err)
         });
-    } catch (e) {
+    } catch (e: any) {
         res.status(500).json({ message: e.message })
     }
 }

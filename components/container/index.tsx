@@ -2,7 +2,7 @@
 import { ReactNode } from 'react';
 
 interface ContainerProps {
-    className: string;
+    className?: string;
     children?: ReactNode;
 }
 

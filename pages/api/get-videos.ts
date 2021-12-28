@@ -6,15 +6,15 @@ const handler: NextApiHandler = async (_, res) => {
         return models.Video.findAll({
             order: [['createdAt', 'DESC']]
         })
-            .then((videos) => res.json(videos))
-            .catch((err) => {
+            .then((videos: []) => res.json(videos))
+            .catch((err: Error) => {
                 console.log(
                     'There was an error querying videos',
                     JSON.stringify(err)
                 );
                 return res.send(err);
             });
-    } catch (e) {
+    } catch (e: any) {
         res.status(500).json({ message: e.message });
     }
 };
@@ -24,7 +24,7 @@ export default handler;
 export const getVideos = async () => {
     let videos = await models.Video.findAll();
 
-    videos = videos.map((video) => {
+    videos = videos.map((video: { dataValues: object}) => {
         return video.dataValues;
     });
 
@@ -40,7 +40,7 @@ export const getVideos = async () => {
 
 export const getAllVideoPaths = async () => {
     const videos = await models.Video.findAll();
-    const videoIDs = videos.filter((v) => {
+    const videoIDs = videos.filter((v: { id: string }) => {
         v.id;
     });
     let paths = [];

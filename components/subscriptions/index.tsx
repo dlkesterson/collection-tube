@@ -1,6 +1,13 @@
 import Subscription from './subscription';
 
-export default function Subscriptions({ subscriptions }) {
+interface SubscriptionInterface {
+    id: number;
+    name: string;
+    color_primary: string;
+    avatar: string;
+    subscription_url: string;
+}
+export default function Subscriptions({ subscriptions }: { subscriptions: [SubscriptionInterface]}) {
     if (subscriptions && subscriptions.length > 0) {
         return (
             <div className="w-full">
