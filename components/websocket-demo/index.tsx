@@ -88,7 +88,7 @@ export const WebSocketDemo = () => {
                 <p className="text-sm text-gray-800 my-2 mx-4">
                     Last message: {lastJsonMessage.data.message}
                 </p>
-            ) : null}s
+            ) : null}
             <ul ref={messageBox} className={messageBoxStyles}>
                 {messageHistory.map((message: {data: {message: string}}, idx: number) => {
                     <li key={idx}>
