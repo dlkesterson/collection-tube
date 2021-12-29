@@ -51,6 +51,8 @@
     "@types/validator": "^13.7.0",
     "@types/video.js": "^7.3.29",
     "express": "^4.17.1",
+    "path-browserify": "^1.0.1",
+    "pg-hstore": "^2.3.4",
     "ts-node": "^10.1.0"
   },
   "browser": {

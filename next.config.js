@@ -8,9 +8,13 @@ module.exports = {
 		return config;
 	},
 	webpack5: true,
-	// webpack: (config) => {
-	// 	config.resolve.fallback = { fs: false };
+	webpack: (config) => {
+		config.resolve.fallback = { 
+			fs: false, 
+			crypto: false,
+			path: require.resolve("path-browserify") };
 
-	// 	return config;
-	// },
+		return config;
+	},
+	externals: ['pg', 'sqlite3', 'tedious', 'pg-hstore'],
 };
