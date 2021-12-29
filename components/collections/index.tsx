@@ -2,8 +2,9 @@ import Collection from './collection';
 
 interface CollectionSubscriptionInterface {
     id: number;
-    collectionName: string;
-    subscriptionName: string;
+    collectionName?: string;
+    name?: string;
+    subscriptionName?: string;
 }
 
 export default function Collections({ collections }: { collections: [CollectionSubscriptionInterface] }) {
@@ -14,8 +15,7 @@ export default function Collections({ collections }: { collections: [CollectionS
                     <div key={c.id} className="py-2">
                         <Collection
                             id={c.id}
-                            name={c.collectionName}
-                            subscription={c.subscriptionName}
+                            name={c.name}
                         />
                     </div>
                 ))}

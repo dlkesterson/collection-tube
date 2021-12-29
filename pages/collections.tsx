@@ -52,7 +52,7 @@ export default function CollectionsPage() {
                     </motion.h1>
                     <ButtonLink
                         className="self-center ml-4 my-4"
-                        href="/collections/add"
+                        href="/collection/add"
                     >
                         <FiPlus className="text-white text-xl inline mr-2" />
                         Add Collection
