@@ -1,7 +1,7 @@
 // import '../styles/globals.css'
 import '../styles/index.css';
 // import { AnimateSharedLayout, AnimatePresence } from 'framer-motion';
-import { WebSocketDemo } from '@/components/websocket-demo';
+// import { WebSocketDemo } from '@/components/websocket-demo';
 import { ComponentClass } from 'react';
 
 function App({ Component, pageProps }: { Component?: ComponentClass<any>; pageProps?: []}) {
@@ -9,7 +9,7 @@ function App({ Component, pageProps }: { Component?: ComponentClass<any>; pagePr
     return (
         <>
             <Component {...pageProps} />
-            <WebSocketDemo />
+            {/* <WebSocketDemo /> */}
         </>
     );
 }
