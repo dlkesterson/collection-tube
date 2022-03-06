@@ -3,12 +3,16 @@ import Subscription from './subscription';
 interface SubscriptionInterface {
     id: number;
     name: string;
-    color_primary: string;
+    colors: string;
     avatar: string;
     subscription_url: string;
     subscription_id: string;
 }
-export default function Subscriptions({ subscriptions }: { subscriptions: [SubscriptionInterface]}) {
+export default function Subscriptions({
+    subscriptions
+}: {
+    subscriptions: [SubscriptionInterface];
+}) {
     if (subscriptions && subscriptions.length > 0) {
         return (
             <div className="w-full">
@@ -18,7 +22,7 @@ export default function Subscriptions({ subscriptions }: { subscriptions: [Subsc
                             subscription_id={c.subscription_id}
                             name={c.name}
                             avatar={c.avatar}
-                            colorprimary={c.color_primary}
+                            colors={c.colors}
                             subscription_url={c.subscription_url}
                         />
                     </div>

@@ -1,12 +1,10 @@
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, FormEvent } from 'react';
 import Router, { useRouter } from 'next/router';
-
 import Button from '../button';
 
-export default function UpdateCollectionForm({ id }: { id: number|string; }) {
+export default function UpdateCollectionForm({ id }: { id: number | string }) {
     const [submitting, setSubmitting] = useState(false);
     const router = useRouter();
-    // const { id } = router.query;
 
     async function submitHandler(e: FormEvent) {
         e.preventDefault();

@@ -1,23 +1,16 @@
 import { useEffect, useRef } from 'react';
 import videojs from 'video.js';
-// import "video.js/dist/video-js.css";
 
-
-// <VideoPlayer
-// options={{
-//     controls: true,
-//     responsive: true,
-//     fluid: true,
-//     sources: [
-//         {
-//             src: `/data/${subscription_id}/${video_id}.mp4`,
-//             type: 'video/mp4'
-//         }
-//     ]
-// }}
-// />
-
-export const VideoPlayer = ({ options }: { options: { controls: boolean; responsive: boolean; fluid: boolean; sources: [{ src: string; type: string; }] } }) => {
+export const VideoPlayer = ({
+    options
+}: {
+    options: {
+        controls: boolean;
+        responsive: boolean;
+        fluid: boolean;
+        sources: [{ src: string; type: string }];
+    };
+}) => {
     const videoRef = useRef(null);
 
     // This seperate functional component fixes the removal of the videoelement

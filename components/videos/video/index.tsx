@@ -3,10 +3,6 @@ import Link from 'next/link';
 import { mutate } from 'swr';
 import { motion } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
-import { StringLiteralLike } from 'typescript';
-
-// import ButtonLink from '@/components/button-link';
-// import Button from '@/components/button';
 
 interface VideoInterface {
     id: number;
@@ -30,17 +26,14 @@ export default function Video({
     title,
     thumbnail,
     duration,
-    // video_url,
     subscription_id,
     views,
     videoId,
     fileSize,
     fileName,
     filePath,
-    // colors,
     published,
     downloaded,
-    // layoutId,
     contrastColor,
     hideSubscriptionAvatar
 }: VideoInterface) {
@@ -83,7 +76,9 @@ export default function Video({
                     {hideSubscriptionAvatar ? (
                         <div className="text-lg">
                             <Link href={`/video/${videoId}`}>
-                                <a className={`break-word py-2 text-${contrastColor}`}>
+                                <a
+                                    className={`break-word py-2 text-${contrastColor}`}
+                                >
                                     {title}
                                 </a>
                             </Link>

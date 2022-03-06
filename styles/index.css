@@ -35,9 +35,6 @@ body {
 /* Stop purging. */
 
 /* Write your own custom component styles here */
-.subscription {
-    background-color: #fff;
-}
 .video-details {
     display: grid;
     grid-template:

@@ -1,12 +1,15 @@
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, FormEvent } from 'react';
 import Router, { useRouter } from 'next/router';
 
 import Button from '../button';
 
-export default function UpdateSubscriptionForm({ id }: { id: string|number; }) {
+export default function UpdateSubscriptionForm({
+    id
+}: {
+    id: string | number;
+}) {
     const [submitting, setSubmitting] = useState(false);
     const router = useRouter();
-    // const { id } = router.query;
 
     async function submitHandler(e: FormEvent) {
         e.preventDefault();
