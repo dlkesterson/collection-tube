@@ -83,7 +83,7 @@ export default function Video({
                     {hideSubscriptionAvatar ? (
                         <div className="text-lg">
                             <Link href={`/video/${videoId}`}>
-                                <a className={`break-all py-2 text-${contrastColor}`}>
+                                <a className={`break-word py-2 text-${contrastColor}`}>
                                     {title}
                                 </a>
                             </Link>
