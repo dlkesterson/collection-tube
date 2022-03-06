@@ -8,15 +8,15 @@ import UpdateSubscriptionForm from '@/components/update-subscription-form';
 import { FiTrash2 } from 'react-icons/fi';
 
 interface SubscriptionInterface {
-    id: number;
     name: string;
     colorprimary: string;
     avatar: string;
     subscription_url: string;
+    subscription_id: string;
 }
 
 function Subscription({
-    id,
+    subscription_id,
     name,
     colorprimary,
     avatar,
@@ -43,7 +43,7 @@ function Subscription({
 
     async function deleteSubscription() {
         setDeleting(true);
-        let res = await fetch(`/api/delete-subscription?id=${id}`, {
+        let res = await fetch(`/api/delete-subscription?id=${subscription_id}`, {
             method: 'DELETE'
         });
         let json = await res.json();
@@ -56,7 +56,7 @@ function Subscription({
             <div className="flex items-center">
                 <span style={dotStyles}></span>
                 {avatar && <img src={avatar} alt={name} style={avatarStyles} />}
-                <Link href={`/subscription/${id}`}>
+                <Link href={`/subscription/${subscription_id}`}>
                     <a className="font-bold py-2">{name}</a>
                 </Link>
 
@@ -74,7 +74,7 @@ function Subscription({
     ) : (
         <div className="subscription shadow rounded-md p-3">
             <div className="flex items-center">{subscription_url}</div>
-            <UpdateSubscriptionForm id={id} />
+            <UpdateSubscriptionForm id={subscription_id} />
         </div>
     );
 }

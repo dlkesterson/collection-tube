@@ -8,7 +8,6 @@ import Nav from '@/components/nav';
 
 export default function ViewCollectionPage({ collection }: { collection: { id?: string; name?: string; } }) {
     if (collection) {
-        console.log(collection);
         return (
             <Wrap>
                 <Head>
@@ -16,7 +15,7 @@ export default function ViewCollectionPage({ collection }: { collection: { id?: 
                 </Head>
                 <Nav />
                 <h1 className="font-bold text-3xl text-center my-8">
-                    #${collection.id}: ${collection.name}
+                    #{collection.id}: {collection.name}
                 </h1>
             </Wrap>
         );
@@ -35,15 +34,12 @@ export default function ViewCollectionPage({ collection }: { collection: { id?: 
 }
 export async function getServerSideProps(context: { params: { id: string; }}) {
     // Fetch data from external API
-    console.log('getServerSideProps() with ID ' + context.params.id);
     const res = await getCollection(context.params.id);
-    console.log('serverside props request result:');
-    console.log(res);
-    // const data = await JSON.parse(JSON.stringify(res));
-    // if (data.error) {
-    //     console.log(data.error);
-    // }
-    const { collection } = res;
+    const data = await JSON.parse(JSON.stringify(res));
+    if (data.error) {
+        console.log(data.error);
+    }
+    const { collection } = data;
 
     // Pass data to the page via props
     return { props: { collection } };

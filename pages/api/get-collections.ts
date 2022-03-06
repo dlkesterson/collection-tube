@@ -20,8 +20,7 @@ const handler: NextApiHandler = async (_, res) => {
     INNER JOIN Collections AS c 
         ON cs.collection = c.id`);
 
-    try {        
-        // res.json(collectionsWithSubs[0]);
+    try {
         res.json(await db.models.Collection.findAll() );
     } catch (e: any) {
         res.status(500).json({ message: e.message })

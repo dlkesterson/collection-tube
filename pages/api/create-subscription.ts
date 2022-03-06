@@ -5,15 +5,12 @@ const getColors = require('get-image-colors');
 const sequelize = require('@/db');
 import saveSubscriptionVideos from '@/lib/saveSubscriptionVideos';
 import downloadImage from '@/lib/downloadImage';
-import { stringify } from 'querystring';
 
 const handler: NextApiHandler = async (req, res) => {
     const playlist = await ytpl(req.body.subscription_url);
     const { name, bestAvatar, url, channelID } = playlist.author;
     const videos = playlist.items;
     let transaction: any;
-
-    console.log('create subscription via TS serverless API endpoint');
 
     try {
         transaction = await sequelize.transaction();
@@ -26,42 +23,35 @@ const handler: NextApiHandler = async (req, res) => {
             last_updated: playlist.lastUpdated,
             colors: ''
         };
-
-        console.log('made new subscription object');
         
-        await downloadImage(newSubscription['avatar'], newSubscription['subscription_id'], `${newSubscription['subscription_id']}`)
+        // download the new subscription's avatar image 
+        // use it to generate the color scheme
+        await downloadImage(
+            newSubscription['avatar'], 
+            newSubscription['subscription_id'], 
+            `${newSubscription['subscription_id']}`
+            )
             .then(async (imagePath) => {
-                console.log('downloaded image: ' + imagePath);
-                    if (fs.existsSync(imagePath)) {
-                        console.log('about to save colors');
-                        newSubscription['colors'] = await getColors(imagePath).then((colors: [any]) => {
-                            console.log('generated colors');
-                            const result = colors.map((color: { hex(): []}) => color.hex()).toString();
-                            console.log(result);
-                            return result;
-                        });
-                    }
+                if (fs.existsSync(imagePath)) {
+                    newSubscription['colors'] = await getColors(imagePath).then((colors: [any]) => {
+                        const result = colors.map((color: { hex(): []}) => color.hex()).toString();
+                        return result;
+                    });
+                }
 
                 return newSubscription;
             })
+            // prepare new subscription for insertion into DB
+            // save the first 100 videos of the subscription, along with their images & color schemes
             .then(async (newSubscription) => {
-                console.log('now saving new subscription to DB');
-                console.log(newSubscription);
-                await sequelize.models.Subscription.create(newSubscription, { transaction });
-                
                 if (videos.length > 0) {
-                    console.log('now saving videos');
                     await saveSubscriptionVideos(videos, transaction);
-                } else { console.log('no videos to save'); }
+                }
         
+                await sequelize.models.Subscription.create(newSubscription, { transaction });
                 await transaction.commit();
         
                 res.status(200).send(newSubscription);
-            })
-            .catch(e => {
-                console.log('Error! Something failed after downloading the image for the new subscription');
-                console.log(e);
-                console.log(e.message);
             });
 
     } catch (e: any) {

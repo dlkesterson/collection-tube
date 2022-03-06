@@ -68,7 +68,7 @@ export default function Video({
                     {duration}
                 </div>
                 {thumbnail && (
-                    <Link href={`/video/${id}`}>
+                    <Link href={`/video/${videoId}`}>
                         <img
                             src={`/data/${subscription_id}/${videoId}.jpg`}
                             className="w-full rounded-sm cursor-pointer"
@@ -82,7 +82,7 @@ export default function Video({
                 <div className="flex flex-row flex-nowrap">
                     {hideSubscriptionAvatar ? (
                         <div className="text-lg">
-                            <Link href={`/video/${id}`}>
+                            <Link href={`/video/${videoId}`}>
                                 <a className={`break-all py-2 text-${contrastColor}`}>
                                     {title}
                                 </a>
@@ -91,15 +91,17 @@ export default function Video({
                     ) : (
                         <>
                             <div className="flex-none w-7 mr-2">
-                                <Link href={`/video/${id}`}>
-                                    <img
-                                        src={`/data/${subscription_id}/${subscription_id}.jpg`}
-                                        className="rounded-full"
-                                    />
+                                <Link href={`/subscription/${subscription_id}`}>
+                                    <a>
+                                        <img
+                                            src={`/data/${subscription_id}/${subscription_id}.jpg`}
+                                            className="rounded-full"
+                                        />
+                                    </a>
                                 </Link>
                             </div>
                             <div className="text-lg">
-                                <Link href={`/video/${id}`}>
+                                <Link href={`/video/${videoId}`}>
                                     <a className={`py-2 text-${contrastColor}`}>
                                         {title}
                                     </a>

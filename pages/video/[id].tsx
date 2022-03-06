@@ -6,15 +6,13 @@ import harmoniesPlugin from "colord/plugins/harmonies";
 import getContrast from '@/lib/getContrast';
 import { getVideo } from '@/api/get-video';
 import Wrap from '@/components/wrap';
-// import Container from '@/components/container';
 import Nav from '@/components/nav';
 import DownloadVideoForm from '@/components/download-video-form';
-import { GetStaticProps, GetStaticPaths, GetStaticPropsContext } from 'next';
+import { GetStaticPaths } from 'next';
 import { getAllVideoPaths } from '@/api/get-videos';
 import VideoColors from '@/components/video-colors';
 import VideoRelated from '@/components/video-related';
 import VideoPlayerArea from '@/components/video-player-area';
-import { ParsedUrlQuery } from 'querystring';
 
 extend([harmoniesPlugin]);
 
@@ -31,7 +29,7 @@ export default function ViewVideoPage({ data }: any) {
         colorSecondaryHarmonics[0].toRgbString() + ' 50%, ' + 
         colorSecondaryHarmonics[2].toRgbString() + ' 100%)';
 
-    const videoDescription = data.description.split("\n").map((value: string, index: number) => {
+    const videoDescription = data.description?.split("\n").map((value: string, index: number) => {
         return (
             <Fragment key={index}>
                 {value}

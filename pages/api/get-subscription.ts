@@ -10,32 +10,20 @@ const handler: NextApiHandler = async (req, res) => {
             // TODO: format for status & data props
             .then((subscriptions: []) => res.json(subscriptions))
             .catch((err: Error) => {
-                console.log('There was an error querying subscriptions', JSON.stringify(err))
                 return res.send(err)
             });
     } catch (e: any) {
         res.status(500).json({ message: e.message })
     }
 }
-const isNumber = (val: any) => typeof val === "number" && val === val;
-
 export const getSubscription = async (id: string | number) => {
-    let subscription;
-    let subscriptionVideos;
-    if (isNumber(id)) {
-        subscription = await models.Subscription.findByPk(id);
-        subscriptionVideos = await models.Video.findAll({
-            where: {
-                subscription_id: subscription.subscription_id
-            },
-            order: [['updatedAt', 'DESC']]
-        });
-    } else {
-        subscription = await models.Subscription.findOne({
-            where: {
-                subscription_id: id
-            }
-        });
+    let subscriptionVideos;  
+    let subscription = await models.Subscription.findOne({
+        where: {
+            subscription_id: id
+        }
+    });
+    if (subscription) {
         subscriptionVideos = await models.Video.findAll({
             where: {
                 subscription_id: subscription.subscription_id
@@ -46,7 +34,6 @@ export const getSubscription = async (id: string | number) => {
 
     if (subscription) {
         const thumbnailPath = `/public/data/${subscription.subscription_id}/${subscription.subscription_id}.jpg`;
-        console.log('checking for subscription image: ' + thumbnailPath);
 
         // check if thumbnail image is downloaded
         if (!fs.existsSync(thumbnailPath)) {

@@ -73,7 +73,7 @@ export default function ViewSubscriptionPage({ subscription, videos }: { subscri
                             <motion.img
                                 layoutId="subscriptionAvatar"
                                 src={`/data/${subscription.subscription_id}/${subscription.subscription_id}.jpg`}
-                                alt={subscription.subscription_id}
+                                alt={subscription.name}
                                 className="cursor-pointer m-4"
                                 style={{
                                     width: '200px',
@@ -152,7 +152,9 @@ export default function ViewSubscriptionPage({ subscription, videos }: { subscri
 }
 export async function getServerSideProps(context: any) {
     // Fetch data from external API
+    console.log('sub ID is.....' + context.params.id);
     const res = await getSubscription(context.params.id);
+    console.log(res);
     const data = await JSON.parse(JSON.stringify(res));
     if (data.error) {
         console.log(data.error);

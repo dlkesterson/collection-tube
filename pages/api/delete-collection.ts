@@ -2,7 +2,6 @@ import { NextApiHandler } from 'next';
 const { models } = require('@/db');
 
 const handler: NextApiHandler = async (req, res) => {
-    console.log('\ndeleting collection: ' + req.query.id);
     try {
         // @TODO: destroy collection-ID-bound records in CollectionSubscriptions table
         return models.Collection.destroy({
@@ -12,7 +11,6 @@ const handler: NextApiHandler = async (req, res) => {
         })
         .then((response: any) => res.json(response))
         .catch((err: object) => {
-            console.log('There was an error deleting collection', JSON.stringify(err))
             return res.send(err)
         });
     } catch (e: any) {

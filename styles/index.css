@@ -56,6 +56,9 @@ body {
   
 .video-details__header {
     grid-area: h;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
 }
   
 .video-details__content {

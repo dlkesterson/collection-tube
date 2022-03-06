@@ -6,6 +6,7 @@ interface SubscriptionInterface {
     color_primary: string;
     avatar: string;
     subscription_url: string;
+    subscription_id: string;
 }
 export default function Subscriptions({ subscriptions }: { subscriptions: [SubscriptionInterface]}) {
     if (subscriptions && subscriptions.length > 0) {
@@ -14,7 +15,7 @@ export default function Subscriptions({ subscriptions }: { subscriptions: [Subsc
                 {subscriptions.map((c) => (
                     <div key={c.id} className="py-2">
                         <Subscription
-                            id={c.id}
+                            subscription_id={c.subscription_id}
                             name={c.name}
                             avatar={c.avatar}
                             colorprimary={c.color_primary}

@@ -12,17 +12,9 @@ const handler: NextApiHandler = async (req, res) => {
     if (!id) id = req.query.id;
     let video, transaction;
 
-    console.log('inside the serverless handler func');
-
     try {
-        // if ID is string, query by video_id
-        if (!isNumber(id)) {
-            video = await models.Video.findOne({ where: { video_id: id }});
-        } else {
-            // ID is number, so query by primary key
-            video = await models.Video.findByPk(id);
-        }
-
+        video = await models.Video.findOne({ where: { video_id: id }});
+        
         if (video.description) {
             res.json(video);
         } else {
@@ -35,21 +27,14 @@ const handler: NextApiHandler = async (req, res) => {
                     view_count: info.videoDetails.viewCount
                 };
 
-                await models.Video.update(
-                    // updated row
-                    updatedVideo,
-                    // options
-                    {
-                        where: {
-                            video_id: video.video_id
-                        }, transaction
-                    });
-
-                // video['related'] = info.related_videos;
+                await models.Video.update(updatedVideo, {
+                    where: {
+                        video_id: video.video_id
+                    }, transaction
+                });
                     
                 await transaction.commit();
 
-                console.log('returning the video as response');
                 return res.json(updatedVideo);
             } catch (e) {
                 console.log('error occurred', e);
@@ -61,11 +46,8 @@ const handler: NextApiHandler = async (req, res) => {
     }
 }
 
-
-const isNumber = (val: any) => typeof val === "number" && val === val;
-
 export const getVideo = async (id: string) => {
-    const video = await models.Video.findByPk(id);
+    const video = await models.Video.findOne({ where: {video_id: id}});
     let transaction;
 
     if (video) {
@@ -82,24 +64,6 @@ export const getVideo = async (id: string) => {
         if (!fs.existsSync(videoThumbnailPath)) {
             await downloadImage(video.thumbnail, `${video.subscription_id}`, `${video.video_id}`);
         }
-        // videoId: 'GE2eGGiwx9s',
-        // title: 'KILL TONY #510 - ALEX JONES',
-        // lengthSeconds: '6971',
-        // keywords: [Array],
-        // subscriptionId: 'UCwzCMiicL-hBUzyjWiJaseg',
-        // isOwnerViewing: false,
-        // shortDescription: 'Alex Jones, Joe Rogan, Duncan Trussell, William Montgomery, Zac Bogus, Michael Lehrer, Matthew Muehling, Michael A. Gonzales, Yoni, Tony Hinchcliffe, Brian Redban – 06/07/2021',
-        // isCrawlable: true,
-        // thumbnail: [Object],
-        // averageRating: 4.8401895,
-        // allowRatings: true,
-        // viewCount: '496720',
-        // author: 'Kill Tony',
-        // isLowLatencyLiveStream: false,
-        // isPrivate: false,
-        // isUnpluggedCorpus: false,
-        // latencyClass: 'MDE_STREAM_OPTIMIZATIONS_RENDERER_LATENCY_NORMAL',
-        // isLiveContent: false
 
         if (video.description) {
             // we have data, return it to client
@@ -135,8 +99,8 @@ export const getVideo = async (id: string) => {
 
                 // TODO: format for status & data props
                 return updatedVideo;
-            } catch (e) {
-                console.log('error occurred', e);
+            } catch (e: any) {
+				console.error(e.message);
 
                 video['related'] = info.related_videos;
 

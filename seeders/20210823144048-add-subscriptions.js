@@ -31,32 +31,6 @@ module.exports = {
                     auto_download: 0,
                     createdAt: new Date(),
                     updatedAt: new Date()
-                },
-                {
-                    subscription_url:
-                        'https://www.youtube.com/subscription/UCsBjURrPoezykLs9EqgamOA',
-                        auto_download: 0,
-                        createdAt: new Date(),
-                        updatedAt: new Date()
-                },
-                {
-                    subscription_url:
-                        'https://www.youtube.com/subscription/UCqrxiLP9RHz2GxDJaZuTRBw',
-                        auto_download: 0,
-                        createdAt: new Date(),
-                        updatedAt: new Date()
-                },
-                {
-                    subscription_url: 'https://www.youtube.com/subscription/UCLNgu_OupwoeESgtab33CCw',
-                    auto_download: 0,
-                    createdAt: new Date(),
-                    updatedAt: new Date()
-                },
-                {
-                    subscription_url: 'https://www.youtube.com/c/TailwindLabs',
-                    auto_download: 0,
-                    createdAt: new Date(),
-                    updatedAt: new Date()
                 }
             ],
             {}

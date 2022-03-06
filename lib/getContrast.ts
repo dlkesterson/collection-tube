@@ -1,5 +1,3 @@
-
-
 /*! https://codepen.io/cferdinandi/pen/Yomroj
  * Get the contrasting color for any hex color
  * (c) 2021 Chris Ferdinandi, MIT License, https://gomakethings.com
