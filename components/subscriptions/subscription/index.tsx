@@ -23,11 +23,7 @@ function Subscription({
 }: SubscriptionInterface) {
     const [deleting, setDeleting] = useState(false);
     const avatarStyles = {
-        width: '100px',
-        height: '100px',
         display: 'block',
-        margin: '2em',
-        borderRadius: '50%',
         backgroundImage: `url(${avatar}) 50% 50% no-repeat`
     };
 
@@ -46,34 +42,32 @@ function Subscription({
     }
     return name && name.length > 0 ? (
         <div
-            className="shadow rounded-md p-3"
+            className="flex items-center justify-between flex-nowrap flex-row shadow rounded-md p-3 w-full max-w-xs"
             style={{ backgroundColor: colors.split(',')[0] }}
         >
-            <div className="flex items-center">
-                {avatar && <img src={avatar} alt={name} style={avatarStyles} />}
-                <Link href={`/subscription/${subscription_id}`}>
-                    <a
-                        className={`font-bold py-2 text-${getContrast(
-                            colors.split(',')[0]
-                        )}`}
-                    >
-                        {name}
-                    </a>
-                </Link>
+            {avatar && <img src={avatar} className="rounded-full mr-2 h-10 w-10" alt={name} style={avatarStyles} />}
+            <Link href={`/subscription/${subscription_id}`}>
+                <a
+                    className={`font-bold py-2 text-${getContrast(
+                        colors.split(',')[0]
+                    )}`}
+                >
+                    {name}
+                </a>
+            </Link>
 
-                <div className="flex ml-4">
-                    <Button
-                        disabled={deleting}
-                        onClick={deleteSubscription}
-                        className="h-6 py-0 mx-1"
-                    >
-                        {deleting ? (
-                            'Deleting ...'
-                        ) : (
-                            <FiTrash2 className="text-red-300 inline" />
-                        )}
-                    </Button>
-                </div>
+            <div className="flex ml-4">
+                <Button
+                    disabled={deleting}
+                    onClick={deleteSubscription}
+                    className="h-6 py-0 mx-1"
+                >
+                    {deleting ? (
+                        'Deleting ...'
+                    ) : (
+                        <FiTrash2 className="text-red-300 inline" />
+                    )}
+                </Button>
             </div>
         </div>
     ) : (
