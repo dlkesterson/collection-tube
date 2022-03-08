@@ -1,34 +1,78 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# collection-tube
 
-First, run the development server:
+### Introduction
+Collection Tube is an offline-focused youtube client app.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### Table of Contents
+- Get Started
+- Design
+- Development
+- Data
+- Other Links
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+___
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Get Started
+#### Installation
+- clone the repo
+- run `npm i`
+- set up the DB with `npx sequelize db:migrate`
+- seed the DB with `npx sequelize db:seed:all`
+- start the docker container with `docker-compose up`
+- once it's compiled, view the app at `http://localhost:3091`
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+___
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Design
+#### Summary
+- Most styling is handled through Tailwind  classes
+- Video Player page uses color scheme generated from thumbnail image to produce gradient background
 
-## Learn More
+#### Technicals
+- CSS: Tailwind is used for the majority of styling, otherwise using inline styling for tricky things like dynamic gradient backgrounds https://tailwindcss.com/
+- Icons: Feathers icon set, through react-icons: https://feathericons.com/ / https://react-icons.github.io/react-icons/icons?name=fi
+- Color extraction handled through get-image-colors: https://github.com/colorjs/get-image-colors
+- Color manipulation handled through Colord: https://github.com/omgovich/colord
 
-To learn more about Next.js, take a look at the following resources:
+#### Future Plans
+- light/dark theme toggle
+- responsiveness
+- figure out how to change the type of color blending in the gradient backgrounds, based on the brightness and saturation of the given color scheme
+- netflix-style slideshow of video thumbnails in background of Subscription listing page
+	- library to use for Slideshow background slideshow https://github.com/aeroheim/midori
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+___
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Development
 
-## Deploy on Vercel
+#### Summary
+- Layers of the app: NodeJS -> ExpressJS -> NextJS -> React
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Technicals
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### Database
+- data is stored via SQLite3 file (`/database.sqlite3`)
+- Migration is handled via sequelize-cli tool. To run all migrations, run `npx sequelize-cli db:migrate`. To revert migrations, run `npx sequelize-cli db:migrate:undo`.
+- Seeding is handling via sequelize-cli tool. To run the seeds, run `npx sequelize-cli db:seed:all`.
+
+#### Future Plans
+
+___
+
+### Data
+
+#### Summary
+- Files are stored in  `/public/data/`
+- Data is stored in  `/database.sqlite3` 
+
+#### Routing
+- API routes are located at `/pages/api/`
+- Collections rely on their primary key ID for navigation
+- Subscriptions and Videos rely on their YouTube-supplied ID strings
+
+___
+
+### Other Links
+
+
