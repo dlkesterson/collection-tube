@@ -1,6 +1,12 @@
 
 # collection-tube
 
+Feature Roadmap:
+- (done) subscribe to channels or playlists
+- (in-progress) group subscriptions together for easier tracking & management
+- (in-progress) download videos, manage downloads
+- automatically download from selected collections
+
 ### Introduction
 Collection Tube is an offline-focused youtube client app.
 
