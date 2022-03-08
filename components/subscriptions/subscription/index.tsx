@@ -7,6 +7,7 @@ import UpdateSubscriptionForm from '@/components/update-subscription-form';
 import { FiTrash2 } from 'react-icons/fi';
 
 interface SubscriptionInterface {
+    id: number;
     name: string;
     colors: string;
     avatar: string;
@@ -15,6 +16,7 @@ interface SubscriptionInterface {
 }
 
 function Subscription({
+    id,
     subscription_id,
     name,
     colors,
@@ -43,14 +45,14 @@ function Subscription({
     return name && name.length > 0 ? (
         <div
             className="flex items-center justify-between flex-nowrap flex-row shadow rounded-md p-3 w-full max-w-xs"
-            style={{ backgroundColor: colors.split(',')[0] }}
+            style={colors ? { backgroundColor: colors.split(',')[0] } : undefined}
         >
             {avatar && <img src={avatar} className="rounded-full mr-2 h-10 w-10" alt={name} style={avatarStyles} />}
             <Link href={`/subscription/${subscription_id}`}>
                 <a
-                    className={`font-bold py-2 text-${getContrast(
+                    className={colors ? `font-bold py-2 text-${getContrast(
                         colors.split(',')[0]
-                    )}`}
+                    )}` : `font-bold py-2`}
                 >
                     {name}
                 </a>
@@ -72,8 +74,8 @@ function Subscription({
         </div>
     ) : (
         <div className="subscription shadow rounded-md p-3">
-            <div className="flex items-center">{subscription_url}</div>
-            <UpdateSubscriptionForm id={subscription_id} />
+            <div className="flex items-center">{id}: {subscription_url}</div>
+            <UpdateSubscriptionForm id={id} />
         </div>
     );
 }

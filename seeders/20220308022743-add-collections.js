@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    up: async (queryInterface, Sequelize) => {
+    async up(queryInterface, Sequelize) {
         /**
          * Add seed commands here.
          *
@@ -12,29 +12,24 @@ module.exports = {
          * }], {});
          */
         await queryInterface.bulkInsert(
-            'Subscriptions',
+            'Collections',
             [
                 {
-                    subscription_url: 'https://www.youtube.com/c/Creativepianoacademy',
+                    name: 'Piano',
                     createdAt: new Date(),
                     updatedAt: new Date()
                 },
                 {
-                    subscription_url: 'https://www.youtube.com/c/NewJazz',
+                    name: 'Music Theory',
                     createdAt: new Date(),
                     updatedAt: new Date()
-                },
-                {
-                    subscription_url: 'https://www.youtube.com/c/heavypiano',
-                    createdAt: new Date(),
-                    updatedAt: new Date()
-                },
+                }
             ],
             {}
         );
     },
 
-    down: async (queryInterface, Sequelize) => {
+    async down(queryInterface, Sequelize) {
         /**
          * Add commands to revert seed here.
          *

@@ -15,11 +15,11 @@ export default function UpdateSubscriptionForm({
         e.preventDefault();
         setSubmitting(true);
         try {
-            const res = await fetch(`/websockets/subscription/${id}`);
+            const res = await fetch(`/api/get-subscription-latest/${id}`);
             const json = await res.json();
             setSubmitting(false);
             if (!res.ok) throw Error(json.message);
-            Router.push(`/subscription/${id}`);
+            Router.push(`/subscriptions`);
         } catch (e: any) {
             throw Error(e.message);
         }

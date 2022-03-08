@@ -16,40 +16,6 @@ const handler: NextApiHandler = async (req, res) => {
         res.status(500).json({ message: e.message })
     }
 }
-export const getSubscription = async (id: string | number) => {
-    let subscriptionVideos;  
-    let subscription = await models.Subscription.findOne({
-        where: {
-            subscription_id: id
-        }
-    });
-    if (subscription) {
-        subscriptionVideos = await models.Video.findAll({
-            where: {
-                subscription_id: subscription.subscription_id
-            },
-            order: [['updatedAt', 'DESC']]
-        });
-    }
-
-    if (subscription) {
-        const thumbnailPath = `/public/data/${subscription.subscription_id}/${subscription.subscription_id}.jpg`;
-
-        // check if thumbnail image is downloaded
-        if (!fs.existsSync(thumbnailPath)) {
-            console.log('detected no thumbnail! now downloading thumbnail');
-            await downloadImage(subscription.avatar, `${subscription.subscription_id}`, `${subscription.subscription_id}`);
-            console.log('finished downloading thumbnail');
-        } else {
-            console.log('code thinks thumbnail image already exists');
-        }
-        // TODO: format for status & data props
-        return {
-            subscription,
-            videos: subscriptionVideos
-        }
-    }
-};
 
 export const getAllSubscriptions = async (id: string) => {
     const subscriptions = await models.Subscription.findByPk(id);

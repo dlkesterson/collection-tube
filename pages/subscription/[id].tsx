@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { FiExternalLink } from 'react-icons/fi';
 
 import getContrast from '@/lib/getContrast';
-import { getSubscription } from '@/api/get-subscription';
+// import { getSubscription } from '@/api/get-subscription';
+import { getSubscription } from '@/lib/get-subscription';
 import Container from '@/components/container';
 import Wrap from '@/components/wrap';
 import Videos from '@/components/videos/';

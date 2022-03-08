@@ -19,6 +19,7 @@ export default function Subscriptions({
             <div className="flex flex-wrap gap-3">
                 {subscriptions.map((c) => (
                         <Subscription
+                            id={c.id}
                             key={c.id}
                             subscription_id={c.subscription_id}
                             name={c.name}
