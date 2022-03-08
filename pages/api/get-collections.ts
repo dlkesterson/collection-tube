@@ -9,9 +9,9 @@ interface CollectionSubscription {
 const handler: NextApiHandler = async (_, res) => {
     const collectionsWithSubs = await db.query(
     `SELECT 
-        c.id AS collectionID, 
-        c.name AS collectionName, 
-        s.name AS subscriptionName,
+        c.id AS collection_id, 
+        c.name AS collection_name, 
+        s.name AS subscription_name,
         s.colors, 
         s.views 
     FROM Subscriptions AS s

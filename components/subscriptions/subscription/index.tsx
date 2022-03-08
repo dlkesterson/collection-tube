@@ -24,10 +24,6 @@ function Subscription({
     subscription_url
 }: SubscriptionInterface) {
     const [deleting, setDeleting] = useState(false);
-    const avatarStyles = {
-        display: 'block',
-        backgroundImage: `url(${avatar}) 50% 50% no-repeat`
-    };
 
     async function deleteSubscription() {
         setDeleting(true);
@@ -47,7 +43,7 @@ function Subscription({
             className="flex items-center justify-between flex-nowrap flex-row shadow rounded-md p-3 w-full max-w-xs"
             style={colors ? { backgroundColor: colors.split(',')[0] } : undefined}
         >
-            {avatar && <img src={avatar} className="rounded-full mr-2 h-10 w-10" alt={name} style={avatarStyles} />}
+            {avatar && <img src={avatar} className="rounded-full block mr-2 h-10 w-10" alt={name} />}
             <Link href={`/subscription/${subscription_id}`}>
                 <a
                     className={colors ? `font-bold py-2 text-${getContrast(

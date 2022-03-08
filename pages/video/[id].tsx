@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { colord, extend } from "colord";
 import harmoniesPlugin from "colord/plugins/harmonies";
 import getContrast from '@/lib/getContrast';
-import { getVideo } from '@/api/get-video';
+import { getVideo } from '@/lib/get-video';
 import Wrap from '@/components/wrap';
 import Nav from '@/components/nav';
 import DownloadVideoForm from '@/components/download-video-form';
