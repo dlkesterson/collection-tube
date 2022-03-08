@@ -6,6 +6,7 @@ Collection Tube is an offline-focused youtube client app.
 
 ### Table of Contents
 - Get Started
+- Future Features
 - Design
 - Development
 - Data
@@ -24,9 +25,17 @@ ___
 
 ___
 
+### Future Features
+- automated downloads for certain collections
+- netflix-style slideshow of video thumbnails in background of Subscription listing page
+- dynamic gradient-type selection based on given color pallete for Video player page
+- video editing, GIF creation
+
+___
+
 ### Design
 #### Summary
-- Most styling is handled through Tailwind  classes
+- Styling is handled through Tailwind classes,
 - Video Player page uses color scheme generated from thumbnail image to produce gradient background
 
 #### Technicals
@@ -34,6 +43,7 @@ ___
 - Icons: Feathers icon set, through react-icons: https://feathericons.com/ / https://react-icons.github.io/react-icons/icons?name=fi
 - Color extraction handled through get-image-colors: https://github.com/colorjs/get-image-colors
 - Color manipulation handled through Colord: https://github.com/omgovich/colord
+- Framer Motion is used for page and component transitions and animations https://www.framer.com/docs/
 
 #### Future Plans
 - light/dark theme toggle
@@ -45,11 +55,16 @@ ___
 ___
 
 ### Development
-
 #### Summary
 - Layers of the app: NodeJS -> ExpressJS -> NextJS -> React
+- Most code is handled by the NextJS framework, where TypeScript is enabled. Outside of NextJS, only JavaScript is used for the Express server
+- API routes and page navigation is handled via NextJS using the file-based `/pages` folder
+- Docker is used for handling the multiple technologies (nodejs, redis)
 
-#### Technicals
+#### Routing
+- API routes are located at `/pages/api/`
+- Collections rely on their primary key ID for navigation
+- Subscriptions and Videos rely on their YouTube-supplied ID strings
 
 #### Database
 - data is stored via SQLite3 file (`/database.sqlite3`)
@@ -57,22 +72,25 @@ ___
 - Seeding is handling via sequelize-cli tool. To run the seeds, run `npx sequelize-cli db:seed:all`.
 
 #### Future Plans
+- job queuing
+- scheduled cron jobs
+- cached results of external calls
+- ability to "tag" videos, like pseudo playlists
+- add support for animated video preview thumbnails
+- store video data to DB for related videos
+- websocket communication for realtime download progress
 
 ___
 
 ### Data
-
 #### Summary
 - Files are stored in  `/public/data/`
 - Data is stored in  `/database.sqlite3` 
 
-#### Routing
-- API routes are located at `/pages/api/`
-- Collections rely on their primary key ID for navigation
-- Subscriptions and Videos rely on their YouTube-supplied ID strings
-
 ___
 
 ### Other Links
-
-
+#### Similar apps
+- NewPipe https://github.com/TeamNewPipe/NewPipe
+- YouTubeDL-Material https://github.com/Tzahi12345/YoutubeDL-Material
+- Orbital https://github.com/SuboptimalEng/Orbital
